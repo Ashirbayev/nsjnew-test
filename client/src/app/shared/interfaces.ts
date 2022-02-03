@@ -91,5 +91,26 @@ export interface DataIIN {
   TYPE_CLIENT?: number
 }
 
+export interface Region {
+  RFBN_ID: number
+  NAME: string
+}
+export  interface Numzav {
+  CN: string
+}
+
+export  interface Question {
+  ID: number
+  TEXT_QUESTION: string
+  TYPE: number
+}
+
+export  interface Answer {
+  ID_QUESTION: number
+  ID_ANSWER: string
+  ID_MAIN_QUESTION?: number
+}
+
+
 
 

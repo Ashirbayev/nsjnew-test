@@ -26,313 +26,33 @@
 <!--    </div>-->
 <!--  </div>-->
 
+<app-nsjnew-first  *ngIf="isFirstVisible" > </app-nsjnew-first>
+  <app-nsjnew-second  *ngIf="!isFirstVisible"></app-nsjnew-second>
 
+<button *ngIf="isFirstVisible"
+  class="border border-transparent p-2 bg-green-500 rounded-r text-white"
+  id="btn_search_zastrah"
+  autofocus
+  (click)="NextPage()"
+>
+  Далее
+</button>
 
+<button
+  *ngIf="!isFirstVisible"
+  class="border border-transparent p-2 bg-green-500 rounded-r text-white"
+  id="btn_search_zastrah"
+  autofocus
+  (click)="PreviewPage()"
+>
+  Назад
+</button>
 
 
 
 
 
 
-<section class="container px-4 my-16 mx-auto min-h-screen bg-white ">
 
-  <!-- БЛОК СТРАХОВАТЕЛЯ  -->
-  <div class="straxovatel py-4 pb-8">
-    <div class="search-result-straxovatel ">
-      <label for="" class="text-sm text-gray-500 font-bold">Страхователь </label>
-      <h3 class="text-lg text-gray-500 font-bold py-2"> Фамилия Имя Отчество (099090909009) (Физическое лицо) </h3>
-    </div>
-    <b class="text-sm text-gray-500 font-bold"> Страхователь: </b>
-    <p class="text-sm text-gray-500 font-bold mt-0.5 "> Начните вводить "Наименование", Фамилия Имя Отчество, БИН или ИИН клиента</p>
-    <div class="find-straxovatel flex mt-3">
-      <a class="border border-transparent p-2 bg-blue-500 rounded-l text-white" href="./pages/registration.html" target="_blank">Создать</a>
-      <input type="text" class="border border-gray-300 w-full outline-none focus:border-green-400 p-2 " id="search_clients" value="123">
-      <button class="border border-transparent p-2 bg-green-500 rounded-r text-white" onclick="search_clients_zastrahovan()" id="button_search" type="submit" autofocus> Найти </button>
-
-    </div>
-    <div class="showData" id="showData" > </div>
-  </div>
-  <hr>
-  <!-- БЛОК ЗАСТРАХОВАННОГО -->
-
-  <div class="zastraxovaniy py-4 pb-8">
-    <div class="search-result-straxovatel">
-      <label for="" class="text-sm text-gray-500 font-bold">Застрахованный </label>
-      <h3 class="text-lg text-gray-500 font-bold py-2"> Фамилия Имя Отчество (099090909009) (Физическое лицо) </h3>
-    </div>
-    <b class="text-sm text-gray-500 font-bold"> Застрахованный: </b>
-    <p class="text-sm text-gray-500 font-bold mt-0.5"> Начните вводить "Наименование", Фамилия Имя Отчество, БИН или ИИН клиента</p>
-    <div class="find-straxovatel flex mt-3 ">
-      <button class="border border-transparent p-2 bg-blue-500 rounded-l text-white"> Создать </button>
-      <input
-        type="text"
-        class="border border-gray-300 w-full outline-none p-2 focus:border-green-400"
-        id="search_zastrah"
-        [(ngModel)]="IIN"
-      >
-
-      <button
-        class="waves-effect btn grey darken-1"
-
-        autofocus
-        (click)="loadMore()"
-      >
-        Найти
-      </button>
-    </div>
-    <a class="list-group-item set_client_zastrah" data="'+v.ID+'" data-type="'+v.TYPE_CLIENT+'" href="javascript:;">'+тестовая строка резултата+'</a>
-  </div>
-
-
-
-  <hr>
-
-
-  <!-- БЛОК ВЫГОДОПРИОБРЕТАТЕЛЬ НА СЛУЧАЙ СМЕРТИ  -->
-
-  <div class="flex my-4 items-center justify-between">
-    <span class="text-sm font-bold text-gray-500"> Выгодоприобретатель на случай смерти:  </span>
-    <button class="waves-effect btn grey darken-1"
-            autofocus
-            (click)="open()"
-    > Выбрать </button>
-  </div>
-
-  <hr>
-
-  <!-- БЛОК С ТАБЛИЦЕЙ ВЫГОДОПРИОБРЕТАТЕЛЯ НА СЛУЧАЙ СМЕРТИ  -->
-
-  <div class="mb-10">
-    <div>
-      <h3 class="text-lg font-bold text-gray-500"> Выгодоприобретатели на случай смерти: </h3>
-    </div>
-    <table class="border w-full">
-      <thead>
-      <tr>
-        <th class="p-2 text-sm text-gray-500 border"> Фамилия Имя Отчество</th>
-        <th class="p-2 text-sm text-gray-500 border"> Процент % </th>
-        <th class="p-6 border"></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td class="p-2 border text-sm text-gray-500">Фамилия Имя Отчество</td>
-        <td class="p-2 border text-sm text-gray-500">50% </td>
-        <td class="p-2 border text-center">
-          <button class="p-2 w-2 h-2 bg-red-600"> </button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-
-
-  <hr>
-
-
-  <!-- БЛОК ВЫГОДОПРИОБРЕТАТЕЛЬ НА СЛУЧАЙ ДОЖИТИЯ  -->
-
-  <div class="flex my-4 items-center justify-between">
-    <span class="text-sm font-bold text-gray-500"> Выгодоприобретатель на случай дожития:  </span>
-    <button
-      class="border border-transparent p-2 bg-green-500 rounded-r text-white"
-
-      autofocus
-      (click)="open()"
-    > Выбрать
-    </button>
-  </div>
-
-  <hr>
-
-  <!-- БЛОК С ТАБЛИЦЕЙ ВЫГОДОПРИОБРЕТАТЕЛЯ НА СЛУЧАЙ ДОЖИТИЯ  -->
-
-  <div class="mb-10">
-    <div>
-      <h3 class="text-lg font-bold text-gray-500"> Выгодоприобретатели на случай смерти: </h3>
-    </div>
-    <table class="border w-full">
-      <thead>
-      <tr>
-        <th class="p-2 text-sm text-gray-500 border"> Фамилия Имя Отчество</th>
-        <th class="p-2 text-sm text-gray-500 border"> Процент % </th>
-        <th class="p-6 border"></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td class="p-2 border text-sm text-gray-500">Фамилия Имя Отчество</td>
-        <td class="p-2 border text-sm text-gray-500">50% </td>
-        <td class="p-2 border text-center">
-          <button class="p-2 w-2 h-2 bg-red-600"> </button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <hr>
-
-
-  <!-- БЛОК С ИНПУТАМИ РЕГИОНОВ  -->
-
-  <div class="region-wrapper my-4">
-
-    <div class="flex flex-col py-1">
-      <label for="region" class="text-sm text-gray-500 font-bold ">Регион </label>
-      <select name="" id="" class="border p-1">
-        <option value="AllRegions" class="border w-full"> Здесь список всех регионов</option>
-        <option value="AllRegions" class="border w-full"> Здесь список всех регионов</option>
-        <option value="AllRegions" class="border w-full"> Здесь список всех регионов</option>
-        <option value="AllRegions" class="border w-full"> Здесь список всех регионов</option>
-      </select>
-    </div>
-
-    <div class="block py-1">
-      <label for="" class="text-sm text-gray-500 font-bold ">№ заявления </label>
-      <input type="text" name="" id="" class="border p-1 w-full">
-    </div>
-
-    <div class="block py-1">
-      <label for="" class="text-sm text-gray-500 font-bold ">Дата заявления</label>
-      <input type="text" name="" id="" class="border p-1 w-full" placeholder="ЗДЕСЬ У НАС ДЕЙТПИКЕР">
-    </div>
-
-    <div class="block py-1">
-      <label for="" class="text-sm text-gray-500 font-bold ">Размер страхового взноса </label>
-      <input type="text" name="" id="" class="border p-1 w-full">
-    </div>
-
-    <div class="block py-1">
-      <label for="" class="text-sm text-gray-500 font-bold ">Годовой доход страхуемого лица </label>
-      <input type="text" name="" id="" class="border p-1 w-full">
-    </div>
-
-  </div>
-
-  <hr>
-
-
-  <!-- БЛОК С ИНПУТАМИ НАГРУЗОК  -->
-
-
-  <div class="load-wrapper py-4 mb-4">
-    <div class="flex flex-col py-2">
-      <h3 class="text-lg text-gray-500 font-bold mb-2">Нагрузки </h3>
-      <label for="region" class="text-sm text-gray-500 font-bold mb-1 ">Выберите вид нагрузки </label>
-      <select name="" id="" class="border p-1">
-        <option value="AllRegions" class="border w-full"> Здесь список всех регионов</option>
-        <option value="AllRegions" class="border w-full"> Здесь список всех регионов</option>
-        <option value="AllRegions" class="border w-full"> Здесь список всех регионов</option>
-        <option value="AllRegions" class="border w-full"> Здесь список всех регионов</option>
-      </select>
-    </div>
-
-    <div class="block py-2">
-      <label for="" class="text-sm text-gray-500 font-bold mb-1 ">Введите наименование нагрузки </label>
-      <input type="text" name="" id="" class="border p-1 w-full">
-    </div>
-
-    <button class="p-2 bg-blue-500 border border-transparent rounded text-white"> Добавить </button>
-
-  </div>
-
-  <hr>
-
-
-  <div class="underright-wrapper my-4">
-    <h3 class="text-gray-500 font-bold text-center mb-10">Список андерайтинговых нагрузок </h3>
-    <hr>
-    <div class="flex flex-col py-1">
-      <label for="region" class="text-sm text-gray-500 font-bold ">Агент</label>
-      <select name="" id="" class="border p-1">
-        <option value="AllRegions" class="border w-full"> Здесь список всех регионов</option>
-        <option value="AllRegions" class="border w-full"> Здесь список всех регионов</option>
-        <option value="AllRegions" class="border w-full"> Здесь список всех регионов</option>
-        <option value="AllRegions" class="border w-full"> Здесь список всех регионов</option>
-      </select>
-    </div>
-
-    <div class="block py-1">
-      <label for="" class="text-sm text-gray-500 font-bold  "> Агентские расходы % </label>
-      <input type="text" name="" id="" class="border p-1 w-full" value="0">
-    </div>
-  </div>
-
-  <hr>
-
-  <div class="main-data-input mt-4 pb-6">
-
-    <h3 class="text-gray-500 font-bold text-lg mb-4">Введите основные данные для расчета </h3>
-
-    <div class="flex flex-col py-1">
-      <label for="region" class="text-sm text-gray-500 font-bold ">Периодность</label>
-      <select name="" id="" class="border p-1">
-        <option value="AllRegions" class="border w-full"> Здесь список всех регионов</option>
-        <option value="AllRegions" class="border w-full"> Здесь список всех регионов</option>
-        <option value="AllRegions" class="border w-full"> Здесь список всех регионов</option>
-        <option value="AllRegions" class="border w-full"> Здесь список всех регионов</option>
-      </select>
-    </div>
-
-    <div class="block py-1">
-      <label for="" class="text-sm text-gray-500 font-bold  "> Срок страхования </label>
-      <input type="text" name="" id="" class="border p-1 w-full" value="0">
-    </div>
-
-    <div class="flex flex-col py-1">
-      <label for="region" class="text-sm text-gray-500 font-bold ">Основное покрытие </label>
-      <select name="" id="" class="border p-1">
-        <option value="AllRegions" class="border w-full"> Здесь список всех регионов</option>
-        <option value="AllRegions" class="border w-full"> Здесь список всех регионов</option>
-        <option value="AllRegions" class="border w-full"> Здесь список всех регионов</option>
-        <option value="AllRegions" class="border w-full"> Здесь список всех регионов</option>
-      </select>
-    </div>
-
-  </div>
-
-
-
-
-
-
-</section>
-
-<!-- Модальное окно для добавления выгодоприробретателей  -->
-<div #modal class="modal modal-fixed-footer">
-  <div class="modal-content">
-    <h4 class="mb1">Ваш заказ</h4>
-    <div class="find-straxovatel flex mt-3 ">
-      <button class="border border-transparent p-2 bg-blue-500 rounded-l text-white"> Создать </button>
-      <input
-        type="text"
-        class="border border-gray-300 w-full outline-none p-2 focus:border-green-400"
-
-      >
-
-      <button
-        class="border border-transparent p-2 bg-green-500 rounded-r text-white"
-        id="btn_search_zastrah"
-        autofocus
-        (click)="loadMore()"
-      >
-        Найти
-      </button>
-    </div>
-
-  </div>
-  <div class="modal-footer">
-    <button
-      class="modal-action waves-effect waves-black btn-flat"
-
-    >Отмена</button>
-    <button
-      class="modal-action btn waves-effect"
-      (click)="submit()"
-
-    >Подтвердить</button>
-  </div>
-</div>
 
 

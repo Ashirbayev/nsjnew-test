@@ -1,6 +1,6 @@
 
-import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {DataIIN, Filter, Order, TestNsj} from "../shared/interfaces";
+import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {DataIIN, Filter, Order, Region, TestNsj} from "../shared/interfaces";
 import {Observable} from "rxjs";
 import {NewnsjService} from "../shared/services/newnsj.service";
 import {MaterialInstance, MaterialService} from "../shared/classes/material.service";
@@ -20,17 +20,23 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit{
   IIN: number
   @ViewChild('modal') modalRef: ElementRef
   modal: MaterialInstance
+  //isFirstVisible: boolean = true
+  @Input() isFirstVisible: boolean = true
+
 
 
   constructor(private newnsjsService: NewnsjService) {
   }
 
   ngOnInit(): void {
+
     //this.categories$ = this.newnsjsService.fetch()
     this.newnsjsService.fetch().subscribe( nsjs => {
       this.nsjs = nsjs
       console.log('nsjs: ', nsjs)
     })
+
+
   }
 
   ngAfterViewInit(): void {
@@ -68,5 +74,15 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit{
 
   submit() {
     this.modal.close()
+  }
+
+  NextPage() {
+    console.log(this.isFirstVisible)
+    this.isFirstVisible = false
+    console.log(this.isFirstVisible)
+  }
+
+  PreviewPage() {
+    this.isFirstVisible = true
   }
 }

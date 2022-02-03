@@ -22,6 +22,8 @@ import {OrderPositionsComponent} from './order-page/order-positions/order-positi
 import { HistoryListComponent } from './history-page/history-list/history-list.component';
 import { HistoryFilterComponent } from './history-page/history-filter/history-filter.component';
 import { NsjnewPageComponent } from './nsjnew-page/nsjnew-page.component';
+import { NsjnewFirstComponent } from './nsjnew-page/nsjnew-first/nsjnew-first.component';
+import { NsjnewSecondComponent } from './nsjnew-page/nsjnew-second/nsjnew-second.component';
 
 
 
@@ -45,7 +47,9 @@ import { NsjnewPageComponent } from './nsjnew-page/nsjnew-page.component';
     OrderPositionsComponent,
     HistoryListComponent,
     HistoryFilterComponent,
-    NsjnewPageComponent
+    NsjnewPageComponent,
+    NsjnewFirstComponent,
+    NsjnewSecondComponent
 
   ],
   imports: [

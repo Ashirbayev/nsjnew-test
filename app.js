@@ -8,6 +8,9 @@ const nsjnewRoutes = require('./routes/nsjnew')
 const categoryRoutes = require('./routes/category')
 const orderRoutes = require('./routes/order')
 const positionRoutes = require('./routes/position')
+const regionsRoutes = require('./routes/regions')
+const questionRoutes = require('./routes/question')
+
 const keys =require('./config/keys')
 const app = express()
 
@@ -37,6 +40,8 @@ app.use('/api/nsjnew', nsjnewRoutes)
 app.use('/api/category', categoryRoutes)
 app.use('/api/order', orderRoutes)
 app.use('/api/position', positionRoutes)
+app.use('/api/regions', regionsRoutes)
+app.use('/api/question', questionRoutes)
 
 
 

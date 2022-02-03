@@ -1,15 +1,10 @@
+
+
 const oracledb = require('oracledb');
 
 const errorHandler = require('../utils/errorHandler')
 
-module.exports.getAll = async function (req, res) {
-    try{
-        const categories = await Category.find({user: req.user.id})
-        res.status(200).json(categories)
-    }catch (e) {
-        errorHandler(res, e)
-    }
-}
+
 
 module.exports.selectAllTest =async function (req, res) {
     try {
@@ -70,6 +65,115 @@ module.exports.getByIIN = async function (req, res) {
 
 
 
+module.exports.getAllRegions = async function (req, res) {
+    try {
+        connection = await oracledb.getConnection({
+            user: "insurance",
+            password: 'insurance',
+            connectString: "192.168.5.191/orcl"
+        });
+        let query = `select RFBN_ID, NAME from DIC_BRANCH where nvl(asko, 0) = 0 and rfbn_id <> '0000' order by 1`
+        ;
+        // run query to get all employees
+        result = await connection.execute(query,
+            [],  // bind value for :id
+            { outFormat: oracledb.OUT_FORMAT_OBJECT });
+
+        const test = result.rows
+        res.send(test);
+        //res.status(200).json(test)
+
+
+    } catch (e) {
+        errorHandler(res, e)
+    }
+
+
+
+
+
+
+
+
+
+}
+
+
+module.exports.getZavNum = async function (req, res) {
+    try {
+        connection = await oracledb.getConnection({
+            user: "insurance",
+            password: 'insurance',
+            connectString: "192.168.5.191/orcl"
+        });
+        let query = `select gen_zv_num('${req.params.id}', '0601000001', '01') cn from dual`
+        ;
+        // run query to get all employees
+        result = await connection.execute(query,
+            [],  // bind value for :id
+            { outFormat: oracledb.OUT_FORMAT_OBJECT });
+
+
+        res.send(result.rows);
+        //res.status(200).json(test)
+
+
+    } catch (e) {
+        errorHandler(res, e)
+    }
+
+}
+
+
+module.exports.createAns = async function (req, res) {
+
+     k = req.body.ID_QUESTION
+     v = req.body.ID_ANSWER
+     // q_id = 15
+    try {
+        connection = await oracledb.getConnection(
+            {user: "insurance", password: 'insurance', connectString: "192.168.5.191/orcl"});
+
+        result = await connection.execute(`begin NSJ.Save_attachment('${k}', '${v}', '15', '2', 'kjhjk', '55');  end;`);
+
+
+        console.log('Rows inserted: ', k);
+
+        res.status(201).json({
+            token: `Bearer ${v}`
+        })
+
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+
+
+
+/*
+Procedure Save_zayav(
+    icnct number,
+    branch_id number,
+    num_zav varchar2,
+    date_zav date,
+    strah_vznos number,
+    agents number,
+    agent_rashod number,
+    periodich varchar2,
+    srok_strah number,
+    main_pokr number,
+    dop_pokr varchar2 default null,
+    god_dohod number,
+    ilist_user_smert varchar2,
+    ilist_user_dozhitia varchar2,
+    id_strahovatel number,
+    id_zastrahovan number,
+    ilist_question varchar2,
+    empid number,
+    irisk varchar2,
+    iids out number
+);*/
 
 
 
