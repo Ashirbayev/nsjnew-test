@@ -9,6 +9,7 @@ import {Answer, Category, DataIIN, findIIN, Numzav, Order, Question, Region, Tes
 })
 
 export class NewnsjService {
+
   constructor(private http: HttpClient) {
   }
 
@@ -24,6 +25,10 @@ export class NewnsjService {
     return this.http.get<Region[]>(`/api/regions`)
   }
 
+  getAgents(): Observable<Region[]> {
+    return this.http.get<Region[]>(`/api/agents`)
+  }
+
   getZavNum(id: number): Observable<Numzav[]> {
     return this.http.get<Numzav[]>(`/api/regions/${id}`)
   }
@@ -33,10 +38,10 @@ export class NewnsjService {
   }
 
 
-  createAnswer(answer: Answer) {
-    const body = {ID_QUESTION: answer.ID_QUESTION, ID_ANSWER: answer.ID_ANSWER};
-    return this.http.post('/api/nsjnew', body)
-    console.log(body)
+  createAnswer(answer: Answer[]) {
+    //const body = {ID_QUESTION: answer.ID_QUESTION, ID_ANSWER: answer.ID_ANSWER};
+    return this.http.post('/api/nsjnew', answer)
+    //console.log(body)
   }
 
 

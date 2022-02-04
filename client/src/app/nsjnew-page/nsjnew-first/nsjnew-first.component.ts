@@ -59,8 +59,18 @@ export class NsjnewFirstComponent implements OnInit, AfterViewInit {
       this.regions  = regions
       console.log('nsjs: ', regions)
     })
-
+    this.getAgents()
   }
+
+
+  getAgents() {
+    this.newnsjsService.getAgents().subscribe(agents => {
+      console.log('agents: ', agents)
+    })
+  }
+
+
+
 
   ngAfterViewInit(): void {
     this.modal = MaterialService.initModal(this.modalRef)
@@ -155,8 +165,6 @@ export class NsjnewFirstComponent implements OnInit, AfterViewInit {
     this.modal.close()
   }
 
-
-
   open3() {
     this.modalRegion.open()
   }
@@ -189,19 +197,15 @@ export class NsjnewFirstComponent implements OnInit, AfterViewInit {
         this.vigodosZhizn = vigodosSmert
         console.log(vigodosSmert)
       })
-
   }
 
   addToOrder4(i: any) {
-
     this.vigodopreodetatelZhizn = i
     this.vigodopreodetatelZhizns.push(i)
     this.vigodosSmert = []
     // this.nsjs = []
     //console.log(this.vigodopreodetatelSmerts)
     this.modal.close()
-
-
   }
 
 

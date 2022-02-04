@@ -10,6 +10,7 @@ const orderRoutes = require('./routes/order')
 const positionRoutes = require('./routes/position')
 const regionsRoutes = require('./routes/regions')
 const questionRoutes = require('./routes/question')
+const agentRoutes = require('./routes/agents')
 
 const keys =require('./config/keys')
 const app = express()
@@ -42,6 +43,7 @@ app.use('/api/order', orderRoutes)
 app.use('/api/position', positionRoutes)
 app.use('/api/regions', regionsRoutes)
 app.use('/api/question', questionRoutes)
+app.use('/api/agents', agentRoutes)
 
 
 

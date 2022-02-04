@@ -1,16 +1,25 @@
+<!--<div *ngFor="let i of questions;  let idx =index">-->
+<!--  <p class="q">-->
+<!--    {{i.TEXT_QUESTION}}-->
+<!--  </p>-->
+<!--  <input [(ngModel)] = "i.ID" type="radio"  value="нет" >-->
+<!--</div>-->
+
+
+
 
 <p style="text-align: center;"><b>Бланк-опросник (только для Застрахованного)</b></p>
 <p>Ваши ответы на предлагаемые ниже вопросы являются основным критерием для оценки страхового риска, поэтому просим Вас предоставить на них достоверные и исчерпывающие ответы, а также всю дополнительную информацию, которая могла бы повлиять на принятие решения страховой организацией. </p>
 <p>  Ответы на следующие вопросы, пожалуйста, отметьте галочкой. Укажите, пожалуйста, в приложении подробности: уточните диагнозы, даты обращения к врачу, мед. учреждения, в которых проходили обследование и лечение, результат лечения.
 </p>
-<hr />
+<hr/>
 <form method="post" id="main_blank">
 
   <p><b>Ваш рост:</b>  <br>
-    <input class="form-control" type="number" name="question[81]">
+    <input [(ngModel)] = "height" class="form-control" type="number" name="question[81]">
   </p><hr>
   <p><b>Ваш вес:</b>  <br>
-    <input class="form-control" type="number" name="question[82]">
+    <input [(ngModel)] = "weight" class="form-control" type="number" name="question[82]">
   </p><hr>
   <div class="question" data-id="1" id="question-1" style="">
 
@@ -18,13 +27,13 @@
       1. Имеется ли у Вас инвалидность 1, 2 или 3 группы, либо имелась ранее? (укажите какая именно)                                        </p>
 
     <p class="a">
-      <input [(ngModel)] = "answer1" class="radio_ans" type="radio" id="1" name="question[1]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[1]" class="radio_ans" type="radio" id="1" name="question[1]" value="нет" required="">
       <label for="1">нет</label>
     </p>
 
 
     <p class="a">
-      <input [(ngModel)] = "answer1"  checked class="radio_ans" type="radio" id="2" name="question[1]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[1]"  checked class="radio_ans" type="radio" id="2" name="question[1]" value="да" required="">
       <label for="2">да</label>
     </p>
 
@@ -56,22 +65,16 @@
       2. Имеются ли у Вас какие-либо психиатрические заболевания, либо имелись ранее? (невроз, шизофрения, мании, галлюцинации, бредовые состояния и пр.)                                        </p>
 
     <p class="a">
-      <input [(ngModel)] = "answer2" checked class="radio_ans" type="radio" id="4" name="question[2]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[2]" checked class="radio_ans" type="radio" id="4" name="question[2]" value="нет" required="">
       <label for="4">нет</label>
     </p>
 
 
     <p class="a">
-      <input [(ngModel)] = "answer2" class="radio_ans" type="radio" id="5" name="question[2]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[2]" class="radio_ans" type="radio" id="5" name="question[2]" value="да" required="">
       <label for="5">да</label>
     </p>
-    <button
-      *ngIf="answer2"
-      class="border border-transparent p-2 bg-green-500 rounded-r text-white"
-      id="btn_search_zastrah"
-      autofocus
-      (click)="yes()"
-    > Нажать </button>
+
 
     <p class="dop_a-5" style="display: none;">
       <label for="4"><textarea name="question[2]" class="form-control" placeholder="Укажите какая именно" id="floatingTextarea"></textarea></label>
@@ -87,13 +90,13 @@
       3. Имеются ли у Вас заболевания нервной системы, либо имелись ранее (эпилепсия, гидроцефалия, внутричерепная гипертензия, расстройства мозгового кровообращения и пр.)?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="6" name="question[3]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[3]" checked class="radio_ans" type="radio" id="6" name="question[3]" value="нет" required="">
       <label for="6">нет</label>
     </p>
 
 
     <p class="a">
-      <input  class="radio_ans" type="radio" id="7" name="question[3]" value="да" required="">
+      <input  [(ngModel)] = "answersRadio[3]" class="radio_ans" type="radio" id="7" name="question[3]" value="да" required="">
       <label for="7">да</label>
     </p>
 
@@ -112,13 +115,13 @@
       4. Имеются ли заболевания крови, либо имелись ранее (гемофилия, пернициозная анемия, серповидноклеточная анемия, железодефицитная анемия и пр.)?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="8" name="question[4]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[4]" checked class="radio_ans" type="radio" id="8" name="question[4]" value="нет" required="">
       <label for="8">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="9" name="question[4]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[4]" class="radio_ans" type="radio" id="9" name="question[4]" value="да" required="">
       <label for="9">да</label>
     </p>
 
@@ -137,13 +140,13 @@
       5. Имеются ли заболевания органов дыхания, либо имелись ранее (астма, бронхиты, плевриты, пневмонии, туберкулез и пр.)?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="10" name="question[5]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[5]" checked class="radio_ans" type="radio" id="10" name="question[5]" value="нет" required="">
       <label for="10">нет</label>
     </p>
 
 
     <p class="a">
-      <input  class="radio_ans" type="radio" id="11" name="question[5]" value="да" required="">
+      <input  [(ngModel)] = "answersRadio[5]" class="radio_ans" type="radio" id="11" name="question[5]" value="да" required="">
       <label for="11">да</label>
     </p>
 
@@ -162,13 +165,13 @@
       6. Имеется ли у Вас заболевание сердечно-сосудистой системы, либо имелись ранее (аневризма сердца, артериальная гипертензия, гипотония, инфаркт миокарда, стенокардия, миокардит и пр.)?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="12" name="question[6]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[6]" checked class="radio_ans" type="radio" id="12" name="question[6]" value="нет" required="">
       <label for="12">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="13" name="question[6]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[6]" class="radio_ans" type="radio" id="13" name="question[6]" value="да" required="">
       <label for="13">да</label>
     </p>
 
@@ -187,13 +190,13 @@
       7.	Имеется ли у Вас заболевания органов пищеварения, либо имелись ранее (атрезия пищевода, болезнь Крона, гастрит, дискинезия желчных путей, желчнокаменная болезнь, панкреатит, язвенная болезнь желудка и 12-перстной кишки и пр.)?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="50" name="question[37]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[7]" checked class="radio_ans" type="radio" id="50" name="question[37]" value="нет" required="">
       <label for="50">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="51" name="question[37]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[7]" class="radio_ans" type="radio" id="51" name="question[37]" value="да" required="">
       <label for="51">да</label>
     </p>
 
@@ -212,13 +215,13 @@
       8.	Имеется ли у Вас заболевания эндокринной системы, либо имелись ранее (акромегалия гипертиреоз, сахарный диабет, синдром Кушинга, гипотиреоз и пр.)?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="52" name="question[38]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[8]" checked class="radio_ans" type="radio" id="52" name="question[38]" value="нет" required="">
       <label for="52">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="53" name="question[38]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[8]" class="radio_ans" type="radio" id="53" name="question[38]" value="да" required="">
       <label for="53">да</label>
     </p>
 
@@ -237,13 +240,13 @@
       9.	Имеются ли у Вас заболевания печени, либо имелись ранее (абсцесс печени, гепатит А, В, цирроз печени и пр.)?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="54" name="question[39]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[9]" checked class="radio_ans" type="radio" id="54" name="question[39]" value="нет" required="">
       <label for="54">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="55" name="question[39]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[9]" class="radio_ans" type="radio" id="55" name="question[39]" value="да" required="">
       <label for="55">да</label>
     </p>
 
@@ -262,13 +265,13 @@
       10.	Имеется ли у Вас СПИД или ВИЧ инфекция?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="56" name="question[40]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[10]" checked class="radio_ans" type="radio" id="56" name="question[40]" value="нет" required="">
       <label for="56">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="57" name="question[40]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[10]" class="radio_ans" type="radio" id="57" name="question[40]" value="да" required="">
       <label for="57">да</label>
     </p>
 
@@ -283,13 +286,13 @@
       11.	Имеются ли у Вас заболевания органов мочевыделительной системы, либо имелись ранее (гломерулонефрит, нефролитиаз, цистит, пиелонефрит и пр.)?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="58" name="question[41]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[11]" checked class="radio_ans" type="radio" id="58" name="question[41]" value="нет" required="">
       <label for="58">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="59" name="question[41]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[11]" class="radio_ans" type="radio" id="59" name="question[41]" value="да" required="">
       <label for="59">да</label>
     </p>
 
@@ -308,13 +311,13 @@
       12.	Имеются ли у Вас заболевания органов зрения, либо имелись ранее (глаукома, конъюнктивит, отслойка сетчатки, слепота, дальнозоркость и пр.)?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="60" name="question[42]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[12]" checked class="radio_ans" type="radio" id="60" name="question[42]" value="нет" required="">
       <label for="60">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="61" name="question[42]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[12]" class="radio_ans" type="radio" id="61" name="question[42]" value="да" required="">
       <label for="61">да</label>
     </p>
 
@@ -333,13 +336,13 @@
       13.	Имеются ли у Вас заболевания лор-органов, либо имелись ранее (аденоиды, хр тонзиллит, отит, полипы придаточных пазух носа, потеря слуха, синуситы)?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="62" name="question[43]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[13]" checked class="radio_ans" type="radio" id="62" name="question[43]" value="нет" required="">
       <label for="62">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="63" name="question[43]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[13]" class="radio_ans" type="radio" id="63" name="question[43]" value="да" required="">
       <label for="63">да</label>
     </p>
 
@@ -358,13 +361,13 @@
       14.	Отмечается ли нарушение функции опорно-двигательного аппарата, либо имелось ранее (остеомиелит, остеохондроз, артриты, артрозы, бурситы и пр.)?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="64" name="question[44]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[14]" checked class="radio_ans" type="radio" id="64" name="question[44]" value="нет" required="">
       <label for="64">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="65" name="question[44]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[14]" class="radio_ans" type="radio" id="65" name="question[44]" value="да" required="">
       <label for="65">да</label>
     </p>
 
@@ -383,13 +386,13 @@
       15.	Имеется ли у Вас заболевание кожи, либо имелись ранее (дерматит, дерматомикоз, систематический микоз и пр.)?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="66" name="question[45]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[15]" checked class="radio_ans" type="radio" id="66" name="question[45]" value="нет" required="">
       <label for="66">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="67" name="question[45]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[15]" class="radio_ans" type="radio" id="67" name="question[45]" value="да" required="">
       <label for="67">да</label>
     </p>
 
@@ -408,13 +411,13 @@
       16.	Отмечались ли какие-либо повреждения, травмы, либо имелись ранее (повреждения брюшной стенки, грудной стенки, травма позвоночника, ожоги и пр.)?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="68" name="question[46]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[16]" checked class="radio_ans" type="radio" id="68" name="question[46]" value="нет" required="">
       <label for="68">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="69" name="question[46]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[16]" class="radio_ans" type="radio" id="69" name="question[46]" value="да" required="">
       <label for="69">да</label>
     </p>
 
@@ -433,13 +436,13 @@
       17.	Имеются ли у Вас какие-либо врожденные заболевания (аномалии Фалло, врожденное слияние почек и пр.)?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="70" name="question[47]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[17]" checked class="radio_ans" type="radio" id="70" name="question[47]" value="нет" required="">
       <label for="70">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="71" name="question[47]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[17]" class="radio_ans" type="radio" id="71" name="question[47]" value="да" required="">
       <label for="71">да</label>
     </p>
 
@@ -458,13 +461,13 @@
       18.	Имеются ли у Вас заболевания половых органов, либо имелись ранее (фимоз, крипторхизм, паховая грыжа, водянка яичка, вулъвовагинит, вульвит и пр.)?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="72" name="question[48]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[18]" checked class="radio_ans" type="radio" id="72" name="question[48]" value="нет" required="">
       <label for="72">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="73" name="question[48]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[18]" class="radio_ans" type="radio" id="73" name="question[48]" value="да" required="">
       <label for="73">да</label>
     </p>
 
@@ -483,13 +486,13 @@
       19.	Страдаете ли Вы диффузными заболеваниями соединительной ткани, либо страдали ранее (дерматомиозит, системная красная волчанка и пр.)?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="74" name="question[49]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[19]" checked class="radio_ans" type="radio" id="74" name="question[49]" value="нет" required="">
       <label for="74">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="75" name="question[49]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[19]" class="radio_ans" type="radio" id="75" name="question[49]" value="да" required="">
       <label for="75">да</label>
     </p>
 
@@ -508,13 +511,13 @@
       20.	Имеется ли у Вас онкологическое заболевание, либо имелось ранее?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="76" name="question[50]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[20]" checked class="radio_ans" type="radio" id="76" name="question[50]" value="нет" required="">
       <label for="76">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="77" name="question[50]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[20]" class="radio_ans" type="radio" id="77" name="question[50]" value="да" required="">
       <label for="77">да</label>
     </p>
 
@@ -533,13 +536,13 @@
       21.	Болели ли Вы заболеваниями, передающимися половым путем (сифилисом, гонореей и пр.)?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="78" name="question[51]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[21]" checked class="radio_ans" type="radio" id="78" name="question[51]" value="нет" required="">
       <label for="78">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="79" name="question[51]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[21]" class="radio_ans" type="radio" id="79" name="question[51]" value="да" required="">
       <label for="79">да</label>
     </p>
 
@@ -558,13 +561,13 @@
       22.	Имеется ли у Вас инфекционное заболевание, либо имелось ранее (бруцеллез, рожа, сибирская язва, скарлатина и пр.)?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="80" name="question[52]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[22]" checked class="radio_ans" type="radio" id="80" name="question[52]" value="нет" required="">
       <label for="80">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="81" name="question[52]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[22]" class="radio_ans" type="radio" id="81" name="question[52]" value="да" required="">
       <label for="81">да</label>
     </p>
 
@@ -583,13 +586,13 @@
       23.	Имеется ли у Вас степень утраты трудоспособности?                                         </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="82" name="question[53]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[23]" checked class="radio_ans" type="radio" id="82" name="question[53]" value="нет" required="">
       <label for="82">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="84" name="question[53]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[23]" class="radio_ans" type="radio" id="84" name="question[53]" value="да" required="">
       <label for="84">да</label>
     </p>
 
@@ -604,13 +607,13 @@
       24.	Предстоит ли Вам хирургическая операция?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="85" name="question[54]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[24]" checked class="radio_ans" type="radio" id="85" name="question[54]" value="нет" required="">
       <label for="85">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="86" name="question[54]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[24]" class="radio_ans" type="radio" id="86" name="question[54]" value="да" required="">
       <label for="86">да</label>
     </p>
 
@@ -625,13 +628,13 @@
       25.	Беременны ли Вы? (для женщин)                                        </p>
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="88" name="question[55]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[25]" class="radio_ans" type="radio" id="88" name="question[55]" value="да" required="">
       <label for="88">да</label>
     </p>
 
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="87" name="question[55]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[25]" checked class="radio_ans" type="radio" id="87" name="question[55]" value="нет" required="">
       <label for="87">нет</label>
     </p>
 
@@ -646,13 +649,13 @@
       26.	Имеются ли заболевания, травмы, не указанные выше, либо имелись ранее?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="89" name="question[56]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[26]" checked class="radio_ans" type="radio" id="89" name="question[56]" value="нет" required="">
       <label for="89">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="90" name="question[56]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[26]" class="radio_ans" type="radio" id="90" name="question[56]" value="да" required="">
       <label for="90">да</label>
     </p>
 
@@ -671,13 +674,13 @@
       27.	Принимаете ли Вы медицинские препараты в настоящее время?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="91" name="question[57]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[27]" checked class="radio_ans" type="radio" id="91" name="question[57]" value="нет" required="">
       <label for="91">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="92" name="question[57]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[27]" class="radio_ans" type="radio" id="92" name="question[57]" value="да" required="">
       <label for="92">да</label>
     </p>
 
@@ -696,13 +699,13 @@
       28.	Занимаетесь ли Вы или собираетесь заниматься опасными видами спорта?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="93" name="question[58]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[28]" checked class="radio_ans" type="radio" id="93" name="question[58]" value="нет" required="">
       <label for="93">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="94" name="question[58]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[28]" class="radio_ans" type="radio" id="94" name="question[58]" value="да" required="">
       <label for="94">да</label>
     </p>
 
@@ -752,13 +755,13 @@
       29.	Выезжали ли Вы из страны Вашего местопребывания более, чем на 30 дней в году?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="95" name="question[59]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[29]"checked class="radio_ans" type="radio" id="95" name="question[59]" value="нет" required="">
       <label for="95">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="96" name="question[59]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[29]" class="radio_ans" type="radio" id="96" name="question[59]" value="да" required="">
       <label for="96">да</label>
     </p>
 
@@ -773,13 +776,13 @@
       30.	Подавали ли Вы заявление на страхование в другие страховые компании?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="97" name="question[60]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[30]" checked class="radio_ans" type="radio" id="97" name="question[60]" value="нет" required="">
       <label for="97">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="98" name="question[60]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[30]" class="radio_ans" type="radio" id="98" name="question[60]" value="да" required="">
       <label for="98">да</label>
     </p>
 
@@ -794,13 +797,13 @@
       31.	Имеете ли вы какие - либо существующее страховое покрытие по страхованию жизни?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="99" name="question[61]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[31]" checked class="radio_ans" type="radio" id="99" name="question[61]" value="нет" required="">
       <label for="99">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="100" name="question[61]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[31]" class="radio_ans" type="radio" id="100" name="question[61]" value="да" required="">
       <label for="100">да(Если да, укажите на какую страховую сумму ______________ и сколько полисов страхования?)</label>
     </p>
 
@@ -825,13 +828,13 @@
       32.	Курите ли Вы?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="101" name="question[62]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[32]" checked class="radio_ans" type="radio" id="101" name="question[62]" value="нет" required="">
       <label for="101">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="102" name="question[62]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[32]" class="radio_ans" type="radio" id="102" name="question[62]" value="да" required="">
       <label for="102">да(укажите количество)</label>
     </p>
 
@@ -856,13 +859,13 @@
       33.	Употребляете ли Вы алкоголь?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="103" name="question[63]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[33]" checked class="radio_ans" type="radio" id="103" name="question[63]" value="нет" required="">
       <label for="103">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="104" name="question[63]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[33]" class="radio_ans" type="radio" id="104" name="question[63]" value="да" required="">
       <label for="104">да(Если да, то какое Ваше среднее потребление алкоголя в день (укажите при этом, пожалуйста, вид алкоголя: пиво, вино или крепкие напитки)?</label>
     </p>
 
@@ -881,13 +884,13 @@
       34.	Страдали ли Вы наркотической зависимостью?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="105" name="question[64]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[34]" checked class="radio_ans" type="radio" id="105" name="question[64]" value="нет" required="">
       <label for="105">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="106" name="question[64]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[34]" class="radio_ans" type="radio" id="106" name="question[64]" value="да" required="">
       <label for="106">да</label>
     </p>
 
@@ -902,13 +905,13 @@
       35.	Отказывали ли Вам по каким-либо причинам в страховании жизни в течение последних 12 месяцев?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="107" name="question[65]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[35]" checked class="radio_ans" type="radio" id="107" name="question[65]" value="нет" required="">
       <label for="107">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="108" name="question[65]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[35]" class="radio_ans" type="radio" id="108" name="question[65]" value="да" required="">
       <label for="108">да</label>
     </p>
 
@@ -927,13 +930,13 @@
       36.	Страдаете ли Вы профессиональными заболеваниями?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="109" name="question[66]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[36]" checked class="radio_ans" type="radio" id="109" name="question[66]" value="нет" required="">
       <label for="109">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="110" name="question[66]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[36]" class="radio_ans" type="radio" id="110" name="question[66]" value="да" required="">
       <label for="110">да</label>
     </p>
 
@@ -952,13 +955,13 @@
       37.	Связана ли Ваша профессия с трудовой деятельностью, которую можно назвать опасной?                                        </p>
 
     <p class="a">
-      <input checked class="radio_ans" type="radio" id="111" name="question[67]" value="нет" required="">
+      <input [(ngModel)] = "answersRadio[37]" checked class="radio_ans" type="radio" id="111" name="question[67]" value="нет" required="">
       <label for="111">нет</label>
     </p>
 
 
     <p class="a">
-      <input class="radio_ans" type="radio" id="112" name="question[67]" value="да" required="">
+      <input [(ngModel)] = "answersRadio[37]" class="radio_ans" type="radio" id="112" name="question[67]" value="да" required="">
       <label for="112">да</label>
     </p>
 
@@ -1026,31 +1029,31 @@
     <tbody>
     <tr>
       <td>Отец</td>
-      <td><input class="form-control" type="number" name="question[121]" /></td>
-      <td><textarea class="form-control"  name="question[122]"></textarea></td>
-      <td><input class="form-control" type="number"  name="question[123]" /></td>
-      <td><textarea class="form-control"  name="question[124]"></textarea></td>
+      <td><input [(ngModel)] = "fatherLifeAge" class="form-control" type="number" name="question[121]" /></td>
+      <td><textarea [(ngModel)] = "fatherCondition" class="form-control"  name="question[122]"></textarea></td>
+      <td><input [(ngModel)] = "fatherDeadthAge" class="form-control" type="number"  name="question[123]" /></td>
+      <td><textarea [(ngModel)] = "fatherDiagnosis" class="form-control"  name="question[124]"></textarea></td>
     </tr>
     <tr>
       <td>Мать</td>
-      <td><input class="form-control" type="number" name="question[125]" /></td>
-      <td><textarea class="form-control"  name="question[126]"></textarea></td>
-      <td><input class="form-control" type="number"  name="question[127]" /></td>
-      <td><textarea class="form-control"  name="question[128]"></textarea></td>
+      <td><input [(ngModel)] = "motherLifeAge" class="form-control" type="number" name="question[125]" /></td>
+      <td><textarea [(ngModel)] = "motherCondition" class="form-control"  name="question[126]"></textarea></td>
+      <td><input [(ngModel)] = "motherDeadthAge" class="form-control" type="number"  name="question[127]" /></td>
+      <td><textarea [(ngModel)] = "motherDiagnosis" class="form-control"  name="question[128]"></textarea></td>
     </tr>
     <tr>
       <td>Братья</td>
-      <td><input class="form-control" type="number" name="question[129]" /></td>
-      <td><textarea class="form-control"  name="question[130]"></textarea></td>
-      <td><input class="form-control" type="number"  name="question[131]" /></td>
-      <td><textarea class="form-control"  name="question[132]"></textarea></td>
+      <td><input [(ngModel)] = "brothersLifeAge" class="form-control" type="number" name="question[129]" /></td>
+      <td><textarea [(ngModel)] = "brothersCondition" class="form-control"  name="question[130]"></textarea></td>
+      <td><input [(ngModel)] = "brothersDeadthAge" class="form-control" type="number"  name="question[131]" /></td>
+      <td><textarea [(ngModel)] = "brothersDiagnosis" class="form-control"  name="question[132]"></textarea></td>
     </tr>
     <tr>
       <td>Сестры</td>
-      <td><input class="form-control" type="number" name="question[133]" /></td>
-      <td><textarea class="form-control"  name="question[134]"></textarea></td>
-      <td><input class="form-control" type="number"  name="question[135]" /></td>
-      <td><textarea class="form-control"  name="question[136]"></textarea></td>
+      <td><input [(ngModel)] = "sistersLifeAge" class="form-control" type="number" name="question[133]" /></td>
+      <td><textarea [(ngModel)] = "sistersCondition" class="form-control"  name="question[134]"></textarea></td>
+      <td><input [(ngModel)] = "sistersDeadthAge" class="form-control" type="number"  name="question[135]" /></td>
+      <td><textarea [(ngModel)] = "sistersDiagnosis" class="form-control"  name="question[136]"></textarea></td>
     </tr>
     </tbody>
   </table>
@@ -1084,6 +1087,16 @@
     <input type="hidden" name="dop_pokr_invalid_e" value=""/>
 
   </div>
+
+  <button
+
+    class="border border-transparent p-2 bg-green-500 rounded-r text-white"
+    id="btn_search_zastrah"
+    autofocus
+    (click)="yes()"
+  > Нажать </button>
+
+
 </form>
 <!-- Модальное окно по добавлению выгодоприобретателей по случаю дожития-->
 

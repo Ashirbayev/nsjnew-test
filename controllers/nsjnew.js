@@ -1,7 +1,4 @@
-
-
 const oracledb = require('oracledb');
-
 const errorHandler = require('../utils/errorHandler')
 
 
@@ -88,14 +85,6 @@ module.exports.getAllRegions = async function (req, res) {
         errorHandler(res, e)
     }
 
-
-
-
-
-
-
-
-
 }
 
 
@@ -147,6 +136,9 @@ module.exports.createAns = async function (req, res) {
         errorHandler(res, e)
     }
 }
+
+
+
 
 
 
