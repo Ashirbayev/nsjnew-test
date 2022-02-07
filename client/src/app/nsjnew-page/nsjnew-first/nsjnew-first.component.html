@@ -1,103 +1,114 @@
 
+
 <section class="container px-4 my-16 mx-auto min-h-screen bg-white ">
 
   <!-- БЛОК СТРАХОВАТЕЛЯ  -->
   <div class="straxovatel py-4 pb-8">
     <div class="search-result-straxovatel ">
-      <label for="" class="text-sm text-gray-500 font-bold">Страхователь </label>
-      <h3 class="text-lg text-gray-500 font-bold py-2"> Фамилия Имя Отчество (099090909009) (Физическое лицо) </h3>
+      <label for="" class="grey-text text-darken-4">Страхователь </label>
+      <h4 class="grey-text text-darken-2 "> Фамилия Имя Отчество (099090909009) (Физическое лицо) </h4>
     </div>
-    <b class="text-sm text-gray-500 font-bold" *ngIf="strahovatel"> Страхователь: {{strahovatel.NAME}}</b>
-    <p class="text-sm text-gray-500 font-bold mt-0.5 "> Начните вводить "Наименование", Фамилия Имя Отчество, БИН или ИИН клиента</p>
+    <b class="text-sm grey-text text-darken-2 font-bold" *ngIf="strahovatel"> Страхователь: {{strahovatel.NAME}}</b>
+    <p class="text-sm grey-text text-darken-2 font-bold mt-0.5 "> Начните вводить "Наименование", Фамилия Имя Отчество, БИН или ИИН клиента</p>
     <div class="find-straxovatel flex mt-3">
-      <a class="border border-transparent p-2 bg-blue-500 rounded-l text-white" href="./pages/registration.html" target="_blank">Создать</a>
-      <input type="text" class="border border-gray-300 w-full outline-none focus:border-green-400 p-2 "
+      <a class="btn waves-effect waves-light blue darken-3 text-white" href="./pages/registration.html" target="_blank">Создать</a>
+      <input type="text" class="border border-gray-300 w-full outline "
              id="search_clients" [(ngModel)]="IIN"
       >
       <button
-        class="border border-transparent p-2 bg-green-500 rounded-r text-white"
+        class="btn waves-effect waves-light green darken-2"
         (click)="loadMore3()"
 
-
-         autofocus> Найти </button>
+        autofocus> Найти </button>
 
     </div>
-    <div>
+    <div class="m-for-blocks">
       <a *ngFor="let i of nsjs2" (click)="addToOrder3(i)"  class="collection-item">{{i.NAME}}</a>
     </div>
   </div>
-  <hr>
   <!-- БЛОК ЗАСТРАХОВАННОГО -->
 
   <div class="zastraxovaniy py-4 pb-8">
     <div class="search-result-straxovatel" >
-      <label for="" class="text-sm text-gray-500 font-bold"> </label>
-      <h3 class="text-lg text-gray-500 font-bold py-2" >  </h3>
+      <span for="" class="grey-text text-darken-4 font-bold"> Застрахованный </span>
+      <h3 class="text-lg text-gray-500 font-bold">  </h3>
     </div>
-    <b class="text-sm text-gray-500 font-bold" *ngIf="zastrahovan"> Застрахованный: {{zastrahovan.NAME}}</b>
-    <p class="text-sm text-gray-500 font-bold mt-0.5"> Начните вводить "Наименование", Фамилия Имя Отчество, БИН или ИИН клиента</p>
+    <b class="grey-text text-darken-2 font-bold" *ngIf="zastrahovan"> Застрахованный: {{zastrahovan.NAME}}</b>
+    <p class="grey-text text-darken-2 font-bold"> Начните вводить "Наименование", Фамилия Имя Отчество, БИН или ИИН клиента</p>
     <div class="find-straxovatel flex mt-3 ">
-      <button class="border border-transparent p-2 bg-blue-500 rounded-l text-white"> Создать </button>
+      <button class="btn blue darken-3 white-text waves-effect waves-light"> Создать </button>
       <input
         type="text"
         class="border border-gray-300 w-full outline-none p-2 focus:border-green-400"
         id="search_zastrah"
         [(ngModel)]="IIN"
       >
-
       <button
-        class="waves-effect btn grey darken-1"
-
+        class="waves-effect btn green darken-2"
         autofocus
         (click)="loadMore()"
       >
         Найти
       </button>
     </div>
-      <div>
-        <a *ngFor="let i of nsjs" (click)="addToOrder(i)" class="collection-item">{{i.NAME}}</a><br>
-      </div>
+    <div class="m-for-blocks">
+      <a *ngFor="let i of nsjs" (click)="addToOrder(i)" class="collection-item">{{i.NAME}}</a><br>
+    </div>
   </div>
-
-
-
-  <hr>
 
 
   <!-- БЛОК ВЫГОДОПРИОБРЕТАТЕЛЬ НА СЛУЧАЙ СМЕРТИ  -->
 
-  <div class="flex my-4 items-center justify-between">
-    <span class="text-sm font-bold text-gray-500"> Выгодоприобретатель на случай смерти:  </span>
-    <button class="waves-effect btn grey darken-1"
+  <div class="">
+    <label class="grey-text text-darken-2"> Выгодоприобретатель на случай смерти:  </label>
+    <button class="waves-effect btn blue darken-3"
             autofocus
             (click)="open()"
     > Выбрать </button>
   </div>
 
-  <hr>
 
   <!-- БЛОК С ТАБЛИЦЕЙ ВЫГОДОПРИОБРЕТАТЕЛЯ НА СЛУЧАЙ СМЕРТИ  -->
 
-  <div class="mb-10">
+  <div class="">
     <div>
-      <h3 class="text-lg font-bold text-gray-500"> Выгодоприобретатели на случай смерти: </h3>
+      <h4 class="grey-text text-darken-2"> Выгодоприобретатели на случай смерти: </h4>
     </div>
 
 
-    <table class="border w-full">
+    <!-- <div class="beneficiaries-on-death">
+      <div class="row">
+        <div class="col s8 grey-text text-darken-2 section">Фамилия Имя Отчество</div>
+        <div class="col s2 grey-text text-darken-2 section">Процент %</div>
+        <div class="col s2 grey-text text-darken-2 section">Delete</div>
+      </div>
+      <div class="row">
+        <div class="col s8 grey-text text-darken-2 section">{{smert.NAME}}</div>
+        <div class="col s2 grey-text text-darken-2 section">50%</div>
+        <div class="col s2 grey-text text-darken-2 section">
+            <button class="btn red darken-3 waves-effect">
+                    Delete
+            </button>
+        </div>
+      </div>
+    </div> -->
+
+    <table class="striped">
       <thead>
-      <tr>
-        <th class="p-2 text-sm text-gray-500 border"> Фамилия Имя Отчество</th>
-        <th class="p-2 text-sm text-gray-500 border"> Процент % </th>
-        <th class="p-6 border"></th>
+      <tr class="">
+        <th class="grey-text text-darken-2 center-align"> Фамилия Имя Отчество</th>
+        <th class="grey-text text-darken-2 center-align"> Процент % </th>
+        <th class="center-align"></th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let smert of vigodopreodetatelSmerts">
-        <td class="p-2 border text-sm text-gray-500" >{{smert.NAME}}</td>
-        <td class="p-2 border text-sm text-gray-500">50% </td>
-        <td class="p-2 border text-center">
-          <button class="p-2 w-2 h-2 bg-red-600"> </button>
+        <td class="p-2 border text-sm text-gray-500 center-align" >{{smert.NAME}}</td>
+        <td class="p-2 border text-sm text-gray-500 center-align">50% </td>
+        <td class="p-2 border text-center center-align">
+          <button class="btn red darken-3 waves-effect">
+            Delete
+          </button>
         </td>
       </tr>
       </tbody>
@@ -105,15 +116,14 @@
   </div>
 
 
-  <hr>
 
 
   <!-- БЛОК ВЫГОДОПРИОБРЕТАТЕЛЬ НА СЛУЧАЙ ДОЖИТИЯ  -->
 
-  <div class="flex my-4 items-center justify-between">
-    <span class="text-sm font-bold text-gray-500"> Выгодоприобретатель на случай дожития:  </span>
+  <div class="m-for-blocks">
+    <label class="grey-text text-darken-2"> Выгодоприобретатель на случай дожития:  </label>
     <button
-      class="border border-transparent p-2 bg-green-500 rounded-r text-white"
+      class="btn blue darken-3 white-text waves-effect waves-light"
 
       autofocus
       (click)="open2()"
@@ -121,27 +131,26 @@
     </button>
   </div>
 
-  <hr>
 
   <!-- БЛОК С ТАБЛИЦЕЙ ВЫГОДОПРИОБРЕТАТЕЛЯ НА СЛУЧАЙ ДОЖИТИЯ  -->
 
-  <div class="mb-10">
+  <div class="m-for-blocks">
     <div>
-      <h3 class="text-lg font-bold text-gray-500"> Выгодоприобретатели на случай дожития: </h3>
+      <h4 class="grey-text text-darken-2"> Выгодоприобретатели на случай дожития: </h4>
     </div>
-    <table class="border w-full">
+    <table class="striped">
       <thead>
       <tr>
-        <th class="p-2 text-sm text-gray-500 border"> Фамилия Имя Отчество</th>
-        <th class="p-2 text-sm text-gray-500 border"> Процент % </th>
-        <th class="p-6 border"></th>
+        <th class="grey-text text-darken-2 center-align"> Фамилия Имя Отчество</th>
+        <th class="grey-text text-darken-2 center-align"> Процент % </th>
+        <th class="grey-text text-darken-2 center-align"></th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let zhizn of vigodopreodetatelZhizns">
-        <td class="p-2 border text-sm text-gray-500">{{zhizn.NAME}}</td>
-        <td class="p-2 border text-sm text-gray-500">50% </td>
-        <td class="p-2 border text-center">
+        <td class="p-2 border text-sm text-gray-500 center-align">{{zhizn.NAME}}</td>
+        <td class="p-2 border text-sm text-gray-500 center-align">50% </td>
+        <td class="p-2 border text-center center-align">
           <button class="p-2 w-2 h-2 bg-red-600"> </button>
         </td>
       </tr>
@@ -149,129 +158,121 @@
     </table>
   </div>
 
-  <hr>
 
 
   <!-- БЛОК С ИНПУТАМИ РЕГИОНОВ  -->
 
-  <div class="region-wrapper my-4">
+  <div class="region-wrapper m-for-blocks">
 
-    <div class="flex flex-col py-1">
-      <label class="text-sm text-gray-500 font-bold ">Регион </label>
+    <div class="m-for-blocks">
+      <span class="grey-text text-darken-2">Регион: </span>
 
       <button
-        class="border border-transparent p-2 bg-green-500 rounded-r text-white"
+        class="btn blue darken-3 waves-effect waves-light"
 
         autofocus
         (click)="open3()"
       > Выбрать
       </button>
-      <label for="" class="text-sm text-gray-500 font-bold " *ngIf="region">{{region.NAME}}</label>
+      <label for="" class="grey-text text-darken-2" *ngIf="region">{{region.NAME}}</label>
     </div>
 
-    <div class="block py-1">
-      <label for="" class="text-sm text-gray-500 font-bold ">№ заявления </label>
+    <div class="">
+      <label for="" class="grey-text text-darken-2 ">№ заявления </label>
       <input type="text" *ngIf="numzav" value="{{numzav}}" >
 
     </div>
 
-    <div class="block py-1">
-      <label for="" class="text-sm text-gray-500 font-bold ">Дата заявления</label>
-      <input type="text"  #start name="" id="" class="border p-1 w-full" placeholder="ЗДЕСЬ У НАС ДЕЙТПИКЕР">
+    <div class="">
+      <label for="" class="grey-text text-darken-2">Дата заявления</label>
+      <input type="text"  #start name="" id="" class="" placeholder="ЗДЕСЬ У НАС ДЕЙТПИКЕР">
     </div>
 
 
 
-    <div class="block py-1">
-      <label for="" class="text-sm text-gray-500 font-bold ">Размер страхового взноса </label>
-      <input type="text" name="" id="" class="border p-1 w-full" [(ngModel)]="strahVznos">
+    <div class="">
+      <label for="" class="grey-text text-darken-2">Размер страхового взноса </label>
+      <input type="text" name="" id="" class="" [(ngModel)]="strahVznos">
     </div>
 
-    <div class="block py-1">
-      <label for="" class="text-sm text-gray-500 font-bold ">Годовой доход страхуемого лица </label>
-      <input type="text" name="" id="" class="border p-1 w-full" [(ngModel)]="godDohod">
+    <div class="">
+      <label for="gdsl" class="grey-text text-darken-2 ">Годовой доход страхуемого лица </label>
+      <input type="text" name="gdsl" id="gdsl" class="" [(ngModel)]="godDohod">
     </div>
 
   </div>
-
-  <hr>
-
 
   <!-- БЛОК С ИНПУТАМИ НАГРУЗОК  -->
 
 
-  <div class="load-wrapper py-4 mb-4">
-    <div class="flex flex-col py-2">
-      <h3 class="text-lg text-gray-500 font-bold mb-2">Нагрузки </h3>
-      <label for="region" class="text-sm text-gray-500 font-bold mb-1 ">Выберите вид нагрузки </label>
-      <select name="" id="" class="border p-1">
-        <option value="AllRegions" class="border w-full"> Андерайтинг риска свободного времени</option>
-        <option value="AllRegions" class="border w-full"> Профессиональный</option>
-        <option value="AllRegions" class="border w-full"> Медицинский</option>
-        <option value="AllRegions" class="border w-full"> Андерайтинг риска пребывания в странах</option>
+  <div class="m-for-blocks">
+    <div class="">
+      <h4 class="grey-text text-darken-2">Нагрузки </h4>
+      <label for="nagruzka" class="grey-text text-darken-2">Выберите вид нагрузки </label>
+      <select name="nagruzka" id="nagruzka" class="border p-1">
+        <option value="0" class=""> Андерайтинг риска свободного времени</option>
+        <option value="1" class=""> Профессиональный</option>
+        <option value="2" class=""> Медицинский</option>
+        <option value="3" class=""> Андерайтинг риска пребывания в странах</option>
       </select>
     </div>
 
-    <div class="block py-2">
-      <label for="" class="text-sm text-gray-500 font-bold mb-1 ">Введите наименование нагрузки </label>
+    <div class="m-for-blocks">
+      <label for="" class="grey-text text-darken-2">Введите наименование нагрузки </label>
       <input type="text" name="" id="" class="border p-1 w-full">
     </div>
 
-    <button class="p-2 bg-blue-500 border border-transparent rounded text-white" (click)="open4()"> Добавить </button>
+    <button class="btn blue darken-3 waves-effect waves-light white-text" (click)="open4()"> Добавить </button>
 
   </div>
 
-  <hr>
 
-
-  <div class="underright-wrapper my-4">
-    <h3 class="text-gray-500 font-bold text-center mb-10">Список андерайтинговых нагрузок </h3>
-    <hr>
-    <div class="flex flex-col py-1">
-      <label for="region" class="text-sm text-gray-500 font-bold ">Агент</label>
-      <select name="" id="" class="border p-1">
-        <option value="AllRegions" class="border w-full"> Без агента</option>
-        <option value="AllRegions" class="border w-full"> Здесь список всех регионов</option>
-        <option value="AllRegions" class="border w-full"> Здесь список всех регионов</option>
-        <option value="AllRegions" class="border w-full"> Здесь список всех регионов</option>
+  <div class="underright-wrapper m-for-blocks">
+    <h4 class="grey-text text-darken-2">Список андерайтинговых нагрузок </h4>
+    <div class="m-for-blocks">
+      <label for="agent" class="text-sm text-gray-500 font-bold ">Агент</label>
+      <select name="agent" id="agent" class="border p-1">
+        <option value="0" class=""> Без агента</option>
+        <option value="1" class=""> Здесь список всех регионов</option>
+        <option value="2" class=""> Здесь список всех регионов</option>
+        <option value="3" class=""> Здесь список всех регионов</option>
       </select>
     </div>
 
-    <div class="block py-1">
-      <label for="" class="text-sm text-gray-500 font-bold  "> Агентские расходы % </label>
-      <input type="text" name="" id="" class="border p-1 w-full" value="0">
+    <div class="m-for-blocks">
+      <label for="agent-rasx" class="text-sm text-gray-500 font-bold  "> Агентские расходы % </label>
+      <input type="text" name="agent-rasx" id="agent-rasx" class="" value="0">
     </div>
   </div>
 
-  <hr>
 
-  <div class="main-data-input mt-4 pb-6">
+  <div class="m-for-blocks">
 
-    <h3 class="text-gray-500 font-bold text-lg mb-4">Введите основные данные для расчета </h3>
+    <h4 class="grey-text text-darken-2">Введите основные данные для расчета </h4>
 
-    <div class="flex flex-col py-1">
-      <label for="region" class="text-sm text-gray-500 font-bold ">Периодность</label>
-      <select name="" id="" class="border p-1">
-        <option value="AllRegions" class="border w-full"> Единовременно</option>
-        <option value="AllRegions" class="border w-full"> Ежегодно</option>
-        <option value="AllRegions" class="border w-full"> Раз в пол года</option>
-        <option value="AllRegions" class="border w-full"> Ежеквартально</option>
-        <option value="AllRegions" class="border w-full"> Ежемесячно</option>
+    <div class="m-for-blocks">
+      <label for="period" class="grey-text text-darken-2">Периодность</label>
+      <select name="period" id="period" class="border p-1">
+        <option value="0" class="border w-full"> Единовременно</option>
+        <option value="1" class="border w-full"> Ежегодно</option>
+        <option value="2" class="border w-full"> Раз в пол года</option>
+        <option value="3" class="border w-full"> Ежеквартально</option>
+        <option value="4" class="border w-full"> Ежемесячно</option>
       </select>
     </div>
 
-    <div class="block py-1">
-      <label for="" class="text-sm text-gray-500 font-bold  "> Срок страхования </label>
-      <input type="text" name="" id="" class="border p-1 w-full" value="0" [(ngModel)]="srokStrah">
+    <div class="m-for-blocks">
+      <label for="srok-strax" class="grey-text text-darken-2"> Срок страхования </label>
+      <input type="text" name="srok-strax" id="srok-strax" class="border p-1 w-full" value="0" [(ngModel)]="srokStrah">
     </div>
 
     <div class="flex flex-col py-1">
-      <label for="region" class="text-sm text-gray-500 font-bold ">Основное покрытие </label>
-      <select name="" id="" class="border p-1">
-        <option value="AllRegions" class="border w-full"> Здесь список всех регионов</option>
-        <option value="AllRegions" class="border w-full"> Здесь список всех регионов</option>
-        <option value="AllRegions" class="border w-full"> Здесь список всех регионов</option>
-        <option value="AllRegions" class="border w-full"> Здесь список всех регионов</option>
+      <label for="osn-pokr" class="grey-text text-darken-2">Основное покрытие </label>
+      <select name="osn-pokr" id="osn-pokr" class="">
+        <option value="0" class=""> Здесь список всех регионов</option>
+        <option value="1" class=""> Здесь список всех регионов</option>
+        <option value="2" class=""> Здесь список всех регионов</option>
+        <option value="3" class=""> Здесь список всех регионов</option>
       </select>
     </div>
 
@@ -413,16 +414,16 @@
 <div #modalReg class="modal modal-fixed-footer">
   <div class="modal-content">
     <h4 class="mb1">Выберите регион  из списка</h4>
-      <div class="row">
-        <div class="col s12">
-          <div class="collection">
-        <a *ngFor="let i of regions"
-        class="collection-item" (click)="selectToRegion(i)" >{{i.NAME}}
+    <div class="row">
+      <div class="col s12">
+        <div class="collection">
+          <a *ngFor="let i of regions"
+             class="collection-item" (click)="selectToRegion(i)" >{{i.NAME}}
 
-        </a>
-          </div>
+          </a>
         </div>
       </div>
+    </div>
 
 
 
@@ -478,6 +479,9 @@
     >Подтвердить</button>
   </div>
 </div>
+
+
+
 
 
 

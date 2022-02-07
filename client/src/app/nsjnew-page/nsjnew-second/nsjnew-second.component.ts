@@ -288,10 +288,16 @@ export class NsjnewSecondComponent implements OnInit {
       }
     ]
 
-    this.newnsjsService.createAnswer(this.answers).subscribe(test => {
-      console.log(test)
-    })
-    console.log(this.answers)
+
+
+
+
+
+
+
+
+
+    // console.log(this.answers)
     // answer: Answer
     //
     // answer.ID_QUESTION = 1
@@ -301,6 +307,46 @@ export class NsjnewSecondComponent implements OnInit {
 
 
 
+
+  createSends() {
+    this.yes()
+  this.answers.map(answer => {
+    console.log(answer)
+
+      if (!answer.ID_ANSWER) {
+
+
+      } else {
+        this.newnsjsService.createAnswer(answer).subscribe(test => {
+          console.log(test)
+
+      })}
+    this.answers = [];
+
+
+  })}
+
+
+//   createSends(answer: Answer) {
+//
+//     this.answers.forEach( function (arrayItem)
+//
+//
+//     {
+//       this.newnsjsService.createAnswer(answer).subscribe(test => {
+//
+//       })
+//       if (!arrayItem.ID_ANSWER) {
+//
+//
+//       }
+//
+//
+//
+//     });
+//
+//
+// }
 
 
   no() {

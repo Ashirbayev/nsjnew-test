@@ -139,6 +139,49 @@ module.exports.createAns = async function (req, res) {
 
 
 
+module.exports.createZayav = async function (req, res) {
+
+    k = req.body.ID_QUESTION
+    v = req.body.ID_ANSWER
+    // q_id = 15
+    try {
+        connection = await oracledb.getConnection(
+            {user: "insurance", password: 'insurance', connectString: "192.168.5.191/orcl"});
+
+        result = await connection.execute(`begin NSJ.Save_zayav(
+            '0',
+            ".$this->array['branch_id'].",
+            '${req.body.ZAV_NUMBER}',
+            to_date('${req.body.DATE_ZAV}', 'dd.mm.yyyy'),            
+            ".$this->array['strah_vznos'].",
+            ".$this->array['id_agent_select'].",
+            ".$this->array['m_rashod'].",
+            '".$this->array['set_m_periodich']."',
+            ".$this->array['set_m_srok'].",
+            ".$this->array['set_main_pokr'].",
+            '1',
+            ".$this->array['god_dohod'].",
+            '$list_user',
+            '$list_users_vigodas_dozhitia',
+            '".$this->array['id_client_strahovatel']."',
+            '".$this->array['id_client_zastrah']."',
+            '$list_question',
+           '".$active_user_dan['emp']."',
+           '$risk',
+            :id
+            `);
+
+
+        console.log('Rows inserted: ', k);
+
+        res.status(201).json({
+            token: `Bearer ${v}`
+        })
+
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
 
 
 

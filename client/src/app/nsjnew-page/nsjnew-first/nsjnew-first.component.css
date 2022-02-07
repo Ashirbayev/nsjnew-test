@@ -1,3 +1,45 @@
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h3{
+  margin: 5px 0;
+}
+
+table, tr, th, td{
+  border: 1px solid grey;
+}
+
+input{
+  border: 1px solid grey;
+}
+label{
+  font-size: 16px;
+}
+
+
+.m-for-blocks{
+  margin: 15px 0;
+  display: block;
+}
+
+.col{
+  border: 1px solid rgb(197, 196, 196);
+  padding: 5px;
+  text-align: center;
+  height: 40px;
+}
+
 select {
   display: block;
+  border: 1px solid gray;
+}
+
+.btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

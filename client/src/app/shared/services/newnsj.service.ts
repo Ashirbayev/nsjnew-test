@@ -38,8 +38,9 @@ export class NewnsjService {
   }
 
 
-  createAnswer(answer: Answer[]) {
+  createAnswer(answer: Answer) {
     //const body = {ID_QUESTION: answer.ID_QUESTION, ID_ANSWER: answer.ID_ANSWER};
+
     return this.http.post('/api/nsjnew', answer)
     //console.log(body)
   }
