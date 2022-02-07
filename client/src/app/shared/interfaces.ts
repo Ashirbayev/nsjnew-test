@@ -111,6 +111,26 @@ export  interface Answer {
   ID_MAIN_QUESTION?: number
 }
 
+export interface Statment {
+  BRANCH_ID: number
+  ZAV_NUMBER: string
+  DATE_ZAV: Date
+  STRAH_VZNOS: number
+  SELECT_ID_AGENT: number
+  AGENT_RASHOD: number
+  PERIOD: string
+  SROK_STRAH: number
+  MAIN_POKR: number
+  GOD_DOHOD: number
+  VIGODO_SMERT: string
+  VIGODO_ZHIZN: string
+  STRAHOVATEL: number
+  ZASTRAHOVAN: number
+  ANSWERS: string
+  EMPID: number
+  RISK: number
+}
+
 
 
 

@@ -22,7 +22,7 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit{
   modal: MaterialInstance
   //isFirstVisible: boolean = true
   @Input() isFirstVisible: boolean = true
-
+  fromParent: string = 'String from parent';
 
 
   constructor(private newnsjsService: NewnsjService) {
@@ -60,9 +60,7 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit{
 
 
   loadMore(){
-
     this.fetch()
-
   }
 
 
@@ -79,10 +77,15 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit{
   NextPage() {
     console.log(this.isFirstVisible)
     this.isFirstVisible = false
-    console.log(this.isFirstVisible)
+
   }
 
   PreviewPage() {
     this.isFirstVisible = true
   }
+
+
+
+
+
 }

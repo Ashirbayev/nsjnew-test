@@ -1,4 +1,14 @@
-import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
 import {DataIIN, Filter, Region, TestNsj, Numzav} from "../../shared/interfaces";
 import {MaterialDatepicker, MaterialInstance, MaterialService} from "../../shared/classes/material.service";
 import {NewnsjService} from "../../shared/services/newnsj.service";
@@ -13,7 +23,11 @@ import {Observable} from "rxjs";
 export class NsjnewFirstComponent implements OnInit, AfterViewInit {
 
   categories$: Observable<TestNsj[]>
+
+  @Input() fromParent: string;
   regions: Region[] = []
+
+
   region: Region
   nsjs: TestNsj [] = []
   nsjs2: TestNsj [] = []
@@ -60,6 +74,7 @@ export class NsjnewFirstComponent implements OnInit, AfterViewInit {
       console.log('nsjs: ', regions)
     })
     this.getAgents()
+    console.log(this.fromParent)
   }
 
 

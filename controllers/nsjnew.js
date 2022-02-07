@@ -141,41 +141,45 @@ module.exports.createAns = async function (req, res) {
 
 module.exports.createZayav = async function (req, res) {
 
-    k = req.body.ID_QUESTION
-    v = req.body.ID_ANSWER
-    // q_id = 15
+
     try {
         connection = await oracledb.getConnection(
             {user: "insurance", password: 'insurance', connectString: "192.168.5.191/orcl"});
 
-        result = await connection.execute(`begin NSJ.Save_zayav(
+        let query =`begin NSJ.Save_zayav(
             '0',
-            ".$this->array['branch_id'].",
+            '${req.body.BRANCH_ID}',
             '${req.body.ZAV_NUMBER}',
             to_date('${req.body.DATE_ZAV}', 'dd.mm.yyyy'),            
-            ".$this->array['strah_vznos'].",
-            ".$this->array['id_agent_select'].",
-            ".$this->array['m_rashod'].",
-            '".$this->array['set_m_periodich']."',
-            ".$this->array['set_m_srok'].",
-            ".$this->array['set_main_pokr'].",
+            '${req.body.STRAH_VZNOS}',
+            '${req.body.SELECT_ID_AGENT}',
+            '${req.body.AGENT_RASHOD}',
+            '${req.body.PERIOD}',
+            '${req.body.SROK_STRAH}',
+            '${req.body.MAIN_POKR}',
             '1',
-            ".$this->array['god_dohod'].",
-            '$list_user',
-            '$list_users_vigodas_dozhitia',
-            '".$this->array['id_client_strahovatel']."',
-            '".$this->array['id_client_zastrah']."',
-            '$list_question',
-           '".$active_user_dan['emp']."',
-           '$risk',
-            :id
-            `);
+            '${req.body.GOD_DOHOD}',
+            '${req.body.VIGODO_SMERT}',
+            '${req.body.VIGODO_ZHIZN}',
+            '${req.body.STRAHOVATEL}',
+            '${req.body.ZASTRAHOVAN}',
+            '${req.body.ANSWERS}',
+           '${req.body.EMPID}',
+           '${req.body.RISK}',
+           :id
+            ); end; `;
+        result = await connection.execute(query,
+            { id: {dir: oracledb.BIND_OUT,type: oracledb.NUMBER} });
 
 
-        console.log('Rows inserted: ', k);
+
+        console.log('Output: ' + result.outBinds.id);
+
+
+        console.log('Rows inserted: ', req.body.ANSWERS);
 
         res.status(201).json({
-            token: `Bearer ${v}`
+            token: `Bearer ${req.body.EMPID}`
         })
 
     } catch (e) {

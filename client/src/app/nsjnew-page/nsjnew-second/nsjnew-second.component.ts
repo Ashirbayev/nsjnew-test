@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {NewnsjService} from "../../shared/services/newnsj.service";
-import {Answer, Question, Region, TestNsj} from "../../shared/interfaces";
+import {Answer, Order, Question, Region, TestNsj} from "../../shared/interfaces";
 
 @Component({
   selector: 'app-nsjnew-second',
@@ -10,7 +10,7 @@ import {Answer, Question, Region, TestNsj} from "../../shared/interfaces";
 export class NsjnewSecondComponent implements OnInit {
 
   questions: Question [] = []
-
+  @Input() regions: Region[]
   answer1: string
   answer2: string
 
@@ -45,6 +45,7 @@ export class NsjnewSecondComponent implements OnInit {
 
 
   answers: Answer [] = []
+  massive: string = '555'
   answer: Answer
   quest1: boolean = false
 
@@ -311,17 +312,33 @@ export class NsjnewSecondComponent implements OnInit {
   createSends() {
     this.yes()
   this.answers.map(answer => {
-    console.log(answer)
+   // console.log(answer)
 
       if (!answer.ID_ANSWER) {
 
 
       } else {
-        this.newnsjsService.createAnswer(answer).subscribe(test => {
-          console.log(test)
 
-      })}
+
+
+        var str1 = new String( answer.ID_QUESTION.toString() );
+        var str2 = new String( answer.ID_ANSWER.toString() );
+        //var str3 = str1.concat(str2.toString());
+        var str3 = ''
+        this.massive +=  str1.toString() + ':' + str2.toString() + ':;';
+        console.log(this.massive)
+        console.log(this.regions)
+
+
+      //   this.newnsjsService.createAnswer(answer).subscribe(test => {
+      //
+      //
+      //
+      //
+      // })
+        }
     this.answers = [];
+
 
 
   })}
