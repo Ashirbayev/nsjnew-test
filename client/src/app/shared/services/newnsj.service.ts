@@ -1,7 +1,7 @@
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
-import {Answer, Category, DataIIN, findIIN, Numzav, Order, Question, Region, TestNsj} from "../interfaces";
+import {Answer, Category, DataIIN, findIIN, Numzav, Order, Question, Region, Statment, TestNsj} from "../interfaces";
 
 
 @Injectable({
@@ -42,6 +42,13 @@ export class NewnsjService {
     //const body = {ID_QUESTION: answer.ID_QUESTION, ID_ANSWER: answer.ID_ANSWER};
 
     return this.http.post('/api/nsjnew', answer)
+    //console.log(body)
+  }
+
+  createZayav(statment: Statment) {
+    //const body = {ID_QUESTION: answer.ID_QUESTION, ID_ANSWER: answer.ID_ANSWER};
+
+    return this.http.post('/api/statment', statment)
     //console.log(body)
   }
 

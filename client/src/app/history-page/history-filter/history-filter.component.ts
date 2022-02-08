@@ -36,7 +36,7 @@ export class HistoryFilterComponent implements  OnDestroy, AfterViewInit {
       return
     }
 
-    console.log(this.start.date < this.end.date)
+    console.log(this.start.date)
 
 
   }

@@ -76,7 +76,7 @@ export interface AnalyticsChartItem {
 }
 
 export interface TestNsj {
-  ID?: string
+  ID: number
   NAME?: string
 }
 
@@ -112,23 +112,23 @@ export  interface Answer {
 }
 
 export interface Statment {
-  BRANCH_ID: number
-  ZAV_NUMBER: string
-  DATE_ZAV: Date
-  STRAH_VZNOS: number
-  SELECT_ID_AGENT: number
-  AGENT_RASHOD: number
-  PERIOD: string
-  SROK_STRAH: number
-  MAIN_POKR: number
-  GOD_DOHOD: number
-  VIGODO_SMERT: string
-  VIGODO_ZHIZN: string
-  STRAHOVATEL: number
-  ZASTRAHOVAN: number
-  ANSWERS: string
-  EMPID: number
-  RISK: number
+  BRANCH_ID?: number
+  ZAV_NUMBER?: string
+  DATE_ZAV?: string
+  STRAH_VZNOS?: number
+  SELECT_ID_AGENT?: number
+  AGENT_RASHOD?: number
+  PERIOD?: string
+  SROK_STRAH?: number
+  MAIN_POKR?: number
+  GOD_DOHOD?: number
+  VIGODO_SMERT?: string
+  VIGODO_ZHIZN?: string
+  STRAHOVATEL?: number
+  ZASTRAHOVAN?: number
+  ANSWERS?: string
+  EMPID?: number
+  RISK?: number
 }
 
 

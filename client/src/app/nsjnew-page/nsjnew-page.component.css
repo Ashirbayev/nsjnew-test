@@ -1,0 +1,38 @@
+.m-for-blocks{
+  margin: 15px 0;
+  display: block;
+}
+
+.col{
+  border: 1px solid rgb(197, 196, 196);
+  padding: 5px;
+  text-align: center;
+  height: 40px;
+}
+
+select {
+  display: block;
+  border: 1px solid gray;
+}
+
+.btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+[type="radio"]:not(:checked), [type="radio"]:checked {
+  position: absolute;
+  opacity: 1;
+  pointer-events: none;
+  padding: 0;
+}
+label {
+  display: inline-block;
+  max-width: 97%;
+  margin-bottom: 5px;
+  font-weight: 700;
+  padding: 0;
+  color: black;
+}

@@ -25,9 +25,1397 @@
 <!--      </div>-->
 <!--    </div>-->
 <!--  </div>-->
+<section *ngIf="isFirstVisible" class="container px-4 my-16 mx-auto min-h-screen bg-white ">
 
-<app-nsjnew-first  *ngIf="isFirstVisible" [fromParent]="fromParent"  > </app-nsjnew-first>
-  <app-nsjnew-second  *ngIf="!isFirstVisible"></app-nsjnew-second>
+  <!-- БЛОК СТРАХОВАТЕЛЯ  -->
+  <div class="straxovatel py-4 pb-8">
+    <div class="search-result-straxovatel ">
+      <label for="" class="grey-text text-darken-4">Страхователь </label>
+      <h4 class="grey-text text-darken-2 "> Фамилия Имя Отчество (099090909009) (Физическое лицо) </h4>
+    </div>
+    <b class="text-sm grey-text text-darken-2 font-bold" *ngIf="strahovatel"> Страхователь: {{strahovatel.NAME}}</b>
+    <p class="text-sm grey-text text-darken-2 font-bold mt-0.5 "> Начните вводить "Наименование", Фамилия Имя Отчество, БИН или ИИН клиента</p>
+    <div class="find-straxovatel flex mt-3">
+      <a class="btn waves-effect waves-light blue darken-3 text-white" href="./pages/registration.html" target="_blank">Создать</a>
+      <input type="text" class="border border-gray-300 w-full outline "
+             id="search_clients" [(ngModel)]="IIN"
+      >
+      <button
+        class="btn waves-effect waves-light green darken-2"
+        (click)="loadMore3()"
+
+        autofocus> Найти </button>
+
+    </div>
+    <div class="m-for-blocks">
+      <a *ngFor="let i of nsjs2" (click)="addToOrder3(i)"  class="collection-item">{{i.NAME}}</a>
+    </div>
+  </div>
+  <!-- БЛОК ЗАСТРАХОВАННОГО -->
+
+  <div class="zastraxovaniy py-4 pb-8">
+    <div class="search-result-straxovatel" >
+      <span for="" class="grey-text text-darken-4 font-bold"> Застрахованный </span>
+      <h3 class="text-lg text-gray-500 font-bold">  </h3>
+    </div>
+    <b class="grey-text text-darken-2 font-bold" *ngIf="zastrahovan"> Застрахованный: {{zastrahovan.NAME}}</b>
+    <p class="grey-text text-darken-2 font-bold"> Начните вводить "Наименование", Фамилия Имя Отчество, БИН или ИИН клиента</p>
+    <div class="find-straxovatel flex mt-3 ">
+      <button class="btn blue darken-3 white-text waves-effect waves-light"> Создать </button>
+      <input
+        type="text"
+        class="border border-gray-300 w-full outline-none p-2 focus:border-green-400"
+        id="search_zastrah"
+        [(ngModel)]="IIN"
+      >
+      <button
+        class="waves-effect btn green darken-2"
+        autofocus
+        (click)="loadMore()"
+      >
+        Найти
+      </button>
+    </div>
+    <div class="m-for-blocks">
+      <a *ngFor="let i of nsjs" (click)="addToOrder(i)" class="collection-item">{{i.NAME}}</a><br>
+    </div>
+  </div>
+
+
+  <!-- БЛОК ВЫГОДОПРИОБРЕТАТЕЛЬ НА СЛУЧАЙ СМЕРТИ  -->
+
+  <div class="">
+    <label class="grey-text text-darken-2"> Выгодоприобретатель на случай смерти:  </label>
+    <button class="waves-effect btn blue darken-3"
+            autofocus
+            (click)="open()"
+    > Выбрать </button>
+  </div>
+
+
+  <!-- БЛОК С ТАБЛИЦЕЙ ВЫГОДОПРИОБРЕТАТЕЛЯ НА СЛУЧАЙ СМЕРТИ  -->
+
+  <div class="">
+    <div>
+      <h4 class="grey-text text-darken-2"> Выгодоприобретатели на случай смерти: </h4>
+    </div>
+
+
+    <!-- <div class="beneficiaries-on-death">
+      <div class="row">
+        <div class="col s8 grey-text text-darken-2 section">Фамилия Имя Отчество</div>
+        <div class="col s2 grey-text text-darken-2 section">Процент %</div>
+        <div class="col s2 grey-text text-darken-2 section">Delete</div>
+      </div>
+      <div class="row">
+        <div class="col s8 grey-text text-darken-2 section">{{smert.NAME}}</div>
+        <div class="col s2 grey-text text-darken-2 section">50%</div>
+        <div class="col s2 grey-text text-darken-2 section">
+            <button class="btn red darken-3 waves-effect">
+                    Delete
+            </button>
+        </div>
+      </div>
+    </div> -->
+
+    <table class="striped">
+      <thead>
+      <tr class="">
+        <th class="grey-text text-darken-2 center-align"> Фамилия Имя Отчество</th>
+        <th class="grey-text text-darken-2 center-align"> Процент % </th>
+        <th class="center-align"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let smert of vigodopreodetatelSmerts">
+        <td class="p-2 border text-sm text-gray-500 center-align" >{{smert.NAME}}</td>
+        <td class="p-2 border text-sm text-gray-500 center-align">50% </td>
+        <td class="p-2 border text-center center-align">
+          <button class="btn red darken-3 waves-effect">
+            Delete
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+
+  <!-- БЛОК ВЫГОДОПРИОБРЕТАТЕЛЬ НА СЛУЧАЙ ДОЖИТИЯ  -->
+
+  <div class="m-for-blocks">
+    <label class="grey-text text-darken-2"> Выгодоприобретатель на случай дожития:  </label>
+    <button
+      class="btn blue darken-3 white-text waves-effect waves-light"
+
+      autofocus
+      (click)="open2()"
+    > Выбрать
+    </button>
+  </div>
+
+
+  <!-- БЛОК С ТАБЛИЦЕЙ ВЫГОДОПРИОБРЕТАТЕЛЯ НА СЛУЧАЙ ДОЖИТИЯ  -->
+
+  <div class="m-for-blocks">
+    <div>
+      <h4 class="grey-text text-darken-2"> Выгодоприобретатели на случай дожития: </h4>
+    </div>
+    <table class="striped">
+      <thead>
+      <tr>
+        <th class="grey-text text-darken-2 center-align"> Фамилия Имя Отчество</th>
+        <th class="grey-text text-darken-2 center-align"> Процент % </th>
+        <th class="grey-text text-darken-2 center-align"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let zhizn of vigodopreodetatelZhizns">
+        <td class="p-2 border text-sm text-gray-500 center-align">{{zhizn.NAME}}</td>
+        <td class="p-2 border text-sm text-gray-500 center-align">50% </td>
+        <td class="p-2 border text-center center-align">
+          <button class="p-2 w-2 h-2 bg-red-600"> </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+  <!-- БЛОК С ИНПУТАМИ РЕГИОНОВ  -->
+
+  <div class="region-wrapper m-for-blocks">
+
+    <div class="m-for-blocks">
+      <span class="grey-text text-darken-2">Регион: </span>
+
+      <button
+        class="btn blue darken-3 waves-effect waves-light"
+
+        autofocus
+        (click)="open3()"
+      > Выбрать
+      </button>
+      <label for="" class="grey-text text-darken-2" *ngIf="region">{{region.NAME}}</label>
+    </div>
+
+    <div class="">
+      <label for="" class="grey-text text-darken-2 ">№ заявления </label>
+      <input type="text" *ngIf="numzav" value="{{numzav}}" >
+
+    </div>
+
+    <div class="">
+      <label for="" class="grey-text text-darken-2">Дата заявления</label>
+      <input type="text"  #start name="" id="" class="" placeholder="ЗДЕСЬ У НАС ДЕЙТПИКЕР">
+    </div>
+
+
+
+    <div class="">
+      <label for="" class="grey-text text-darken-2">Размер страхового взноса </label>
+      <input type="text" name="" id="" class="" [(ngModel)]="strahVznos">
+    </div>
+
+    <div class="">
+      <label for="gdsl" class="grey-text text-darken-2 ">Годовой доход страхуемого лица </label>
+      <input type="text" name="gdsl" id="gdsl" class="" [(ngModel)]="godDohod">
+    </div>
+
+  </div>
+
+  <!-- БЛОК С ИНПУТАМИ НАГРУЗОК  -->
+
+
+  <div class="m-for-blocks">
+    <div class="">
+      <h4 class="grey-text text-darken-2">Нагрузки </h4>
+      <label for="nagruzka" class="grey-text text-darken-2">Выберите вид нагрузки </label>
+      <select name="nagruzka" id="nagruzka" class="border p-1">
+        <option value="0" class=""> Андерайтинг риска свободного времени</option>
+        <option value="1" class=""> Профессиональный</option>
+        <option value="2" class=""> Медицинский</option>
+        <option value="3" class=""> Андерайтинг риска пребывания в странах</option>
+      </select>
+    </div>
+
+    <div class="m-for-blocks">
+      <label for="" class="grey-text text-darken-2">Введите наименование нагрузки </label>
+      <input type="text" name="" id="" class="border p-1 w-full">
+    </div>
+
+    <button class="btn blue darken-3 waves-effect waves-light white-text" (click)="open4()"> Добавить </button>
+
+  </div>
+
+
+  <div class="underright-wrapper m-for-blocks">
+    <h4 class="grey-text text-darken-2">Список андерайтинговых нагрузок </h4>
+    <div class="m-for-blocks">
+      <label for="agent" class="text-sm text-gray-500 font-bold ">Агент</label>
+      <select name="agent" id="agent" class="border p-1">
+        <option value="0" class=""> Без агента</option>
+        <option value="1" class=""> Здесь список всех регионов</option>
+        <option value="2" class=""> Здесь список всех регионов</option>
+        <option value="3" class=""> Здесь список всех регионов</option>
+      </select>
+    </div>
+
+    <div class="m-for-blocks">
+      <label for="agent-rasx" class="text-sm text-gray-500 font-bold  "> Агентские расходы % </label>
+      <input type="text" name="agent-rasx" id="agent-rasx" class="" value="0">
+    </div>
+  </div>
+
+
+  <div class="m-for-blocks">
+
+    <h4 class="grey-text text-darken-2">Введите основные данные для расчета </h4>
+
+    <div class="m-for-blocks">
+      <label for="period" class="grey-text text-darken-2">Периодность</label>
+      <select name="period" id="period" class="border p-1">
+        <option value="0" class="border w-full"> Единовременно</option>
+        <option value="1" class="border w-full"> Ежегодно</option>
+        <option value="2" class="border w-full"> Раз в пол года</option>
+        <option value="3" class="border w-full"> Ежеквартально</option>
+        <option value="4" class="border w-full"> Ежемесячно</option>
+      </select>
+    </div>
+
+    <div class="m-for-blocks">
+      <label for="srok-strax" class="grey-text text-darken-2"> Срок страхования </label>
+      <input type="text" name="srok-strax" id="srok-strax" class="border p-1 w-full" value="0" [(ngModel)]="srokStrah">
+    </div>
+
+    <div class="flex flex-col py-1">
+      <label for="osn-pokr" class="grey-text text-darken-2">Основное покрытие </label>
+      <select name="osn-pokr" id="osn-pokr" class="">
+        <option value="0" class=""> Здесь список всех регионов</option>
+        <option value="1" class=""> Здесь список всех регионов</option>
+        <option value="2" class=""> Здесь список всех регионов</option>
+        <option value="3" class=""> Здесь список всех регионов</option>
+      </select>
+    </div>
+
+  </div>
+
+
+
+  <div  style="display: none;">
+    <label>Страховая сумма <span style="color: red;">(временная нетрудоспособность Застрахованного в результате НС)</span> </label>
+    <select class="form-control" >
+      <option></option>
+      <option value="500000">500 000</option>
+      <option value="750000">750 000</option>
+      <option value="1000000">1 000 000</option>
+      <option value="1500000">1 500 000</option>
+    </select>
+  </div>
+
+
+</section>
+
+<section *ngIf="!isFirstVisible" class="container px-4 my-16 mx-auto min-h-screen bg-white " >
+  <p style="text-align: center;"><b>Бланк-опросник (только для Застрахованного)</b></p>
+  <p>Ваши ответы на предлагаемые ниже вопросы являются основным критерием для оценки страхового риска, поэтому просим Вас предоставить на них достоверные и исчерпывающие ответы, а также всю дополнительную информацию, которая могла бы повлиять на принятие решения страховой организацией. </p>
+  <p>  Ответы на следующие вопросы, пожалуйста, отметьте галочкой. Укажите, пожалуйста, в приложении подробности: уточните диагнозы, даты обращения к врачу, мед. учреждения, в которых проходили обследование и лечение, результат лечения.
+  </p>
+  <hr/>
+  <form method="post" id="main_blank">
+
+    <p><b>Ваш рост:</b>  <br>
+      <input [(ngModel)] = "height" class="form-control" type="number" name="question[81]">
+    </p><hr>
+    <p><b>Ваш вес:</b>  <br>
+      <input [(ngModel)] = "weight" class="form-control" type="number" name="question[82]">
+    </p><hr>
+    <div class="question" data-id="1" id="question-1" style="">
+
+      <p class="q">
+        1. Имеется ли у Вас инвалидность 1, 2 или 3 группы, либо имелась ранее? (укажите какая именно)                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[1]" class="radio_ans" type="radio" id="1" name="question[1]" value="нет" required="">
+        <label for="1">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[1]"  checked class="radio_ans" type="radio" id="2" name="question[1]" value="да" required="">
+        <label for="2">да</label>
+      </p>
+
+      <b class="text-sm text-gray-500 font-bold" >  {{answer1}}</b>
+
+
+      <p class="dop_a-2" style="display: none;">
+        <input type="radio" id="1" name="dop-a-2" value="1 группа" required="">
+        <label for="1">1 группа</label>
+      </p>
+
+      <p class="dop_a-2" style="display: none;">
+        <input type="radio" id="2" name="dop-a-2" value="2 группа" required="">
+        <label for="2">2 группа</label>
+      </p>
+
+      <p class="dop_a-2" style="display: none;">
+        <input type="radio" id="3" name="dop-a-2" value="3 группа" required="">
+        <label for="3">3 группа</label>
+      </p>
+
+    </div>
+
+    <a data-zv="2" data-id="1" id="attach" class="attachment-2" style="display: none;" href="#zav-2" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="2" id="question-2" style="">
+
+      <p class="q">
+        2. Имеются ли у Вас какие-либо психиатрические заболевания, либо имелись ранее? (невроз, шизофрения, мании, галлюцинации, бредовые состояния и пр.)                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[2]" checked class="radio_ans" type="radio" id="4" name="question[2]" value="нет" required="">
+        <label for="4">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[2]" class="radio_ans" type="radio" id="5" name="question[2]" value="да" required="">
+        <label for="5">да</label>
+      </p>
+
+
+      <p class="dop_a-5" style="display: none;">
+        <label for="4"><textarea name="question[2]" class="form-control" placeholder="Укажите какая именно" id="floatingTextarea"></textarea></label>
+      </p>
+
+    </div>
+
+    <a data-zv="5" data-id="2" id="attach" class="attachment-5" style="display: none;" href="#zav-5" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="3" id="question-3" style="">
+
+      <p class="q">
+        3. Имеются ли у Вас заболевания нервной системы, либо имелись ранее (эпилепсия, гидроцефалия, внутричерепная гипертензия, расстройства мозгового кровообращения и пр.)?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[3]" checked class="radio_ans" type="radio" id="6" name="question[3]" value="нет" required="">
+        <label for="6">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input  [(ngModel)] = "answersRadio[3]" class="radio_ans" type="radio" id="7" name="question[3]" value="да" required="">
+        <label for="7">да</label>
+      </p>
+
+
+      <p class="dop_a-7" style="display: none;">
+        <label for="35"><textarea name="35" class="form-control" placeholder="Укажите какая именно" id="floatingTextarea"></textarea></label>
+      </p>
+
+    </div>
+
+    <a data-zv="7" data-id="3" id="attach" class="attachment-7" style="display: none;" href="#zav-7" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="4" id="question-4" style="">
+
+      <p class="q">
+        4. Имеются ли заболевания крови, либо имелись ранее (гемофилия, пернициозная анемия, серповидноклеточная анемия, железодефицитная анемия и пр.)?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[4]" checked class="radio_ans" type="radio" id="8" name="question[4]" value="нет" required="">
+        <label for="8">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[4]" class="radio_ans" type="radio" id="9" name="question[4]" value="да" required="">
+        <label for="9">да</label>
+      </p>
+
+
+      <p class="dop_a-9" style="display: none;">
+        <label for="5"><textarea name="5" class="form-control" placeholder="Укажите какая именно" id="floatingTextarea"></textarea></label>
+      </p>
+
+    </div>
+
+    <a data-zv="9" data-id="4" id="attach" class="attachment-9" style="display: none;" href="#zav-9" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="5" id="question-5" style="">
+
+      <p class="q">
+        5. Имеются ли заболевания органов дыхания, либо имелись ранее (астма, бронхиты, плевриты, пневмонии, туберкулез и пр.)?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[5]" checked class="radio_ans" type="radio" id="10" name="question[5]" value="нет" required="">
+        <label for="10">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input  [(ngModel)] = "answersRadio[5]" class="radio_ans" type="radio" id="11" name="question[5]" value="да" required="">
+        <label for="11">да</label>
+      </p>
+
+
+      <p class="dop_a-11" style="display: none;">
+        <label for="6"><textarea name="6" class="form-control" placeholder="Укажите какая именно" id="floatingTextarea"></textarea></label>
+      </p>
+
+    </div>
+
+    <a data-zv="11" data-id="5" id="attach" class="attachment-11" style="display: none;" href="#zav-11" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="6" id="question-6" style="">
+
+      <p class="q">
+        6. Имеется ли у Вас заболевание сердечно-сосудистой системы, либо имелись ранее (аневризма сердца, артериальная гипертензия, гипотония, инфаркт миокарда, стенокардия, миокардит и пр.)?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[6]" checked class="radio_ans" type="radio" id="12" name="question[6]" value="нет" required="">
+        <label for="12">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[6]" class="radio_ans" type="radio" id="13" name="question[6]" value="да" required="">
+        <label for="13">да</label>
+      </p>
+
+
+      <p class="dop_a-13" style="display: none;">
+        <label for="7"><textarea name="7" class="form-control" placeholder="Укажите какая именно" id="floatingTextarea"></textarea></label>
+      </p>
+
+    </div>
+
+    <a data-zv="13" data-id="6" id="attach" class="attachment-13" style="display: none;" href="#zav-13" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="37" id="question-37" style="">
+
+      <p class="q">
+        7.	Имеется ли у Вас заболевания органов пищеварения, либо имелись ранее (атрезия пищевода, болезнь Крона, гастрит, дискинезия желчных путей, желчнокаменная болезнь, панкреатит, язвенная болезнь желудка и 12-перстной кишки и пр.)?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[7]" checked class="radio_ans" type="radio" id="50" name="question[37]" value="нет" required="">
+        <label for="50">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[7]" class="radio_ans" type="radio" id="51" name="question[37]" value="да" required="">
+        <label for="51">да</label>
+      </p>
+
+
+      <p class="dop_a-51" style="display: none;">
+        <label for="36"><textarea name="36" class="form-control" placeholder="Укажите какая именно" id="floatingTextarea"></textarea></label>
+      </p>
+
+    </div>
+
+    <a data-zv="51" data-id="37" id="attach" class="attachment-51" style="display: none;" href="#zav-51" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="38" id="question-38" style="">
+
+      <p class="q">
+        8.	Имеется ли у Вас заболевания эндокринной системы, либо имелись ранее (акромегалия гипертиреоз, сахарный диабет, синдром Кушинга, гипотиреоз и пр.)?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[8]" checked class="radio_ans" type="radio" id="52" name="question[38]" value="нет" required="">
+        <label for="52">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[8]" class="radio_ans" type="radio" id="53" name="question[38]" value="да" required="">
+        <label for="53">да</label>
+      </p>
+
+
+      <p class="dop_a-53" style="display: none;">
+        <label for="37"><textarea name="37" class="form-control" placeholder="Укажите какая именно" id="floatingTextarea"></textarea></label>
+      </p>
+
+    </div>
+
+    <a data-zv="53" data-id="38" id="attach" class="attachment-53" style="display: none;" href="#zav-53" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="39" id="question-39" style="">
+
+      <p class="q">
+        9.	Имеются ли у Вас заболевания печени, либо имелись ранее (абсцесс печени, гепатит А, В, цирроз печени и пр.)?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[9]" checked class="radio_ans" type="radio" id="54" name="question[39]" value="нет" required="">
+        <label for="54">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[9]" class="radio_ans" type="radio" id="55" name="question[39]" value="да" required="">
+        <label for="55">да</label>
+      </p>
+
+
+      <p class="dop_a-55" style="display: none;">
+        <label for="38"><textarea name="38" class="form-control" placeholder="Укажите какая именно" id="floatingTextarea"></textarea></label>
+      </p>
+
+    </div>
+
+    <a data-zv="55" data-id="39" id="attach" class="attachment-55" style="display: none;" href="#zav-55" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="40" id="question-40" style="">
+
+      <p class="q">
+        10.	Имеется ли у Вас СПИД или ВИЧ инфекция?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[10]" checked class="radio_ans" type="radio" id="56" name="question[40]" value="нет" required="">
+        <label for="56">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[10]" class="radio_ans" type="radio" id="57" name="question[40]" value="да" required="">
+        <label for="57">да</label>
+      </p>
+
+
+    </div>
+
+    <a data-zv="57" data-id="40" id="attach" class="attachment-57" style="display: none;" href="#zav-57" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="41" id="question-41" style="">
+
+      <p class="q">
+        11.	Имеются ли у Вас заболевания органов мочевыделительной системы, либо имелись ранее (гломерулонефрит, нефролитиаз, цистит, пиелонефрит и пр.)?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[11]" checked class="radio_ans" type="radio" id="58" name="question[41]" value="нет" required="">
+        <label for="58">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[11]" class="radio_ans" type="radio" id="59" name="question[41]" value="да" required="">
+        <label for="59">да</label>
+      </p>
+
+
+      <p class="dop_a-59" style="display: none;">
+        <label for="39"><textarea name="39" class="form-control" placeholder="Укажите какая именно" id="floatingTextarea"></textarea></label>
+      </p>
+
+    </div>
+
+    <a data-zv="59" data-id="41" id="attach" class="attachment-59" style="display: none;" href="#zav-59" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="42" id="question-42" style="">
+
+      <p class="q">
+        12.	Имеются ли у Вас заболевания органов зрения, либо имелись ранее (глаукома, конъюнктивит, отслойка сетчатки, слепота, дальнозоркость и пр.)?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[12]" checked class="radio_ans" type="radio" id="60" name="question[42]" value="нет" required="">
+        <label for="60">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[12]" class="radio_ans" type="radio" id="61" name="question[42]" value="да" required="">
+        <label for="61">да</label>
+      </p>
+
+
+      <p class="dop_a-61" style="display: none;">
+        <label for="40"><textarea name="40" class="form-control" placeholder="Укажите какая именно" id="floatingTextarea"></textarea></label>
+      </p>
+
+    </div>
+
+    <a data-zv="61" data-id="42" id="attach" class="attachment-61" style="display: none;" href="#zav-61" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="43" id="question-43" style="">
+
+      <p class="q">
+        13.	Имеются ли у Вас заболевания лор-органов, либо имелись ранее (аденоиды, хр тонзиллит, отит, полипы придаточных пазух носа, потеря слуха, синуситы)?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[13]" checked class="radio_ans" type="radio" id="62" name="question[43]" value="нет" required="">
+        <label for="62">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[13]" class="radio_ans" type="radio" id="63" name="question[43]" value="да" required="">
+        <label for="63">да</label>
+      </p>
+
+
+      <p class="dop_a-63" style="display: none;">
+        <label for="41"><textarea name="41" class="form-control" placeholder="Укажите какая именно" id="floatingTextarea"></textarea></label>
+      </p>
+
+    </div>
+
+    <a data-zv="63" data-id="43" id="attach" class="attachment-63" style="display: none;" href="#zav-63" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="44" id="question-44" style="">
+
+      <p class="q">
+        14.	Отмечается ли нарушение функции опорно-двигательного аппарата, либо имелось ранее (остеомиелит, остеохондроз, артриты, артрозы, бурситы и пр.)?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[14]" checked class="radio_ans" type="radio" id="64" name="question[44]" value="нет" required="">
+        <label for="64">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[14]" class="radio_ans" type="radio" id="65" name="question[44]" value="да" required="">
+        <label for="65">да</label>
+      </p>
+
+
+      <p class="dop_a-65" style="display: none;">
+        <label for="42"><textarea name="42" class="form-control" placeholder="Укажите какая именно" id="floatingTextarea"></textarea></label>
+      </p>
+
+    </div>
+
+    <a data-zv="65" data-id="44" id="attach" class="attachment-65" style="display: none;" href="#zav-65" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="45" id="question-45" style="">
+
+      <p class="q">
+        15.	Имеется ли у Вас заболевание кожи, либо имелись ранее (дерматит, дерматомикоз, систематический микоз и пр.)?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[15]" checked class="radio_ans" type="radio" id="66" name="question[45]" value="нет" required="">
+        <label for="66">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[15]" class="radio_ans" type="radio" id="67" name="question[45]" value="да" required="">
+        <label for="67">да</label>
+      </p>
+
+
+      <p class="dop_a-67" style="display: none;">
+        <label for="43"><textarea name="43" class="form-control" placeholder="Укажите какая именно" id="floatingTextarea"></textarea></label>
+      </p>
+
+    </div>
+
+    <a data-zv="67" data-id="45" id="attach" class="attachment-67" style="display: none;" href="#zav-67" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="46" id="question-46" style="">
+
+      <p class="q">
+        16.	Отмечались ли какие-либо повреждения, травмы, либо имелись ранее (повреждения брюшной стенки, грудной стенки, травма позвоночника, ожоги и пр.)?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[16]" checked class="radio_ans" type="radio" id="68" name="question[46]" value="нет" required="">
+        <label for="68">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[16]" class="radio_ans" type="radio" id="69" name="question[46]" value="да" required="">
+        <label for="69">да</label>
+      </p>
+
+
+      <p class="dop_a-69" style="display: none;">
+        <label for="44"><textarea name="44" class="form-control" placeholder="Укажите какая именно" id="floatingTextarea"></textarea></label>
+      </p>
+
+    </div>
+
+    <a data-zv="69" data-id="46" id="attach" class="attachment-69" style="display: none;" href="#zav-69" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="47" id="question-47" style="">
+
+      <p class="q">
+        17.	Имеются ли у Вас какие-либо врожденные заболевания (аномалии Фалло, врожденное слияние почек и пр.)?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[17]" checked class="radio_ans" type="radio" id="70" name="question[47]" value="нет" required="">
+        <label for="70">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[17]" class="radio_ans" type="radio" id="71" name="question[47]" value="да" required="">
+        <label for="71">да</label>
+      </p>
+
+
+      <p class="dop_a-71" style="display: none;">
+        <label for="45"><textarea name="45" class="form-control" placeholder="Укажите какая именно" id="floatingTextarea"></textarea></label>
+      </p>
+
+    </div>
+
+    <a data-zv="71" data-id="47" id="attach" class="attachment-71" style="display: none;" href="#zav-71" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="48" id="question-48" style="">
+
+      <p class="q">
+        18.	Имеются ли у Вас заболевания половых органов, либо имелись ранее (фимоз, крипторхизм, паховая грыжа, водянка яичка, вулъвовагинит, вульвит и пр.)?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[18]" checked class="radio_ans" type="radio" id="72" name="question[48]" value="нет" required="">
+        <label for="72">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[18]" class="radio_ans" type="radio" id="73" name="question[48]" value="да" required="">
+        <label for="73">да</label>
+      </p>
+
+
+      <p class="dop_a-73" style="display: none;">
+        <label for="46"><textarea name="46" class="form-control" placeholder="Укажите какая именно" id="floatingTextarea"></textarea></label>
+      </p>
+
+    </div>
+
+    <a data-zv="73" data-id="48" id="attach" class="attachment-73" style="display: none;" href="#zav-73" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="49" id="question-49" style="">
+
+      <p class="q">
+        19.	Страдаете ли Вы диффузными заболеваниями соединительной ткани, либо страдали ранее (дерматомиозит, системная красная волчанка и пр.)?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[19]" checked class="radio_ans" type="radio" id="74" name="question[49]" value="нет" required="">
+        <label for="74">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[19]" class="radio_ans" type="radio" id="75" name="question[49]" value="да" required="">
+        <label for="75">да</label>
+      </p>
+
+
+      <p class="dop_a-75" style="display: none;">
+        <label for="47"><textarea name="47" class="form-control" placeholder="Укажите какая именно" id="floatingTextarea"></textarea></label>
+      </p>
+
+    </div>
+
+    <a data-zv="75" data-id="49" id="attach" class="attachment-75" style="display: none;" href="#zav-75" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="50" id="question-50" style="">
+
+      <p class="q">
+        20.	Имеется ли у Вас онкологическое заболевание, либо имелось ранее?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[20]" checked class="radio_ans" type="radio" id="76" name="question[50]" value="нет" required="">
+        <label for="76">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[20]" class="radio_ans" type="radio" id="77" name="question[50]" value="да" required="">
+        <label for="77">да</label>
+      </p>
+
+
+      <p class="dop_a-77" style="display: none;">
+        <label for="48"><textarea name="48" class="form-control" placeholder="Укажите какая именно" id="floatingTextarea"></textarea></label>
+      </p>
+
+    </div>
+
+    <a data-zv="77" data-id="50" id="attach" class="attachment-77" style="display: none;" href="#zav-77" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="51" id="question-51" style="">
+
+      <p class="q">
+        21.	Болели ли Вы заболеваниями, передающимися половым путем (сифилисом, гонореей и пр.)?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[21]" checked class="radio_ans" type="radio" id="78" name="question[51]" value="нет" required="">
+        <label for="78">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[21]" class="radio_ans" type="radio" id="79" name="question[51]" value="да" required="">
+        <label for="79">да</label>
+      </p>
+
+
+      <p class="dop_a-79" style="display: none;">
+        <label for="49"><textarea name="49" class="form-control" placeholder="Укажите какая именно" id="floatingTextarea"></textarea></label>
+      </p>
+
+    </div>
+
+    <a data-zv="79" data-id="51" id="attach" class="attachment-79" style="display: none;" href="#zav-79" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="52" id="question-52" style="">
+
+      <p class="q">
+        22.	Имеется ли у Вас инфекционное заболевание, либо имелось ранее (бруцеллез, рожа, сибирская язва, скарлатина и пр.)?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[22]" checked class="radio_ans" type="radio" id="80" name="question[52]" value="нет" required="">
+        <label for="80">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[22]" class="radio_ans" type="radio" id="81" name="question[52]" value="да" required="">
+        <label for="81">да</label>
+      </p>
+
+
+      <p class="dop_a-81" style="display: none;">
+        <label for="50"><textarea name="50" class="form-control" placeholder="Укажите какая именно" id="floatingTextarea"></textarea></label>
+      </p>
+
+    </div>
+
+    <a data-zv="81" data-id="52" id="attach" class="attachment-81" style="display: none;" href="#zav-81" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="53" id="question-53" style="">
+
+      <p class="q">
+        23.	Имеется ли у Вас степень утраты трудоспособности?                                         </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[23]" checked class="radio_ans" type="radio" id="82" name="question[53]" value="нет" required="">
+        <label for="82">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[23]" class="radio_ans" type="radio" id="84" name="question[53]" value="да" required="">
+        <label for="84">да</label>
+      </p>
+
+
+    </div>
+
+    <a data-zv="84" data-id="53" id="attach" class="attachment-84" style="display: none;" href="#zav-84" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="54" id="question-54" style="">
+
+      <p class="q">
+        24.	Предстоит ли Вам хирургическая операция?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[24]" checked class="radio_ans" type="radio" id="85" name="question[54]" value="нет" required="">
+        <label for="85">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[24]" class="radio_ans" type="radio" id="86" name="question[54]" value="да" required="">
+        <label for="86">да</label>
+      </p>
+
+
+    </div>
+
+    <a data-zv="86" data-id="54" id="attach" class="attachment-86" style="display: none;" href="#zav-86" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="55" id="question-55" style="">
+
+      <p class="q">
+        25.	Беременны ли Вы? (для женщин)                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[25]" class="radio_ans" type="radio" id="88" name="question[55]" value="да" required="">
+        <label for="88">да</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[25]" checked class="radio_ans" type="radio" id="87" name="question[55]" value="нет" required="">
+        <label for="87">нет</label>
+      </p>
+
+
+    </div>
+
+    <a data-zv="87" data-id="55" id="attach" class="attachment-87" style="display: none;" href="#zav-87" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="56" id="question-56" style="">
+
+      <p class="q">
+        26.	Имеются ли заболевания, травмы, не указанные выше, либо имелись ранее?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[26]" checked class="radio_ans" type="radio" id="89" name="question[56]" value="нет" required="">
+        <label for="89">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[26]" class="radio_ans" type="radio" id="90" name="question[56]" value="да" required="">
+        <label for="90">да</label>
+      </p>
+
+
+      <p class="dop_a-90" style="display: none;">
+        <label for="51"><textarea name="51" class="form-control" placeholder="Укажите какая именно" id="floatingTextarea"></textarea></label>
+      </p>
+
+    </div>
+
+    <a data-zv="90" data-id="56" id="attach" class="attachment-90" style="display: none;" href="#zav-90" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="57" id="question-57" style="">
+
+      <p class="q">
+        27.	Принимаете ли Вы медицинские препараты в настоящее время?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[27]" checked class="radio_ans" type="radio" id="91" name="question[57]" value="нет" required="">
+        <label for="91">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[27]" class="radio_ans" type="radio" id="92" name="question[57]" value="да" required="">
+        <label for="92">да</label>
+      </p>
+
+
+      <p class="dop_a-92" style="display: none;">
+        <label for="52"><textarea name="52" class="form-control" placeholder="Укажите какая именно" id="floatingTextarea"></textarea></label>
+      </p>
+
+    </div>
+
+    <a data-zv="92" data-id="57" id="attach" class="attachment-92" style="display: none;" href="#zav-92" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="58" id="question-58" style="">
+
+      <p class="q">
+        28.	Занимаетесь ли Вы или собираетесь заниматься опасными видами спорта?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[28]" checked class="radio_ans" type="radio" id="93" name="question[58]" value="нет" required="">
+        <label for="93">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[28]" class="radio_ans" type="radio" id="94" name="question[58]" value="да" required="">
+        <label for="94">да</label>
+      </p>
+
+
+      <p class="dop_a-94" style="display: none;">
+        <input type="radio" id="53" name="dop-a-94" value="ныряние с аквалангом" required="">
+        <label for="53">ныряние с аквалангом</label>
+      </p>
+
+      <p class="dop_a-94" style="display: none;">
+        <input type="radio" id="54" name="dop-a-94" value="парашютный спорт" required="">
+        <label for="54">парашютный спорт </label>
+      </p>
+
+      <p class="dop_a-94" style="display: none;">
+        <input type="radio" id="55" name="dop-a-94" value="автогонки" required="">
+        <label for="55">автогонки</label>
+      </p>
+
+      <p class="dop_a-94" style="display: none;">
+        <input type="radio" id="56" name="dop-a-94" value="горные лыжи" required="">
+        <label for="56">горные лыжи</label>
+      </p>
+
+      <p class="dop_a-94" style="display: none;">
+        <input type="radio" id="57" name="dop-a-94" value="дельтапланеризм" required="">
+        <label for="57">дельтапланеризм</label>
+      </p>
+
+      <p class="dop_a-94" style="display: none;">
+        <input type="radio" id="58" name="dop-a-94" value="альпинизм" required="">
+        <label for="58">альпинизм</label>
+      </p>
+
+      <p class="dop_a-94" style="display: none;">
+        <!--   <input type="radio" id="59" name="dop-a-94" value="59" required=""> -->
+        <label for="59"><textarea class="form-control" placeholder="Другое(укажите)" id="floatingTextarea" required=""></textarea></label>
+      </p>
+
+    </div>
+
+    <a data-zv="94" data-id="58" id="attach" class="attachment-94" style="display: none;" href="#zav-94" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="59" id="question-59" style="">
+
+      <p class="q">
+        29.	Выезжали ли Вы из страны Вашего местопребывания более, чем на 30 дней в году?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[29]"checked class="radio_ans" type="radio" id="95" name="question[59]" value="нет" required="">
+        <label for="95">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[29]" class="radio_ans" type="radio" id="96" name="question[59]" value="да" required="">
+        <label for="96">да</label>
+      </p>
+
+
+    </div>
+
+    <a data-zv="96" data-id="59" id="attach" class="attachment-96" style="display: none;" href="#zav-96" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="60" id="question-60" style="">
+
+      <p class="q">
+        30.	Подавали ли Вы заявление на страхование в другие страховые компании?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[30]" checked class="radio_ans" type="radio" id="97" name="question[60]" value="нет" required="">
+        <label for="97">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[30]" class="radio_ans" type="radio" id="98" name="question[60]" value="да" required="">
+        <label for="98">да</label>
+      </p>
+
+
+    </div>
+
+    <a data-zv="98" data-id="60" id="attach" class="attachment-98" style="display: none;" href="#zav-98" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="61" id="question-61" style="">
+
+      <p class="q">
+        31.	Имеете ли вы какие - либо существующее страховое покрытие по страхованию жизни?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[31]" checked class="radio_ans" type="radio" id="99" name="question[61]" value="нет" required="">
+        <label for="99">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[31]" class="radio_ans" type="radio" id="100" name="question[61]" value="да" required="">
+        <label for="100">да(Если да, укажите на какую страховую сумму ______________ и сколько полисов страхования?)</label>
+      </p>
+
+
+      <p class="dop_a-100" style="display: none;">
+        <input type="radio" id="23" name="dop-a-100" value="2" required="">
+        <label for="23">2</label>
+      </p>
+
+      <p class="dop_a-100" style="display: none;">
+        <input type="radio" id="24" name="dop-a-100" value="более 2-х" required="">
+        <label for="24">более 2-х</label>
+      </p>
+
+    </div>
+
+    <a data-zv="100" data-id="61" id="attach" class="attachment-100" style="display: none;" href="#zav-100" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="62" id="question-62" style="">
+
+      <p class="q">
+        32.	Курите ли Вы?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[32]" checked class="radio_ans" type="radio" id="101" name="question[62]" value="нет" required="">
+        <label for="101">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[32]" class="radio_ans" type="radio" id="102" name="question[62]" value="да" required="">
+        <label for="102">да(укажите количество)</label>
+      </p>
+
+
+      <p class="dop_a-102" style="display: none;">
+        <input type="radio" id="25" name="dop-a-102" value=" до 40 сигарет в день" required="">
+        <label for="25"> до 40 сигарет в день</label>
+      </p>
+
+      <p class="dop_a-102" style="display: none;">
+        <input type="radio" id="26" name="dop-a-102" value="свыше 40 сигарет в день" required="">
+        <label for="26">свыше 40 сигарет в день</label>
+      </p>
+
+    </div>
+
+    <a data-zv="102" data-id="62" id="attach" class="attachment-102" style="display: none;" href="#zav-102" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="63" id="question-63" style="">
+
+      <p class="q">
+        33.	Употребляете ли Вы алкоголь?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[33]" checked class="radio_ans" type="radio" id="103" name="question[63]" value="нет" required="">
+        <label for="103">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[33]" class="radio_ans" type="radio" id="104" name="question[63]" value="да" required="">
+        <label for="104">да(Если да, то какое Ваше среднее потребление алкоголя в день (укажите при этом, пожалуйста, вид алкоголя: пиво, вино или крепкие напитки)?</label>
+      </p>
+
+
+      <p class="dop_a-104" style="display: none;">
+        <label for="64"><textarea name="64" class="form-control" placeholder="Укажите какая именно" id="floatingTextarea"></textarea></label>
+      </p>
+
+    </div>
+
+    <a data-zv="104" data-id="63" id="attach" class="attachment-104" style="display: none;" href="#zav-104" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="64" id="question-64" style="">
+
+      <p class="q">
+        34.	Страдали ли Вы наркотической зависимостью?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[34]" checked class="radio_ans" type="radio" id="105" name="question[64]" value="нет" required="">
+        <label for="105">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[34]" class="radio_ans" type="radio" id="106" name="question[64]" value="да" required="">
+        <label for="106">да</label>
+      </p>
+
+
+    </div>
+
+    <a data-zv="106" data-id="64" id="attach" class="attachment-106" style="display: none;" href="#zav-106" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="65" id="question-65" style="">
+
+      <p class="q">
+        35.	Отказывали ли Вам по каким-либо причинам в страховании жизни в течение последних 12 месяцев?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[35]" checked class="radio_ans" type="radio" id="107" name="question[65]" value="нет" required="">
+        <label for="107">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[35]" class="radio_ans" type="radio" id="108" name="question[65]" value="да" required="">
+        <label for="108">да</label>
+      </p>
+
+
+      <p class="dop_a-108" style="display: none;">
+        <label for="65"><textarea name="65" class="form-control" placeholder="Укажите какая именно" id="floatingTextarea"></textarea></label>
+      </p>
+
+    </div>
+
+    <a data-zv="108" data-id="65" id="attach" class="attachment-108" style="display: none;" href="#zav-108" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="66" id="question-66" style="">
+
+      <p class="q">
+        36.	Страдаете ли Вы профессиональными заболеваниями?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[36]" checked class="radio_ans" type="radio" id="109" name="question[66]" value="нет" required="">
+        <label for="109">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[36]" class="radio_ans" type="radio" id="110" name="question[66]" value="да" required="">
+        <label for="110">да</label>
+      </p>
+
+
+      <p class="dop_a-110" style="display: none;">
+        <label for="66"><textarea name="66" class="form-control" placeholder="Укажите какая именно" id="floatingTextarea"></textarea></label>
+      </p>
+
+    </div>
+
+    <a data-zv="110" data-id="66" id="attach" class="attachment-110" style="display: none;" href="#zav-110" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+    <div class="question" data-id="67" id="question-67" style="">
+
+      <p class="q">
+        37.	Связана ли Ваша профессия с трудовой деятельностью, которую можно назвать опасной?                                        </p>
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[37]" checked class="radio_ans" type="radio" id="111" name="question[67]" value="нет" required="">
+        <label for="111">нет</label>
+      </p>
+
+
+      <p class="a">
+        <input [(ngModel)] = "answersRadio[37]" class="radio_ans" type="radio" id="112" name="question[67]" value="да" required="">
+        <label for="112">да</label>
+      </p>
+
+
+      <p class="dop_a-112" style="display: none;">
+        <input type="radio" id="27" name="dop-a-112" value="металлургическая" required="">
+        <label for="27">металлургическая</label>
+      </p>
+
+      <p class="dop_a-112" style="display: none;">
+        <input type="radio" id="28" name="dop-a-112" value="угледобывающая" required="">
+        <label for="28">угледобывающая</label>
+      </p>
+
+      <p class="dop_a-112" style="display: none;">
+        <input type="radio" id="29" name="dop-a-112" value="нефтегазовая" required="">
+        <label for="29">нефтегазовая</label>
+      </p>
+
+      <p class="dop_a-112" style="display: none;">
+        <input type="radio" id="30" name="dop-a-112" value="служба в органах правопорядка" required="">
+        <label for="30">служба в органах правопорядка</label>
+      </p>
+
+      <p class="dop_a-112" style="display: none;">
+        <input type="radio" id="31" name="dop-a-112" value="полеты на самолетах" required="">
+        <label for="31">полеты на самолетах</label>
+      </p>
+
+      <p class="dop_a-112" style="display: none;">
+        <input type="radio" id="32" name="dop-a-112" value="связана с пиротехникой" required="">
+        <label for="32">связана с пиротехникой</label>
+      </p>
+
+      <p class="dop_a-112" style="display: none;">
+        <input type="radio" id="33" name="dop-a-112" value="охрана объектов" required="">
+        <label for="33">охрана объектов</label>
+      </p>
+
+      <p class="dop_a-112" style="display: none;">
+        <label for="70"><textarea name="70" class="form-control" placeholder="Укажите какая именно" id="floatingTextarea"></textarea></label>
+      </p>
+
+    </div>
+
+    <a data-zv="112" data-id="67" id="attach" class="attachment-112" style="display: none;" href="#zav-112" data-toggle="modal"><i class="fa fa-plus-square-o"></i> Приложение №1</a>
+    <hr>
+
+
+
+
+    <hr />
+
+    <p><b>Заполните, пожалуйста, таблицу и укажите состояние здоровья и возраст родителей, братьев и сестер, если живы, или возраст смерти и причину смерти (диагнозы):</b></p>
+    <table class="table table-striped table-bordered table-hover" id="editable">
+      <thead>
+      <tr>
+        <th></th>
+        <th>Возраст, если живы</th>
+        <th>Состояние здоровья</th>
+        <th>Возраст смерти</th>
+        <th>Диагноз смерти</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Отец</td>
+        <td><input [(ngModel)] = "fatherLifeAge" class="form-control" type="number" name="question[121]" /></td>
+        <td><textarea [(ngModel)] = "fatherCondition" class="form-control"  name="question[122]"></textarea></td>
+        <td><input [(ngModel)] = "fatherDeadthAge" class="form-control" type="number"  name="question[123]" /></td>
+        <td><textarea [(ngModel)] = "fatherDiagnosis" class="form-control"  name="question[124]"></textarea></td>
+      </tr>
+      <tr>
+        <td>Мать</td>
+        <td><input [(ngModel)] = "motherLifeAge" class="form-control" type="number" name="question[125]" /></td>
+        <td><textarea [(ngModel)] = "motherCondition" class="form-control"  name="question[126]"></textarea></td>
+        <td><input [(ngModel)] = "motherDeadthAge" class="form-control" type="number"  name="question[127]" /></td>
+        <td><textarea [(ngModel)] = "motherDiagnosis" class="form-control"  name="question[128]"></textarea></td>
+      </tr>
+      <tr>
+        <td>Братья</td>
+        <td><input [(ngModel)] = "brothersLifeAge" class="form-control" type="number" name="question[129]" /></td>
+        <td><textarea [(ngModel)] = "brothersCondition" class="form-control"  name="question[130]"></textarea></td>
+        <td><input [(ngModel)] = "brothersDeadthAge" class="form-control" type="number"  name="question[131]" /></td>
+        <td><textarea [(ngModel)] = "brothersDiagnosis" class="form-control"  name="question[132]"></textarea></td>
+      </tr>
+      <tr>
+        <td>Сестры</td>
+        <td><input [(ngModel)] = "sistersLifeAge" class="form-control" type="number" name="question[133]" /></td>
+        <td><textarea [(ngModel)] = "sistersCondition" class="form-control"  name="question[134]"></textarea></td>
+        <td><input [(ngModel)] = "sistersDeadthAge" class="form-control" type="number"  name="question[135]" /></td>
+        <td><textarea [(ngModel)] = "sistersDiagnosis" class="form-control"  name="question[136]"></textarea></td>
+      </tr>
+      </tbody>
+    </table>
+    <hr />
+
+
+    <div id="list_temp" style="display: none;">
+      <input type="hidden" name="icnct" value="0"/>
+      <input type="hidden" name="id_client" value=""/>
+      <input type="hidden" name="type_client" value="0"/>
+      <input type="hidden" name="id_client_strahovatel" value=""/>
+      <input type="hidden" name="id_client_zastrah" value=""/>
+      <input type="hidden" name="id_client_vigoda_on_death" value=""/>
+
+      <input type="hidden" name="branch_id" value=""/>
+      <input type="hidden" name="zv_num" value=""/>
+      <input type="hidden" name="zv_date" value=""/>
+      <input type="hidden" name="strah_vznos" value=""/>
+      <input type="hidden" name="god_dohod" value=""/>
+      <input type="hidden" name="id_agent_select" value=""/>
+      <input type="hidden" name="m_rashod" value=""/>
+      <input type="hidden" name="set_m_periodich" value=""/>
+
+      <input type="hidden" name="set_main_pokr" value=""/>
+      <input type="hidden" name="set_m_srok" value=""/>
+
+      <input type="hidden" name="dop_pokr_ns_sum_e" value=""/>
+      <input type="hidden" name="dop_pokr_vrem_netrud_e" value=""/>
+      <input type="hidden" name="dop_pokr_gospital_e" value=""/>
+      <input type="hidden" name="dop_pokr_smert_ns_e" value=""/>
+      <input type="hidden" name="dop_pokr_invalid_e" value=""/>
+
+    </div>
+
+    <button
+
+      class="border border-transparent p-2 bg-green-500 rounded-r text-white"
+      id="btn_search_zastrah"
+      autofocus
+      (click)="createSends()"
+    > Нажать </button>
+
+
+  </form>
+
+</section>
+
+<!--<app-nsjnew-first  *ngIf="isFirstVisible" [fromParent]="fromParent"  > </app-nsjnew-first>-->
+
+<!--  <app-nsjnew-second  *ngIf="!isFirstVisible"></app-nsjnew-second>-->
 
 <button *ngIf="isFirstVisible"
   class="border border-transparent p-2 bg-green-500 rounded-r text-white"
@@ -47,6 +1435,204 @@
 >
   Назад
 </button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Модальное окно для добавления выгодоприробретателей смерти  -->
+<div #modal class="modal modal-fixed-footer">
+  <div class="modal-content">
+    <h4 class="mb1">Добавить выгодоприобретателя на случай смерти</h4>
+    <div class="find-straxovatel flex mt-3 ">
+      <button class="border border-transparent p-2 bg-blue-500 rounded-l text-white"> Создать </button>
+      <input
+        type="text"
+        class="border border-gray-300 w-full outline-none p-2 focus:border-green-400"
+        [(ngModel)]="IIN"
+      >
+
+      <button
+        class="border border-transparent p-2 bg-green-500 rounded-r text-white"
+        id="btn_search_zastrah"
+        autofocus
+        (click)="loadMore2()"
+      >
+        Найти
+      </button>
+    </div>
+    <div>
+      <a *ngFor="let i of vigodosSmert" (click)="addToOrder2(i)"  class="collection-item">{{i.NAME}}</a>
+    </div>
+    <div *ngIf="vigodopreodetatelSmert">
+      <b class="text-sm text-gray-500 font-bold" > Застрахованный: {{vigodopreodetatelSmert.NAME}}</b>
+      <input
+        type="text"
+        class="border border-gray-300 w-full outline-none p-2 focus:border-green-400"
+        [(ngModel)]="prosent"
+      >
+      <button
+        class="modal-action btn waves-effect"
+        (click)="VigodaSmert()"
+
+      >Подтвердить</button>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button
+      class="modal-action waves-effect waves-black btn-flat"
+
+    >Отмена</button>
+    <button
+      class="modal-action btn waves-effect"
+      (click)="submit()"
+
+    >Подтвердить</button>
+  </div>
+</div>
+
+
+
+
+<!-- Модальное окно для добавления выгодоприробретателей дожития  -->
+<div #modal2 class="modal modal-fixed-footer">
+  <div class="modal-content">
+    <h4 class="mb1">Добавить выгодоприобретателя на случай Дожития</h4>
+    <div class="find-straxovatel flex mt-3 ">
+      <button class="border border-transparent p-2 bg-blue-500 rounded-l text-white"> Создать </button>
+      <input
+        type="text"
+        class="border border-gray-300 w-full outline-none p-2 focus:border-green-400"
+        [(ngModel)]="IIN"
+      >
+
+      <button
+        class="border border-transparent p-2 bg-green-500 rounded-r text-white"
+        id="btn_search_zastrah"
+        autofocus
+        (click)="loadMore4()"
+      >
+        Найти
+      </button>
+    </div>
+    <div>
+      <a *ngFor="let i of vigodosZhizn" (click)="addToOrder4(i)"  class="collection-item">{{i.NAME}}</a>
+    </div>
+    <div *ngIf="vigodopreodetatelZhizn">
+      <b class="text-sm text-gray-500 font-bold" > Застрахованный: {{vigodopreodetatelZhizn.NAME}}</b>
+      <input
+        type="text"
+        class="border border-gray-300 w-full outline-none p-2 focus:border-green-400"
+        [(ngModel)]="prosent"
+      >
+      <button
+        class="modal-action btn waves-effect"
+        (click)="VigodaSmert()"
+
+      >Подтвердить</button>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button
+      class="modal-action waves-effect waves-black btn-flat"
+
+    >Отмена</button>
+    <button
+      class="modal-action btn waves-effect"
+      (click)="submit()"
+
+    >Подтвердить</button>
+  </div>
+</div>
+
+
+
+
+<!-- Модальное окно для добавления региона  -->
+<div #modalReg class="modal modal-fixed-footer">
+  <div class="modal-content">
+    <h4 class="mb1">Выберите регион  из списка</h4>
+    <div class="row">
+      <div class="col s12">
+        <div class="collection">
+          <a *ngFor="let i of regions"
+             class="collection-item" (click)="selectToRegion(i)" >{{i.NAME}}
+
+          </a>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+  <div class="modal-footer">
+    <button
+      class="modal-action waves-effect waves-black btn-flat"
+
+    >Отмена</button>
+    <button
+      class="modal-action btn waves-effect"
+      (click)="submit()"
+
+    >Подтвердить</button>
+  </div>
+</div>
+
+
+
+<!-- Модальное окно для добавления нагрузок  -->
+<div #modalNagruz class="modal modal-fixed-footer">
+  <div class="modal-content">
+    <h4 class="mb1">Выберите тип нагрузки</h4>
+    <div class="row">
+      <div class="col s12">
+        <div class="collection">
+          <a *ngFor="let i of nagruzki; let idx =index"
+             class="collection-item"  > {{i}}
+
+          </a>
+          <input
+            type="text"
+            class="border border-gray-300 w-full outline-none p-2 focus:border-green-400"
+
+          >
+
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+  <div class="modal-footer">
+    <button
+      class="modal-action waves-effect waves-black btn-flat"
+
+    >Отмена</button>
+    <button
+      class="modal-action btn waves-effect"
+      (click)="submit()"
+
+    >Подтвердить</button>
+  </div>
+</div>
+
+
+
 
 
 

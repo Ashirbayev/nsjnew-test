@@ -140,17 +140,39 @@ module.exports.createAns = async function (req, res) {
 
 
 module.exports.createZayav = async function (req, res) {
-
-
     try {
         connection = await oracledb.getConnection(
             {user: "insurance", password: 'insurance', connectString: "192.168.5.191/orcl"});
+       /* let jsObj = {};
+        jsObj.cnctid = 0;
+        jsObj.BRANCH_ID = req.body.BRANCH_ID;
+        jsObj.ZAV_NUMBER = req.body.ZAV_NUMBER
+            jsObj.DATE_ZAV = req.body.DATE_ZAV
+            jsObj.STRAH_VZNOS = req.body.STRAH_VZNOS
+            jsObj.SELECT_ID_AGENT = req.body.SELECT_ID_AGENT
+            jsObj.AGENT_RASHOD = req.body.AGENT_RASHOD
+            jsObj.PERIOD = req.body.PERIOD
+            jsObj.SROK_STRAH = req.body.SROK_STRAH
+            jsObj.MAIN_POKR = req.body.MAIN_POKR
+            jsObj.DOP_POKR = 1
+            jsObj.GOD_DOHOD = req.body.GOD_DOHOD
+            jsObj.VIGODO_SMERT = req.body
+            jsObj.VIGODO_ZHIZN =
+            jsObj.STRAHOVATEL =
+            jsObj.ZASTRAHOVAN =
+            jsObj.ANSWERS =
+            jsObj.EMPID =
+        jsObj.EMPID.RISK =*/
+
+        //'to_date(${req.body.DATE_ZAV},\''dd.mm.yyyy\'')',
+
+
 
         let query =`begin NSJ.Save_zayav(
-            '0',
+             '0',
             '${req.body.BRANCH_ID}',
             '${req.body.ZAV_NUMBER}',
-            to_date('${req.body.DATE_ZAV}', 'dd.mm.yyyy'),            
+             to_date('${req.body.DATE_ZAV}','dd.mm.yyyy'),            
             '${req.body.STRAH_VZNOS}',
             '${req.body.SELECT_ID_AGENT}',
             '${req.body.AGENT_RASHOD}',
@@ -179,11 +201,12 @@ module.exports.createZayav = async function (req, res) {
         console.log('Rows inserted: ', req.body.ANSWERS);
 
         res.status(201).json({
-            token: `Bearer ${req.body.EMPID}`
+            token: 'Output: ' + result.outBinds.id
         })
 
     } catch (e) {
         errorHandler(res, e)
+        console.log(req.body.GOD_DOHOD)
     }
 }
 
