@@ -12,6 +12,8 @@ const regionsRoutes = require('./routes/regions')
 const questionRoutes = require('./routes/question')
 const agentRoutes = require('./routes/agents')
 const statmentRoutes = require('./routes/statment')
+const obtainRoutes = require('./routes/vigodos')
+const obtainPokrs = require('./routes/pokrs')
 
 const keys =require('./config/keys')
 const app = express()
@@ -46,6 +48,8 @@ app.use('/api/regions', regionsRoutes)
 app.use('/api/question', questionRoutes)
 app.use('/api/agents', agentRoutes)
 app.use('/api/statment', statmentRoutes)
+app.use('/api/vigodos', obtainRoutes)
+app.use('/api/pokrs', obtainPokrs)
 
 
 

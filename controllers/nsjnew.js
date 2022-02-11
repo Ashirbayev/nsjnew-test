@@ -2,21 +2,20 @@ const oracledb = require('oracledb');
 const errorHandler = require('../utils/errorHandler')
 
 
-
-module.exports.selectAllTest =async function (req, res) {
+module.exports.selectAllTest = async function (req, res) {
     try {
         connection = await oracledb.getConnection({
             user: "insurance",
             password: 'insurance',
             connectString: "192.168.5.191/orcl"
         });
-         result = await connection.execute(
+        result = await connection.execute(
             `select * from BORDERO_STATE`,
             [],  // bind value for :id
-            { outFormat: oracledb.OUT_FORMAT_OBJECT }
+            {outFormat: oracledb.OUT_FORMAT_OBJECT}
         );
 
-         const test = result.rows
+        const test = result.rows
         res.send(test);
         //res.status(200).json(test)
 
@@ -29,7 +28,7 @@ module.exports.selectAllTest =async function (req, res) {
 
 
 module.exports.getByIIN = async function (req, res) {
-      try {
+    try {
         connection = await oracledb.getConnection({
             user: "insurance",
             password: 'insurance',
@@ -46,7 +45,7 @@ module.exports.getByIIN = async function (req, res) {
         // run query to get all employees
         result = await connection.execute(query,
             [],  // bind value for :id
-            { outFormat: oracledb.OUT_FORMAT_OBJECT });
+            {outFormat: oracledb.OUT_FORMAT_OBJECT});
 
         const test = result.rows
         res.send(test);
@@ -61,7 +60,6 @@ module.exports.getByIIN = async function (req, res) {
 }
 
 
-
 module.exports.getAllRegions = async function (req, res) {
     try {
         connection = await oracledb.getConnection({
@@ -74,7 +72,7 @@ module.exports.getAllRegions = async function (req, res) {
         // run query to get all employees
         result = await connection.execute(query,
             [],  // bind value for :id
-            { outFormat: oracledb.OUT_FORMAT_OBJECT });
+            {outFormat: oracledb.OUT_FORMAT_OBJECT});
 
         const test = result.rows
         res.send(test);
@@ -100,7 +98,7 @@ module.exports.getZavNum = async function (req, res) {
         // run query to get all employees
         result = await connection.execute(query,
             [],  // bind value for :id
-            { outFormat: oracledb.OUT_FORMAT_OBJECT });
+            {outFormat: oracledb.OUT_FORMAT_OBJECT});
 
 
         res.send(result.rows);
@@ -116,9 +114,9 @@ module.exports.getZavNum = async function (req, res) {
 
 module.exports.createAns = async function (req, res) {
 
-     k = req.body.ID_QUESTION
-     v = req.body.ID_ANSWER
-     // q_id = 15
+    k = req.body.ID_QUESTION
+    v = req.body.ID_ANSWER
+    // q_id = 15
     try {
         connection = await oracledb.getConnection(
             {user: "insurance", password: 'insurance', connectString: "192.168.5.191/orcl"});
@@ -138,37 +136,11 @@ module.exports.createAns = async function (req, res) {
 }
 
 
-
 module.exports.createZayav = async function (req, res) {
     try {
         connection = await oracledb.getConnection(
             {user: "insurance", password: 'insurance', connectString: "192.168.5.191/orcl"});
-       /* let jsObj = {};
-        jsObj.cnctid = 0;
-        jsObj.BRANCH_ID = req.body.BRANCH_ID;
-        jsObj.ZAV_NUMBER = req.body.ZAV_NUMBER
-            jsObj.DATE_ZAV = req.body.DATE_ZAV
-            jsObj.STRAH_VZNOS = req.body.STRAH_VZNOS
-            jsObj.SELECT_ID_AGENT = req.body.SELECT_ID_AGENT
-            jsObj.AGENT_RASHOD = req.body.AGENT_RASHOD
-            jsObj.PERIOD = req.body.PERIOD
-            jsObj.SROK_STRAH = req.body.SROK_STRAH
-            jsObj.MAIN_POKR = req.body.MAIN_POKR
-            jsObj.DOP_POKR = 1
-            jsObj.GOD_DOHOD = req.body.GOD_DOHOD
-            jsObj.VIGODO_SMERT = req.body
-            jsObj.VIGODO_ZHIZN =
-            jsObj.STRAHOVATEL =
-            jsObj.ZASTRAHOVAN =
-            jsObj.ANSWERS =
-            jsObj.EMPID =
-        jsObj.EMPID.RISK =*/
-
-        //'to_date(${req.body.DATE_ZAV},\''dd.mm.yyyy\'')',
-
-
-
-        let query =`begin NSJ.Save_zayav(
+        let query = `begin NSJ.Save_zayav(
              '0',
             '${req.body.BRANCH_ID}',
             '${req.body.ZAV_NUMBER}',
@@ -191,51 +163,105 @@ module.exports.createZayav = async function (req, res) {
            :id
             ); end; `;
         result = await connection.execute(query,
-            { id: {dir: oracledb.BIND_OUT,type: oracledb.NUMBER} });
-
-
-
-        console.log('Output: ' + result.outBinds.id);
-
-
-        console.log('Rows inserted: ', req.body.ANSWERS);
+            {id: {dir: oracledb.BIND_OUT, type: oracledb.NUMBER}});
 
         res.status(201).json({
-            token: 'Output: ' + result.outBinds.id
+            cnctid: result.outBinds.id
         })
 
     } catch (e) {
         errorHandler(res, e)
-        console.log(req.body.GOD_DOHOD)
+
     }
 }
 
 
+module.exports.createObtain = async function (req, res) {
+
+    try {
+        connection = await oracledb.getConnection(
+            {user: "insurance", password: 'insurance', connectString: "192.168.5.191/orcl"});
 
 
-/*
-Procedure Save_zayav(
-    icnct number,
-    branch_id number,
-    num_zav varchar2,
-    date_zav date,
-    strah_vznos number,
-    agents number,
-    agent_rashod number,
-    periodich varchar2,
-    srok_strah number,
-    main_pokr number,
-    dop_pokr varchar2 default null,
-    god_dohod number,
-    ilist_user_smert varchar2,
-    ilist_user_dozhitia varchar2,
-    id_strahovatel number,
-    id_zastrahovan number,
-    ilist_question varchar2,
-    empid number,
-    irisk varchar2,
-    iids out number
-);*/
+        let query = `begin NSJ.SetObtainNszh(
+                '${req.body.M_SICID}',
+                '${req.body.VIGODO_PRECENT}',
+                '${req.body.TYPE_VIGODA}',
+                :id                
+            );
+            end;`;
+        result = await connection.execute(query,
+            {id: {dir: oracledb.BIND_OUT, type: oracledb.NUMBER}});
+
+
+
+        res.status(201).json({
+            cnctid: result.outBinds.id
+        })
+
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+
+module.exports.deleteObtain = async function (req, res) {
+   console.log(req.params.ID)
+    try {
+        connection = await oracledb.getConnection(
+            {user: "insurance", password: 'insurance', connectString: "192.168.5.191/orcl"});
+        let query = `delete NSZH_CLIENTS_OBTAIN_TEMP where id = '${req.params.ID}'`;
+        result = await connection.execute(query,
+            [],  // bind value for :id
+            {outFormat: oracledb.OUT_FORMAT_OBJECT});
+        res.status(201).json({
+            cnctid: 'Успешно удален'
+        })
+    } catch (e) {
+        //errorHandler(res, e)
+        res.status(500).json({
+            success: req.params.ID
+        })
+    }
+}
+
+
+module.exports.getPokrs = async function (req, res) {
+    try {
+        connection = await oracledb.getConnection({
+            user: "insurance",
+            password: 'insurance',
+            connectString: "192.168.5.191/orcl"
+        });
+        let query = `SELECT * FROM NSZH_DIC_POKR where active = 1`;
+        // run query to get all employees
+        result = await connection.execute(query,
+            [],  // bind value for :id
+            {outFormat: oracledb.OUT_FORMAT_OBJECT});
+        res.send(result.rows);
+        //res.status(200).json(test)
+    } catch (e) {
+        errorHandler(res, e)
+    }
+
+}
+
+
+module.exports.setPokrs = async function (req, res) {
+    try {
+        connection = await oracledb.getConnection(
+            {user: "insurance", password: 'insurance', connectString: "192.168.5.191/orcl"});
+        result = await connection.execute(`begin NSJ.SetDopPokrSum('${req.body.DOP_POKRS_SUMS}', '${req.body.CNCT_ID}');  end;`);
+        console.log('Rows inserted: ', req.body.CNCT_ID);
+        res.status(201).json({
+            answer: `ISRTED ${req.body.CNCT_ID}`
+        })
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+
 
 
 

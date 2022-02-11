@@ -1,7 +1,19 @@
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
-import {Answer, Category, DataIIN, findIIN, Numzav, Order, Question, Region, Statment, TestNsj} from "../interfaces";
+import {
+  Answer,
+  Category,
+  DataIIN,
+  findIIN, Message,
+  Numzav,
+  Order,
+  Question,
+  Region,
+  Statment,
+  TestNsj,
+  Vigodo
+} from "../interfaces";
 
 
 @Injectable({
@@ -37,6 +49,18 @@ export class NewnsjService {
     return this.http.get<Question[]>(`/api/question`)
   }
 
+  getPokrs(): Observable<Question[]> {
+    return this.http.get<Question[]>(`/api/pokrs`)
+  }
+
+  setPokrs(): Observable<Question[]> {
+    return this.http.get<Question[]>(`/api/pokrs`)
+  }
+
+  getAllAgents(): Observable<Question[]> {
+    return this.http.get<Question[]>(`/api/agents`)
+  }
+
 
   createAnswer(answer: Answer) {
     //const body = {ID_QUESTION: answer.ID_QUESTION, ID_ANSWER: answer.ID_ANSWER};
@@ -52,9 +76,16 @@ export class NewnsjService {
     //console.log(body)
   }
 
+  createObtain(vigodo: Vigodo) {
+    //const body = {ID_QUESTION: answer.ID_QUESTION, ID_ANSWER: answer.ID_ANSWER};
 
+    return this.http.post('/api/vigodos', vigodo)
+    //console.log(body)
+  }
 
-
+  deleteObtain(ID: number) :any {
+     this.http.delete(`/api/vigodos${ID}`)
+  }
 
 
   // findByIIN(params: any = {}): Observable<DataIIN[]> {

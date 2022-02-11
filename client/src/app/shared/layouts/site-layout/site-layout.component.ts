@@ -15,7 +15,7 @@ export class SiteLayoutComponent implements AfterViewInit {
   links = [
     {url: '/overview', name: 'Обзор'},
     {url: '/nsjnew', name: 'Создать договор НСЖ'},
-    {url: '/analytics', name: 'Аналитика'},
+    {url: '/analytics', name: 'Просмотр заявлении НСЖ '},
     {url: '/history', name: 'История'},
     {url: '/order', name: 'Добавить заказ'},
     {url: '/categories', name: 'Ассортимент'}
@@ -34,7 +34,6 @@ export class SiteLayoutComponent implements AfterViewInit {
     event.preventDefault()
     this.auth.logout()
     this.router.navigate(['/login'])
-
   }
 
 }

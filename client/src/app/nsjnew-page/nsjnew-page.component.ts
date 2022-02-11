@@ -1,8 +1,22 @@
 import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
-import {Answer, DataIIN, Filter, Numzav, Order, Question, Region, Statment, TestNsj} from "../shared/interfaces";
+import {
+  Agent,
+  Answer, Category,
+  DataIIN, DopPokrStrahSum, DopPokrSum,
+  Filter, Nagruz,
+  Numzav,
+  Order, Pokr,
+  Question,
+  Region,
+  Statment,
+  TestNsj,
+  Vigodo
+} from "../shared/interfaces";
 import {Observable} from "rxjs";
 import {NewnsjService} from "../shared/services/newnsj.service";
 import {MaterialDatepicker, MaterialInstance, MaterialService} from "../shared/classes/material.service";
+import {ActivatedRoute, Router} from "@angular/router";
+import {FormGroup} from "@angular/forms";
 
 
 @Component({
@@ -11,20 +25,89 @@ import {MaterialDatepicker, MaterialInstance, MaterialService} from "../shared/c
   styleUrls: ['./nsjnew-page.component.css']
 })
 export class NsjnewPageComponent implements OnInit, AfterViewInit {
+  countries = [
+    {ID: 1, NAME: "Андерайтинг риска свободного времени"},
+    {ID: 2, NAME: "Профессиональный"},
+    {ID: 3, NAME: "Медицинский"},
+    {ID: 4, NAME: "Андерайтинг риска пребывания в странах"}
+  ];
+  selectedValue = null;
+  nagruz: string
+  nagruzki: Nagruz[] = []
+  nagruzka: Nagruz = {}
 
+
+  periods = [
+    {ID: 0, NAME: "Единовременно"},
+    {ID: 1, NAME: "Ежегодно"},
+    {ID: 2, NAME: "Раз в пол года"},
+    {ID: 3, NAME: "Ежеквартально"},
+    {ID: 4, NAME: "Ежемесячно"}
+  ];
+  selectedPeriod = null;
+
+
+  strahSumsTravmaNS = [
+    {ID: 0, NAME: "500000"},
+    {ID: 1, NAME: "750000"},
+    {ID: 2, NAME: "1000000"},
+    {ID: 3, NAME: "15000000"}
+  ];
+  strahSum = null;
+  keyTrue = false
+
+  strahSumsNetrudNS = [
+    {ID: 0, NAME: "500000"},
+    {ID: 1, NAME: "750000"},
+    {ID: 2, NAME: "1000000"},
+    {ID: 3, NAME: "15000000"}
+  ];
+
+  strahSumsGospitalNS = [
+    {ID: 0, NAME: "2000000"},
+    {ID: 1, NAME: "3000000"},
+    {ID: 2, NAME: "4000000"},
+    {ID: 3, NAME: "5000000"}
+  ];
+
+
+  dopPokrStrahSum: DopPokrStrahSum = {}
+  pokritiesMain: Pokr[] = []
+  pokritiesDop: Pokr[] = []
+  selectedDop = null;
+  pokritiesSelected: Pokr[] = []
+  pokrStringMassive: string = ''
+  dopPokrSums: DopPokrSum[] = []
+
+
+
+  form!: FormGroup
   categories$: Observable<TestNsj[]>
 
   regions: Region[] = []
+  region: Region
+  agent: Agent
+  agents: Agent[] = []
+  selectedAgents = null
+  agen: string
+
+
+
   statment: Statment = {}
 
-  region: Region
+
   nsjs: TestNsj [] = []
   nsjs2: TestNsj [] = []
   vigodosSmert: TestNsj [] = []
   vigodosZhizn: TestNsj [] = []
+  smert: Vigodo = {}
+  zhizn: Vigodo = {}
+
+
   data: DataIIN[] = []
   filter: Filter = {}
   IIN: number
+  IIN2: number
   prosent: number
   @ViewChild('modal') modalRef: ElementRef
   @ViewChild('modal2') modalRef2: ElementRef
@@ -42,14 +125,16 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
   strahVznos: number
   godDohod: number
   srokStrah: number
-  nagruzki: ['ddd', 'dsdsd']
+
 
 
   zastrahovan: TestNsj
   strahovatel: TestNsj
-  vigodopreodetatelSmert: TestNsj
+  vigodopreodetatelSmert: TestNsj = {}
+  vigodopreodetatelSmert2: TestNsj
   vigodopreodetatelSmerts: TestNsj [] = []
-  vigodopreodetatelZhizn: TestNsj
+
+  vigodopreodetatelZhizn: TestNsj = {}
   vigodopreodetatelZhizns: TestNsj [] = []
   start: MaterialDatepicker
   end: MaterialDatepicker
@@ -89,7 +174,7 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
   sistersDiagnosis: string
 
   dateString: string = ''
-
+  s: number
 
   answers: Answer [] = []
   massive: string = ''
@@ -108,24 +193,25 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
   fromParent: string = 'String from parent';
 
 
-
-  constructor(private newnsjsService: NewnsjService) {
+  constructor(private newnsjsService: NewnsjService,
+              private router: Router,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
 
     this.newnsjsService.getAllRegions().subscribe(regions => {
       this.regions = regions
-      console.log('nsjs: ', regions)
+      //console.log('nsjs: ', regions)
     })
     this.getAgents()
-    console.log(this.fromParent)
-
-
+    this.getPokrs()
   }
 
   getAgents() {
     this.newnsjsService.getAgents().subscribe(agents => {
+      this.agents = agents
+
       console.log('agents: ', agents)
     })
   }
@@ -144,23 +230,19 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
 
   validate() {
     if (this.start.date) {
-
-      console.log(  (this.start.date.getMonth()+1)  )
-      console.log(  this.start.date.getDate())
-      console.log(  this.start.date.getFullYear())
-      if (this.start.date.getDate() < 10 && (this.start.date.getMonth()+1) < 10 ) {
-        this.dateString = '0' + this.start.date.getDate() + '.' + '0' + (this.start.date.getMonth()+1) + '.' + this.start.date.getFullYear()
-      } else if ((this.start.date.getMonth()+1) < 10) {
-        this.dateString = this.start.date.getDate() + '.' + '0' + (this.start.date.getMonth()+1) + '.' + this.start.date.getFullYear()
+      console.log((this.start.date.getMonth() + 1))
+      console.log(this.start.date.getDate())
+      console.log(this.start.date.getFullYear())
+      if (this.start.date.getDate() < 10 && (this.start.date.getMonth() + 1) < 10) {
+        this.dateString = '0' + this.start.date.getDate() + '.' + '0' + (this.start.date.getMonth() + 1) + '.' + this.start.date.getFullYear()
+      } else if ((this.start.date.getMonth() + 1) < 10) {
+        this.dateString = this.start.date.getDate() + '.' + '0' + (this.start.date.getMonth() + 1) + '.' + this.start.date.getFullYear()
       } else if (this.start.date.getDate() < 10) {
-        this.dateString = '0' + this.start.date.getDate() + '.' + (this.start.date.getMonth()+1) + '.' + this.start.date.getFullYear()
+        this.dateString = '0' + this.start.date.getDate() + '.' + (this.start.date.getMonth() + 1) + '.' + this.start.date.getFullYear()
       } else {
-        this.dateString = this.start.date.getDate() + '.' + (this.start.date.getMonth()+1) + '.' + this.start.date.getFullYear()
+        this.dateString = this.start.date.getDate() + '.' + (this.start.date.getMonth() + 1) + '.' + this.start.date.getFullYear()
       }
-
-
-
-      console.log(  this.dateString)
+      console.log(this.dateString)
       return
     }
   }
@@ -174,12 +256,30 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
       })
   }
 
+  getPokrs() {
+    return this.newnsjsService.getPokrs()
+      .subscribe(test => {
+        console.log(test)
+
+        test.map((pokr: Pokr) => {
+          if(pokr.PMAIN == 0){
+           console.log(pokr.ID)
+            this.pokritiesDop.push(pokr)
+          } else {
+            this.pokritiesMain.push(pokr)
+          }
+        })
+      })
+  }
+
 
   private fetch() {
-    return this.newnsjsService.getById(this.IIN)
+    return this.newnsjsService.getById(this.IIN2)
       .subscribe(nsjs => {
+
         this.nsjs = nsjs
         console.log(nsjs)
+        this.IIN2 = this.s
       })
   }
 
@@ -193,6 +293,7 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
       .subscribe(vigodosSmert => {
         this.vigodosSmert = vigodosSmert
         console.log(vigodosSmert)
+        this.IIN = this.s
       })
   }
 
@@ -227,11 +328,11 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
 
   addToOrder2(i: TestNsj) {
     this.vigodopreodetatelSmert = i
-    this.vigodopreodetatelSmerts.push(i)
+    //this.vigodopreodetatelSmerts.push(i)
     this.vigodosSmert = []
-    // this.nsjs = []
+    this.nsjs = []
     console.log(i)
-    this.modal.close()
+    // this.modal.close()
   }
 
   open3() {
@@ -246,12 +347,32 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
     return this.newnsjsService.getById(this.IIN)
       .subscribe(nsjs2 => {
         this.nsjs2 = nsjs2
+        this.IIN = this.s
       })
   }
 
   VigodaSmert() {
+    //console.log(this.vigodopreodetatelSmert)
+    this.smert.M_SICID = this.zastrahovan.ID
+      this.smert.VIGODO_PRECENT =''
+    this.smert.VIGODO_PRECENT = this.vigodopreodetatelSmert.ID+ ':' + this.prosent
+    this.smert.TYPE_VIGODA = 1
+    this.vigodopreodetatelSmert.PRECENT = this.prosent
 
+    console.log(this.smert)
+    return this.newnsjsService.createObtain(this.smert)
+      .subscribe(smert => {
+        console.log(smert)
+        this.vigodopreodetatelSmerts.push(this.vigodopreodetatelSmert)
+        this.vigodosSmert = []
+        this.vigodopreodetatelSmert = {}
+        console.log(this.vigodopreodetatelSmerts)
+        this.modal.close()
+      })
   }
+
+
+
 
   selectToRegion(i: Region) {
     this.region = i
@@ -265,16 +386,23 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
       .subscribe(vigodosSmert => {
         this.vigodosZhizn = vigodosSmert
         console.log(vigodosSmert)
+        this.IIN = this.s
       })
   }
 
   addToOrder4(i: any) {
     this.vigodopreodetatelZhizn = i
-    this.vigodopreodetatelZhizns.push(i)
-    this.vigodosSmert = []
+   // this.vigodopreodetatelZhizns.push(i)
+    this.vigodosZhizn = []
+    this.nsjs = []
+    console.log(this.vigodopreodetatelSmerts)
+    //this.modal2.close()
+    // this.vigodopreodetatelSmert = i
+    // //this.vigodopreodetatelSmerts.push(i)
+    // this.vigodosSmert = []
     // this.nsjs = []
-    //console.log(this.vigodopreodetatelSmerts)
-    this.modal.close()
+    // console.log(i)
+    // // this.modal.close()
   }
 
 
@@ -286,8 +414,6 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
   //     console.log(nsjs)
   //   })
   // }
-
-
   // loadMore(){
   //   this.fetch()
   // }
@@ -296,12 +422,12 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
   NextPage() {
     console.log(this.isFirstVisible)
     this.isFirstVisible = false
-
   }
 
   PreviewPage() {
     this.isFirstVisible = true
   }
+
 
 
 ////////////////////////////////////////second
@@ -549,37 +675,21 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
   }
 
 
-  answerGen(){
+  answerGen() {
     this.yes()
     this.answers.map(answer => {
-      if (!answer.ID_ANSWER) {
-      } else {
-        console.log(this.massive)
-        var str1 = new String(answer.ID_QUESTION.toString());
-        var str2 = new String(answer.ID_ANSWER.toString());
-
-        this.massive += str1.toString() + ':' + str2.toString() + ':;';
-        console.log(this.massive)
-
-
-
-        //   this.newnsjsService.createAnswer(answer).subscribe(test => {
-        //
-        //
-        //
-        //
-        // })
+      if (answer.ID_ANSWER) {
+        this.newnsjsService.createAnswer(answer).subscribe(test => {
+          console.log(test)
+        })
       }
-
-
     })
   }
 
 
-
-
   createSends() {
-    this.yes()
+    this.answerGen()
+    //this.yes()
     this.answers.map(answer => {
       if (!answer.ID_ANSWER) {
       } else {
@@ -588,12 +698,6 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
 
         this.massive += str1.toString() + ':' + str2.toString() + ':;';
         console.log(this.massive)
-
-
-
-
-
-
 
         //   this.newnsjsService.createAnswer(answer).subscribe(test => {
         //
@@ -606,9 +710,6 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
 
     })
     console.log(this.massive)
-
-
-
 
 
     this.statment.BRANCH_ID = this.region.RFBN_ID
@@ -632,11 +733,34 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
     console.log(this.statment)
 
     this.massive = '';
-    this.newnsjsService.createZayav(this.statment).subscribe(test => {
-      console.log(test)
-    })
+    this.newnsjsService.createZayav(this.statment).subscribe(
+      (cnctid: { cnctid?: number}) => {
+
+
+
+        this.dopPokrStrahSum.CNCT_ID = cnctid.cnctid
+        this.dopPokrStrahSum.DOP_POKRS_SUMS = this.pokrStringMassive
+
+
+
+
+        this.newnsjsService.setPokrs().subscribe(
+          test =>   console.log(test)
+        )
+        this.router.navigate(['/analytics'])
+        console.log(cnctid)
+      },
+      error => {
+        MaterialService.toast(error.error.message)
+        this.form.enable()
+      }
+    )
 
   }
+
+
+
+
 
 
 //   createSends(answer: Answer) {
@@ -668,4 +792,203 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
   }
 
 
+  VigodaSmert2() {
+    console.log(this.vigodopreodetatelZhizn)
+    this.zhizn.M_SICID = this.zastrahovan.ID
+    this.zhizn.VIGODO_PRECENT = ''
+    this.zhizn.VIGODO_PRECENT = this.vigodopreodetatelZhizn.ID+ ':' + this.prosent
+    this.zhizn.TYPE_VIGODA = 2
+    this.vigodopreodetatelZhizn.PRECENT = this.prosent
+
+    return this.newnsjsService.createObtain(this.zhizn)
+      .subscribe(zhizn => {
+        console.log(zhizn)
+        this.vigodopreodetatelZhizns.push(this.vigodopreodetatelZhizn)
+        this.vigodosZhizn = []
+        this.vigodopreodetatelZhizn = {}
+        console.log(this.vigodopreodetatelZhizns)
+        this.modal2.close()
+      })
+  }
+
+
+  addNagruz() {
+    console.log(this.selectedValue)
+    console.log(this.nagruz)
+    this.nagruzka.ID = this.selectedValue.ID
+    this.nagruzka.NAME = this.nagruz
+    this.nagruzka.TYPE = this.selectedValue.NAME
+    this.nagruzki.push(this.nagruzka)
+    this.nagruzka = {}
+    console.log(this.nagruzki)
+  }
+
+
+  onChangeAgent(t: any) {
+   this.agen = ': Договор  № ' + t
+    console.log(t)
+  }
+
+  onChangePeriod(s: any) {
+    console.log(s)
+  }
+
+
+  onChangeDops(t: any) {
+    this.remove(t)
+    if (t == 5) {
+      this.dopPokrSums.push({
+        ID: 5,
+        SUM: "2000000"
+      })
+    }
+    if (t == 4) {
+      this.dopPokrSums.push({
+        ID: 4,
+        SUM: "500000"
+      })
+    }
+    if (t == 3) {
+      this.dopPokrSums.push({
+        ID: 3,
+        SUM: "500000"
+      })
+    }
+    if (t == 2) {
+      this.dopPokrSums.push({
+        ID: 2
+      })
+    }
+    if (t == 1) {
+      this.dopPokrSums.push({
+        ID: 1
+      })
+    }
+   console.log(t)
+    console.log(this.dopPokrSums)
+  }
+
+
+  createPokrsString() {
+    this.dopPokrSums.map(pokr => {
+
+      if (!pokr.ID) {
+
+      }
+       else {
+        var str1 = new String(pokr.ID.toString());
+        var str2 = new String(pokr.SUM);
+
+      this.pokrStringMassive += str1.toString() + ':' + str2.toString() + ';';
+
+    } })
+
+    console.log(this.pokrStringMassive)
+
+
+
+  }
+
+
+
+
+  remove(keyValue: number) {
+    let objectIndex = this.pokritiesDop.findIndex(e => e.ID == keyValue);
+    this.pokritiesSelected.push(this.pokritiesDop[objectIndex])
+    if(objectIndex != -1) {
+      this.pokritiesDop.splice(objectIndex, 1); // Remove one element from array
+   // console.log(this.pokritiesSelected)
+    }
+  }
+
+
+  RemoveDopPok(pok: Pokr) {
+    let keyValue = pok.ID
+    let objectIndex = this.pokritiesSelected.findIndex(e => e.ID == keyValue);
+    this.pokritiesDop.push(this.pokritiesSelected[objectIndex])
+    if(objectIndex != -1) {
+      this.pokritiesSelected.splice(objectIndex, 1); // Remove one element from array
+
+    }
+    if (keyValue !== 6) {
+      let objectIndex = this.dopPokrSums.findIndex(e => e.ID == keyValue);
+      if(objectIndex != -1) {
+        this.dopPokrSums.splice(objectIndex, 1); // Remove one element from array
+      }
+    }
+    //console.log(pok)
+  }
+
+  onAddDops3(value: string) {
+    console.log(value)
+    this.dopPokrSums.map(dokr => {
+      if (dokr.ID == 3) {
+        dokr.SUM = value.toString()
+      }
+      console.log(this.dopPokrSums)
+    })
+  }
+
+
+  onAddDops4(value: string) {
+    console.log(value)
+    this.dopPokrSums.map(dokr => {
+      if (dokr.ID == 4) {
+        dokr.SUM = value.toString()
+      }
+    })
+    console.log(this.dopPokrSums)
+  }
+
+  onAddDops5(value: string) {
+    console.log(value)
+    this.dopPokrSums.map(dokr => {
+      if (dokr.ID == 5) {
+        dokr.SUM = value.toString()
+      }
+    })
+    console.log(this.dopPokrSums)
+  }
+
+
+  RemoveZhizn(zhizn: TestNsj) {
+    console.log(this.vigodopreodetatelZhizn)
+    this.zhizn.M_SICID = this.zastrahovan.ID
+    this.zhizn.VIGODO_PRECENT = ''
+    this.zhizn.VIGODO_PRECENT = this.vigodopreodetatelZhizn.ID+ ':' + this.prosent
+    this.zhizn.TYPE_VIGODA = 2
+    this.vigodopreodetatelZhizn.PRECENT = this.prosent
+
+    return this.newnsjsService.createObtain(this.zhizn)
+      .subscribe(zhizn => {
+        console.log(zhizn)
+        this.vigodopreodetatelZhizns.push(this.vigodopreodetatelZhizn)
+        this.vigodosZhizn = []
+        this.vigodopreodetatelZhizn = {}
+        console.log(this.vigodopreodetatelZhizns)
+        this.modal2.close()
+      })
+  }
+
+  deleteObtain(){
+    this.newnsjsService.deleteObtain(1086)
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -76,8 +76,9 @@ export interface AnalyticsChartItem {
 }
 
 export interface TestNsj {
-  ID: number
+  ID?: number
   NAME?: string
+  PRECENT?: number
 }
 
 
@@ -129,6 +130,48 @@ export interface Statment {
   ANSWERS?: string
   EMPID?: number
   RISK?: number
+}
+
+export interface Vigodo {
+  M_SICID?: number
+  VIGODO_PRECENT?: string
+  TYPE_VIGODA?: number
+}
+
+export interface Agent {
+  KOD?: number
+  NAME?: string
+  CONTRACT_DATE_BEGIN?: Date
+  CONTRACT_NUM?: string
+}
+
+
+export interface Nagruz {
+  ID?: number
+  NAME?: string
+  TYPE?: string
+}
+
+export interface Pokr {
+  ID?: number
+  NAME?: string
+  PMAIN?: number
+}
+
+export interface DopPokr {
+  ID?: number
+  NAME?: string
+  PMAIN?: number
+}
+
+export interface DopPokrSum {
+  ID?: number
+  SUM?: string
+}
+
+export interface DopPokrStrahSum {
+  DOP_POKRS_SUMS?: string
+  CNCT_ID?: number
 }
 
 
