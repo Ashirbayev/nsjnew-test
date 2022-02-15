@@ -9,10 +9,16 @@
 </div>
 <br>
 
-
-<div  class="center mb2">
 <div class="container">
-  <div class="top__section">
+  <div class="row">
+    <div class="col s12">
+      <div class="tab col s6">
+        <button class="tablinks active" onclick="openTab(event, 'main-info')">Основная информация</button>
+        <button class="tablinks" onclick="openTab(event, 'questions-blank')">Бланк-опросник</button>
+      </div>
+    </div>
+  </div>
+  <div class="top__section tabcontent" id="main-info">
     <div class="top__section-first">
       <div>
         <h5>Накопительное страхование жизни (Просмотр заявления)</h5>
@@ -186,7 +192,7 @@
     </div>
 
     <div class="top__section-second">
-      <h5>Расчетные данные</h5>
+      <h5>Расчетные данные 2</h5>
       <div class="col s2">
         <label for="">Страховой взнос</label>
         <input disabled type="text">
@@ -237,11 +243,253 @@
         <button class="btn p-2 center-align">ФИО агента</button>
       </div>
     </div>
-
-
+  </div>
+  <div class="tabcontent" id="questions-blank" >
+    <h5 class="q-header">Ответы на бланк-опросник</h5>
+    <div class="col s12 q-block">
+      <div class="q-block-title">
+        <span class="q-id">1. </span>
+        <span class="q-title">Имеется ли у Вас инвалидность 1, 2 или 3 группы, либо имелась ранее? (укажите какая именно)</span>
+      </div>
+      <div class="q-block-answer">
+        <span class="q-answer"> Нет</span>
+      </div>
+    </div>
   </div>
 </div>
-</div>
+
+<!--<div  class="center mb2">-->
+<!--<div class="container">-->
+<!--  <div class="top__section">-->
+<!--    <div class="top__section-first">-->
+<!--      <div>-->
+<!--        <h5>Накопительное страхование жизни (Просмотр заявления)</h5>-->
+<!--      </div>-->
+<!--      <div class="flex-row">-->
+<!--        <div class="col s2">-->
+<!--          <label for="">№ Договора</label>-->
+<!--          <input disabled type="text" value="" name=""  class="dsb-inp">-->
+<!--        </div>-->
+<!--        <div class="col s2">-->
+<!--          <label for="">Дата договора</label>-->
+<!--          <input disabled type="text" value="" name=""   class="dsb-inp">-->
+<!--        </div>-->
+<!--        <div class="col s2">-->
+<!--          <label for="">№ БСО </label>-->
+<!--          <input disabled type="text" value="" name=""   class="dsb-inp">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="flex-row">-->
+<!--        <div class="col s2">-->
+<!--          <label for="">№ Заявления </label>-->
+<!--          <input disabled type="text" name="" id="">-->
+<!--        </div>-->
+<!--        <div class="col s2">-->
+<!--          <label for="">Дата заявления </label>-->
+<!--          <input disabled type="text" name="" id="">-->
+<!--        </div>-->
+<!--        <div class="col s2">-->
+<!--          <label for="">Инспектор </label>-->
+<!--          <input disabled type="text" name="" id="">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="">-->
+<!--        <div class="col">-->
+<!--          <label for="">Страхователь </label>-->
+<!--          <input disabled  type="text"  value="">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="">-->
+<!--        <div class="col">-->
+<!--          <label for="">Дата формирования полиса</label>-->
+<!--          <input  disabled type="text" name="date" value="">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="">-->
+<!--        <div class="col">-->
+<!--          <label for="">Отделение</label>-->
+<!--          <input  disabled type="text" name="filial" value="">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="flex-row">-->
+<!--        <div class="col s6">-->
+<!--          <label for="">Период страховой защиты с </label>-->
+<!--          <input  disabled type="text">-->
+<!--        </div>-->
+<!--        <div class="col ">-->
+<!--          <label for="">По  </label>-->
+<!--          <input  disabled type="text">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="flex-row">-->
+<!--        <div class="col">-->
+<!--          <label for="">Агент</label>-->
+<!--          <input disabled type="text">-->
+<!--        </div>-->
+<!--        <div class="col">-->
+<!--          <label for="">Размер АВ</label>-->
+<!--          <input disabled type="text">-->
+<!--        </div>-->
+<!--        <div class="col">-->
+<!--          <label for="">Договор поручения </label>-->
+<!--          <input disabled type="text">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="flex-row">-->
+<!--        <div class="col">-->
+<!--          <label for="">Уровень принятия решения</label>-->
+<!--          <input disabled type="text">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="flex-row">-->
+<!--        <div class="col">-->
+<!--          <label for="">Статус </label>-->
+<!--          <input disabled type="text" name="state">-->
+<!--        </div>-->
+<!--      </div>-->
+
+
+<!--      &lt;!&ndash; Выгодоприобретатели &ndash;&gt;-->
+<!--      <div class="row">-->
+<!--        <h5>Выгодоприобретатели</h5>-->
+<!--        <div class="col">-->
+<!--          <span>На случай дожития </span>-->
+<!--          <table class="table bordered"></table>-->
+<!--          <br>-->
+<!--          <span>На случай смерти </span>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      &lt;!&ndash; Застрахованный &ndash;&gt;-->
+<!--      <div class="row ">-->
+<!--        <div class="col">-->
+<!--          <h5>Застрахованный</h5>-->
+<!--        </div>-->
+<!--        <div class="col">-->
+<!--          <label for="">ФИО(Дата рождения) (ИИН)</label>-->
+<!--          <input disabled type="text">-->
+<!--        </div>-->
+<!--        <div class="row">-->
+<!--          <div class="col">-->
+<!--            <label for="">Возраст</label>-->
+<!--            <input disabled type="text">-->
+<!--          </div>-->
+<!--          <div class="col">-->
+<!--            <label for="">Вес</label>-->
+<!--            <input disabled type="text">-->
+<!--          </div>-->
+<!--          <div class="col">-->
+<!--            <label for="">Рост</label>-->
+<!--            <input disabled type="text">-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="col">-->
+<!--          <label for="">Годовой доход</label>-->
+<!--          <input disableddisabled  type="text">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <hr>-->
+<!--      <div class="row">-->
+<!--        <h5>Рассчетные данные </h5>-->
+<!--        <table class="table bordered">-->
+<!--          <thead>-->
+<!--          <tr>-->
+<!--            <th>Тип 1</th>-->
+<!--            <th>Наименование</th>-->
+<!--            <th>Тариф</th>-->
+<!--            <th>Нагрузка</th>-->
+<!--            <th>Страховой взнос</th>-->
+<!--            <th>Страховая сумма</th>-->
+<!--          </tr>-->
+<!--          </thead>-->
+<!--          <tbody>-->
+<!--          <tr>-->
+<!--            <td>-->
+<!--              Нет данных-->
+<!--            </td>-->
+<!--          </tr>-->
+<!--          </tbody>-->
+<!--        </table>-->
+<!--      </div>-->
+<!--      <hr>-->
+<!--      <div class="row">-->
+<!--        <h5>Таблица выкупных сумм и уменьшенных страховых сумм</h5>-->
+<!--        <table class="table bordered">-->
+<!--          <thead>-->
+<!--          <tr>-->
+<!--            <th>Год страхования</th>-->
+<!--            <th>Выкупная сумма</th>-->
+<!--            <th>Уменьшенная страховая сумма</th>-->
+<!--            <th>Сумма бонусных страховых сумм</th>-->
+<!--            <th>Выкупная по прибыли на конец годовщины</th>-->
+<!--          </tr>-->
+<!--          </thead>-->
+<!--          <tbody>-->
+<!--          <tr>-->
+<!--            <th></th>-->
+<!--          </tr>-->
+<!--          </tbody>-->
+<!--        </table>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="top__section-second">-->
+<!--      <h5>Расчетные данные</h5>-->
+<!--      <div class="col s2">-->
+<!--        <label for="">Страховой взнос</label>-->
+<!--        <input disabled type="text">-->
+<!--      </div>-->
+<!--      <span> <b> Страховой взнос по основному покрытию </b></span>-->
+<!--      <div class="col s2">-->
+<!--        <label for="">Накопительная часть</label>-->
+<!--        <input disabled type="text">-->
+<!--      </div>-->
+<!--      <div class="col s2">-->
+<!--        <label for="">Страховая часть</label>-->
+<!--        <input disabled type="text">-->
+<!--      </div>-->
+<!--      <div class="col s2">-->
+<!--        <label for="">Страховой взнос по дополнительным покрытиям </label>-->
+<!--        <input disabled type="text">-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <label for="">Периодичность</label>-->
+<!--        <input disabled type="text">-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <label for="">Срок страхования</label>-->
+<!--        <input disabled type="text">-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <label for="">Страховая сумма</label>-->
+<!--        <input disabled type="text">-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <label for="">Основное покрытие</label>-->
+<!--        <input disabled type="text">-->
+<!--      </div>-->
+<!--      <span> <b> Дополнительные покрытия </b></span>-->
+<!--      <div>-->
+<!--        <input placeholder="Смерть Застрахованного в результате НС">-->
+<!--        <input disabled type="text" placeholder="600 000">-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <input placeholder="Установление инвалидности 1,2 группы в результате НС">-->
+<!--        <input disabled type="text" placeholder="600 000">-->
+<!--      </div>-->
+
+
+<!--      <div class="col s2">-->
+<!--        <h5>Список застрахованных клиентов</h5>-->
+<!--        <hr> <br>-->
+<!--        <button class="btn p-2 center-align">ФИО агента</button>-->
+<!--      </div>-->
+<!--    </div>-->
+
+
+<!--  </div>-->
+<!--</div>-->
+<!--</div>-->
 <!--<div class="average-price">-->
 <!--  <p>Средний чек <strong>{{average}} р.</strong></p>-->
 <!--</div>-->

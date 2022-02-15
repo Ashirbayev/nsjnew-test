@@ -5,7 +5,7 @@ import {
   DataIIN, DopPokrStrahSum, DopPokrSum,
   Filter, Nagruz,
   Numzav,
-  Order, Pokr,
+  Order, Period, Pokr,
   Question,
   Region,
   Statment,
@@ -35,16 +35,18 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
   nagruz: string
   nagruzki: Nagruz[] = []
   nagruzka: Nagruz = {}
+  stringMassiveNagruz: string = ''
 
 
-  periods = [
+
+  periods: Period[] = [
     {ID: 0, NAME: "Единовременно"},
     {ID: 1, NAME: "Ежегодно"},
     {ID: 2, NAME: "Раз в пол года"},
     {ID: 3, NAME: "Ежеквартально"},
     {ID: 4, NAME: "Ежемесячно"}
   ];
-  selectedPeriod = null;
+  selectedPeriod: Period = {ID: 0, NAME: "Единовременно"};
 
 
   strahSumsTravmaNS = [
@@ -90,6 +92,8 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
   agents: Agent[] = []
   selectedAgents = null
   agen: string
+  agentSelect: number
+  agentRashod: number
 
 
 
@@ -133,6 +137,8 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
   vigodopreodetatelSmert: TestNsj = {}
   vigodopreodetatelSmert2: TestNsj
   vigodopreodetatelSmerts: TestNsj [] = []
+  stringMassiveSmerts: string = ''
+  stringMassiveZhizns: string = ''
 
   vigodopreodetatelZhizn: TestNsj = {}
   vigodopreodetatelZhizns: TestNsj [] = []
@@ -182,6 +188,9 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
   quest1: boolean = false
 
 
+
+
+
   // nsjs: TestNsj [] = []
   // data: DataIIN[] = []
   // filter: Filter = {}
@@ -206,7 +215,20 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
     })
     this.getAgents()
     this.getPokrs()
+    this.getQuestion()
+
+
+    for (var i = 1; i < 38; i++) {
+      this.answersRadio[i] = 'нет'
+      console.log(this.answersRadio[i])
+      // Iterate over numeric indexes from 0 to 5, as everyone expects.
+
+    }
+
   }
+
+
+
 
   getAgents() {
     this.newnsjsService.getAgents().subscribe(agents => {
@@ -367,8 +389,29 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
         this.vigodosSmert = []
         this.vigodopreodetatelSmert = {}
         console.log(this.vigodopreodetatelSmerts)
+
         this.modal.close()
       })
+  }
+
+
+
+  deleteVigodaSmert(smer: TestNsj) {
+    let keyValue = smer.ID
+    let objectIndex = this.vigodopreodetatelSmerts.findIndex(e => e.ID == keyValue);
+    if(objectIndex != -1) {
+      this.vigodopreodetatelSmerts.splice(objectIndex, 1); // Remove one element from array
+    }
+    console.log(this.vigodopreodetatelSmerts)
+  }
+
+  deleteVigodaZhizn(zhiz: TestNsj) {
+    let keyValue = zhiz.ID
+    let objectIndex = this.vigodopreodetatelZhizns.findIndex(e => e.ID == keyValue);
+    if(objectIndex != -1) {
+      this.vigodopreodetatelZhizns.splice(objectIndex, 1); // Remove one element from array
+    }
+    console.log(this.vigodopreodetatelZhizns)
   }
 
 
@@ -686,65 +729,135 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
     })
   }
 
+  createPokrsString() {
+    this.dopPokrSums.map(pokr => {
+      if (!pokr.ID) {
+      }
+      else {
+        var str1 = new String(pokr.ID.toString());
+        var str2 = new String(pokr.SUM);
+        this.pokrStringMassive += str1.toString() + ':' + str2.toString() + ';';
+      } })
+    console.log(this.pokrStringMassive)
+  }
+
+  obtainGenMassiveString (){
+    ////////////////////// Формирования стринг массива выгодоприобретателей смерти
+    console.log(this.vigodopreodetatelSmerts)
+    this.vigodopreodetatelSmerts.map(
+      (answer, i, arr) => {
+        if (arr.length - 1 === i) {
+          // last one
+          var str1 = new String(this.zastrahovan.ID);
+          var str2 = new String(answer.ID.toString());
+
+          this.stringMassiveSmerts += str1.toString() + ':' + str2.toString() + ';';
+          console.log('Смерть: ' + this.stringMassiveSmerts)
+
+      } else {
+
+          var str1 = new String(this.zastrahovan.ID);
+          var str2 = new String(answer.ID.toString());
+
+          this.stringMassiveSmerts += str1.toString() + ':' + str2.toString() + ':';
+          console.log('Смерть: ' + this.stringMassiveSmerts)
+
+      }
+    })
+    ////////////////////// Формирования стринг массива выгодоприобретателей дожития
+    this.vigodopreodetatelZhizns.map(
+      (answer, i, arr) => {
+        if (arr.length - 1 === i) {
+          // last one
+          var str1 = new String(this.zastrahovan.ID);
+          var str2 = new String(answer.ID.toString());
+
+          this.stringMassiveZhizns += str1.toString() + ':' + str2.toString() + ':;' ;
+          console.log('Жизнь: ' + this.stringMassiveZhizns)
+        } else {
+          // not last one
+            var str1 = new String(this.zastrahovan.ID);
+            var str2 = new String(answer.ID.toString());
+            this.stringMassiveZhizns += str1.toString() + ':' + str2.toString() + ':';
+            console.log('Жизнь: ' + this.stringMassiveZhizns)
+        }
+      }
+      )
+    console.log('Финал смерть: ' + this.stringMassiveSmerts)
+    console.log('Финал Жизнь: ' + this.stringMassiveZhizns)
+  }
+
+
+  genMassiveStringNagruz (){
+    ////////////////////// Формирования стринг массива нагрузок рисков
+    console.log(this.nagruzki)
+
+    this.nagruzki.map(
+      (answer, i, arr) => {
+        if (arr.length - 1 === i) {
+          // last one
+          var str1 = new String(answer.ID.toString());
+          var str2 = new String(answer.NAME);
+          this.stringMassiveNagruz += str1.toString() + ':' + str2.toString() + ';' ;
+          console.log('Нагрузки: ' + this.stringMassiveNagruz)
+        } else {
+          // not last one
+          var str1 = new String(answer.ID.toString());
+          var str2 = new String(answer.NAME);
+          this.stringMassiveNagruz += str1.toString() + ':' + str2.toString() + ',';
+          console.log('Нагрузки: ' + this.stringMassiveNagruz)
+        }
+
+        }
+        )
+
+    console.log('конец'+this.nagruzki)
+  }
+
 
   createSends() {
     this.answerGen()
+    this.obtainGenMassiveString()
+    this.genMassiveStringNagruz()
+    this.createPokrsString()
     //this.yes()
     this.answers.map(answer => {
       if (!answer.ID_ANSWER) {
       } else {
         var str1 = new String(answer.ID_QUESTION.toString());
         var str2 = new String(answer.ID_ANSWER.toString());
-
         this.massive += str1.toString() + ':' + str2.toString() + ':;';
         console.log(this.massive)
-
-        //   this.newnsjsService.createAnswer(answer).subscribe(test => {
-        //
-        //
-        //
-        //
-        // })
       }
-
-
     })
+
     console.log(this.massive)
 
-
     this.statment.BRANCH_ID = this.region.RFBN_ID
-
     this.statment.ZAV_NUMBER = this.numzav
     this.statment.DATE_ZAV = this.dateString// {(Date|number|string)}
     this.statment.STRAH_VZNOS = this.strahVznos
-    this.statment.SELECT_ID_AGENT = 1620
-    this.statment.AGENT_RASHOD = 0
-    this.statment.PERIOD = 'Ежегодно'
+    this.statment.SELECT_ID_AGENT = this.agentSelect
+    this.statment.AGENT_RASHOD = this.agentRashod
+    this.statment.PERIOD = this.selectedPeriod.NAME
     this.statment.SROK_STRAH = this.srokStrah
     this.statment.MAIN_POKR = 1
     this.statment.GOD_DOHOD = this.godDohod
-    this.statment.VIGODO_SMERT = ''
-    this.statment.VIGODO_ZHIZN = ''
+    this.statment.VIGODO_SMERT = this.stringMassiveSmerts
+    this.statment.VIGODO_ZHIZN = this.stringMassiveZhizns
     this.statment.STRAHOVATEL = this.strahovatel.ID
     this.statment.ZASTRAHOVAN = this.zastrahovan.ID
     this.statment.ANSWERS = this.massive
     this.statment.EMPID = 3853
-    this.statment.RISK = 0
+    this.statment.RISK = this.stringMassiveNagruz
     console.log(this.statment)
 
     this.massive = '';
     this.newnsjsService.createZayav(this.statment).subscribe(
       (cnctid: { cnctid?: number}) => {
-
-
-
         this.dopPokrStrahSum.CNCT_ID = cnctid.cnctid
         this.dopPokrStrahSum.DOP_POKRS_SUMS = this.pokrStringMassive
-
-
-
-
-        this.newnsjsService.setPokrs().subscribe(
+        this.newnsjsService.setPokrs(this.dopPokrStrahSum).subscribe(
           test =>   console.log(test)
         )
         this.router.navigate(['/analytics'])
@@ -792,7 +905,7 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
   }
 
 
-  VigodaSmert2() {
+  VigodaZhizn() {
     console.log(this.vigodopreodetatelZhizn)
     this.zhizn.M_SICID = this.zastrahovan.ID
     this.zhizn.VIGODO_PRECENT = ''
@@ -824,13 +937,30 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
   }
 
 
+  deleteNagruz(nagr: Nagruz) {
+    let keyValue = nagr.ID
+    let objectIndex = this.nagruzki.findIndex(e => e.ID == keyValue);
+    if(objectIndex != -1) {
+      this.nagruzki.splice(objectIndex, 1); // Remove one element from array
+    }
+    console.log(this.nagruzki)
+  }
+
+
+
+
+
   onChangeAgent(t: any) {
    this.agen = ': Договор  № ' + t
     console.log(t)
+
+    this.agentSelect = t
+
   }
 
   onChangePeriod(s: any) {
     console.log(s)
+    console.log(this.selectedPeriod)
   }
 
 
@@ -869,25 +999,7 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
   }
 
 
-  createPokrsString() {
-    this.dopPokrSums.map(pokr => {
 
-      if (!pokr.ID) {
-
-      }
-       else {
-        var str1 = new String(pokr.ID.toString());
-        var str2 = new String(pokr.SUM);
-
-      this.pokrStringMassive += str1.toString() + ':' + str2.toString() + ';';
-
-    } })
-
-    console.log(this.pokrStringMassive)
-
-
-
-  }
 
 
 
@@ -951,27 +1063,12 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
   }
 
 
-  RemoveZhizn(zhizn: TestNsj) {
-    console.log(this.vigodopreodetatelZhizn)
-    this.zhizn.M_SICID = this.zastrahovan.ID
-    this.zhizn.VIGODO_PRECENT = ''
-    this.zhizn.VIGODO_PRECENT = this.vigodopreodetatelZhizn.ID+ ':' + this.prosent
-    this.zhizn.TYPE_VIGODA = 2
-    this.vigodopreodetatelZhizn.PRECENT = this.prosent
 
-    return this.newnsjsService.createObtain(this.zhizn)
-      .subscribe(zhizn => {
-        console.log(zhizn)
-        this.vigodopreodetatelZhizns.push(this.vigodopreodetatelZhizn)
-        this.vigodosZhizn = []
-        this.vigodopreodetatelZhizn = {}
-        console.log(this.vigodopreodetatelZhizns)
-        this.modal2.close()
-      })
-  }
 
   deleteObtain(){
-    this.newnsjsService.deleteObtain(1086)
+    this.newnsjsService.deleteObtain(1086).subscribe(
+      test => console.log(test)
+    )
   }
 }
 

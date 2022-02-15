@@ -6,7 +6,7 @@ const router = express.Router()
 
 
 router.post('/', passport.authenticate('jwt', {session:false}), controller.createObtain)
-router.delete('/:id', passport.authenticate('jwt', {session:false}), controller.deleteObtain)
+router.get('/:id', passport.authenticate('jwt', {session:false}), controller.deleteObtain)
 
 
 module.exports = router

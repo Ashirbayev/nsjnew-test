@@ -205,23 +205,28 @@ module.exports.createObtain = async function (req, res) {
 }
 
 
-module.exports.deleteObtain = async function (req, res) {
-   console.log(req.params.ID)
+module.exports.deleteObtain = async function (req, res) { //Удаления из временной таблицы выгодоприобретателя
+   console.log(req.params.id)
     try {
         connection = await oracledb.getConnection(
+
+
             {user: "insurance", password: 'insurance', connectString: "192.168.5.191/orcl"});
-        let query = `delete NSZH_CLIENTS_OBTAIN_TEMP where id = '${req.params.ID}'`;
+
+
+        let query = 'DELETE FROM NSZH_CLIENTS_OBTAIN_TEMP WHERE id = :id';
         result = await connection.execute(query,
-            [],  // bind value for :id
-            {outFormat: oracledb.OUT_FORMAT_OBJECT});
+            {id:  req.params.id},  // bind value for :id
+            {outFormat: oracledb.OUT_FORMAT_OBJECT,
+                autoCommit: true});
         res.status(201).json({
-            cnctid: 'Успешно удален'
+            cnctid: 'Удален' + req.params.id
         })
     } catch (e) {
-        //errorHandler(res, e)
-        res.status(500).json({
-            success: req.params.ID
-        })
+        errorHandler(res, e)
+        // res.status(500).json({
+        //     success: req.params.id
+        // })
     }
 }
 

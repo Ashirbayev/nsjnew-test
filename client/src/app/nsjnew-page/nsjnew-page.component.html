@@ -141,7 +141,7 @@
         <td class="p-2 border text-sm text-gray-500 center-align">{{smert.NAME}}</td>
         <td class="p-2 border text-sm text-gray-500 center-align">{{smert.PRECENT}}</td>
         <td class="p-2 border text-center center-align">
-          <button class="btn red darken-3 waves-effect">
+          <button class="btn red darken-3 waves-effect" (click)="deleteVigodaSmert(smert)">
             Удалить
           </button>
         </td>
@@ -184,7 +184,7 @@
         <td class="p-2 border text-sm text-gray-500 center-align">{{zhizn.NAME}}</td>
         <td class="p-2 border text-sm text-gray-500 center-align">{{zhizn.PRECENT}}</td>
         <td class="p-2 border text-center center-align">
-          <button class="btn red darken-3 waves-effect" (click)="RemoveZhizn(zhizn)">
+          <button class="btn red darken-3 waves-effect" (click)="deleteVigodaZhizn(zhizn)" >
             Удалить
           </button>
         </td>
@@ -267,7 +267,7 @@
         <td class="p-2 border text-sm text-gray-500 center-align">{{nagru.NAME}}</td>
         <td class="p-2 border text-sm text-gray-500 center-align">{{nagru.TYPE}}</td>
         <td class="p-2 border text-center center-align">
-          <button class="btn red darken-3 waves-effect">
+          <button class="btn red darken-3 waves-effect" (click)="deleteNagruz(nagru)"  >
             Удалить
           </button>
         </td>
@@ -284,21 +284,19 @@
       <label class="text-sm text-gray-500 font-bold ">Агент</label>
       <select name="agent" id="agent" class="border p-1" [(ngModel)]="selectedAgents" #t
               (change)="onChangeAgent(t.value)">
-        <option *ngFor="let c of agents" [ngValue]="c" [value]="c.CONTRACT_NUM">{{c.NAME}}</option>
+        <option *ngFor="let c of agents" [ngValue]="c" [value]="c.KOD">{{c.NAME}}</option>
       </select>
     </div>
     <label class="grey-text text-darken-2">Основание: {{agen}}</label>
     <div class="m-for-blocks">
       <label for="agent-rasx" class="text-sm text-gray-500 font-bold  "> Агентские расходы % </label>
-      <input type="text" name="agent-rasx" id="agent-rasx" class="" value="0">
+      <input type="text" name="agent-rasx" id="agent-rasx" class="" value="0" [(ngModel)]="agentRashod" >
     </div>
   </div>
 
 
   <div class="m-for-blocks">
-
     <h4 class="grey-text text-darken-2">Введите основные данные для расчета </h4>
-
     <div class="m-for-blocks">
       <label for="period" class="grey-text text-darken-2">Периодность</label>
       <select name="period" id="period" class="border p-1" [(ngModel)]="selectedPeriod" #s
@@ -317,7 +315,6 @@
       <select name="osn-pokr" id="osn-pokr" class="">
         <option *ngFor="let c of pokritiesMain"> {{c.NAME}}</option>
       </select>
-
       <label for="osn-pokr" class="grey-text text-darken-2">Дополнительное покрытие </label>
       <select [(ngModel)]="selectedDop" #z (change)="onChangeDops(z.value)">
         <option *ngFor="let d of pokritiesDop" [ngValue]="d" [value]="d.ID"> {{d.NAME}}</option>
@@ -374,7 +371,7 @@
 
           class="modal-action btn waves-effect"
           autofocus
-          (click)="deleteObtain()"
+          (click)="NextPage()"
   >
     Далее
   </button>
@@ -382,6 +379,21 @@
 </section>
 
 <section *ngIf="!isFirstVisible" class="container px-4 my-16 mx-auto min-h-screen bg-white ">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <p style="text-align: center;"><b>Бланк-опросник (только для Застрахованного)</b></p>
   <p>Ваши ответы на предлагаемые ниже вопросы являются основным критерием для оценки страхового риска, поэтому просим
     Вас предоставить на них достоверные и исчерпывающие ответы, а также всю дополнительную информацию, которая могла бы
@@ -391,6 +403,29 @@
     лечения.
   </p>
   <hr/>
+<!--  <div class="row">-->
+<!--    <div *ngFor="let d of questions; let index=index;">-->
+<!--      <div >-->
+<!--        <div class="form-group" class="col-md-6">-->
+<!--          <p>{{ questions[index].TEXT_QUESTION }}</p> <br>-->
+<!--          <p class="a">-->
+<!--            <input [(ngModel)]="answersRadio[index]"    type="radio"  value="нет"-->
+<!--                   required="">-->
+<!--            <label for="1">нет</label>-->
+<!--          </p>-->
+<!--          <p class="a">-->
+<!--            <input [(ngModel)]="answersRadio[index]"    type="radio"  value="да"-->
+<!--                   required="">-->
+<!--            <label for="2">да</label>-->
+<!--          </p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+
+
+
   <form method="post" id="main_blank">
 
     <p><b>Ваш рост:</b> <br>
@@ -404,22 +439,18 @@
     <div class="question" data-id="1" id="question-1" style="">
 
       <p class="q">
-        1. Имеется ли у Вас инвалидность 1, 2 или 3 группы, либо имелась ранее? (укажите какая именно) </p>
+        1. Имеется ли у Вас инвалидность 1, 2 или 3 группы, либо имелась ранее? (укажите какая именно)                                        </p>
 
       <p class="a">
-        <input [(ngModel)]="answersRadio[1]" class="radio_ans" type="radio" id="1" name="question[1]" value="нет"
-               required="">
+        <input [(ngModel)]="answersRadio[1]" checked class="radio_ans" type="radio" id="1" name="question[1]" value="нет" required="">
         <label for="1">нет</label>
       </p>
 
 
       <p class="a">
-        <input [(ngModel)]="answersRadio[1]" checked class="radio_ans" type="radio" id="2" name="question[1]" value="да"
-               required="">
+        <input [(ngModel)]="answersRadio[1]" class="radio_ans" type="radio" id="2" name="question[1]" value="да" required="">
         <label for="2">да</label>
       </p>
-
-      <b class="text-sm text-gray-500 font-bold">  {{answer1}}</b>
 
 
       <p class="dop_a-2" style="display: none;">
@@ -1739,7 +1770,7 @@
       >
       <button
         class="modal-action btn waves-effect"
-        (click)="VigodaSmert2()"
+        (click)="VigodaZhizn()"
 
       >Подтвердить
       </button>

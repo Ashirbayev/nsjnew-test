@@ -129,7 +129,7 @@ export interface Statment {
   ZASTRAHOVAN?: number
   ANSWERS?: string
   EMPID?: number
-  RISK?: number
+  RISK?: string
 }
 
 export interface Vigodo {
@@ -172,6 +172,12 @@ export interface DopPokrSum {
 export interface DopPokrStrahSum {
   DOP_POKRS_SUMS?: string
   CNCT_ID?: number
+}
+
+export interface Period {
+  ID?: number,
+  NAME?: string
+
 }
 
 

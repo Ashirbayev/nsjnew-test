@@ -2,9 +2,10 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import {
+  Agent,
   Answer,
   Category,
-  DataIIN,
+  DataIIN, DopPokrStrahSum,
   findIIN, Message,
   Numzav,
   Order,
@@ -37,8 +38,8 @@ export class NewnsjService {
     return this.http.get<Region[]>(`/api/regions`)
   }
 
-  getAgents(): Observable<Region[]> {
-    return this.http.get<Region[]>(`/api/agents`)
+  getAgents(): Observable<Agent[]> {
+    return this.http.get<Agent[]>(`/api/agents`)
   }
 
   getZavNum(id: number): Observable<Numzav[]> {
@@ -53,8 +54,12 @@ export class NewnsjService {
     return this.http.get<Question[]>(`/api/pokrs`)
   }
 
-  setPokrs(): Observable<Question[]> {
-    return this.http.get<Question[]>(`/api/pokrs`)
+
+
+  setPokrs(answer: DopPokrStrahSum) {
+    //const body = {ID_QUESTION: answer.ID_QUESTION, ID_ANSWER: answer.ID_ANSWER};
+    return this.http.post('/api/pokrs', answer)
+    //console.log(body)
   }
 
   getAllAgents(): Observable<Question[]> {
@@ -64,27 +69,24 @@ export class NewnsjService {
 
   createAnswer(answer: Answer) {
     //const body = {ID_QUESTION: answer.ID_QUESTION, ID_ANSWER: answer.ID_ANSWER};
-
     return this.http.post('/api/nsjnew', answer)
     //console.log(body)
   }
 
   createZayav(statment: Statment) {
     //const body = {ID_QUESTION: answer.ID_QUESTION, ID_ANSWER: answer.ID_ANSWER};
-
     return this.http.post('/api/statment', statment)
     //console.log(body)
   }
 
   createObtain(vigodo: Vigodo) {
     //const body = {ID_QUESTION: answer.ID_QUESTION, ID_ANSWER: answer.ID_ANSWER};
-
     return this.http.post('/api/vigodos', vigodo)
     //console.log(body)
   }
 
-  deleteObtain(ID: number) :any {
-     this.http.delete(`/api/vigodos${ID}`)
+  deleteObtain(ID: number):Observable<Message>{
+     return this.http.get<Message>(`/api/vigodos${ID}`)
   }
 
 
