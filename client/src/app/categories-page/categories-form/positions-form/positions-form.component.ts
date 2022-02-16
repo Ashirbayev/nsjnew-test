@@ -34,7 +34,6 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
     this.positionsService.fetch(this.categoryId).subscribe(positions => {
       this.positions = positions
       this.loading = false
-
     })
 
   }

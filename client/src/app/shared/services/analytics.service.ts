@@ -1,7 +1,7 @@
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
-import {AnalyticsPage, OverviewPage} from "../interfaces";
+import {AnalyticsPage, Category, OverviewPage, StatmentT, TestNsj} from "../interfaces";
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +12,15 @@ export class AnalyticsService {
 
   getOverview(): Observable<OverviewPage> {
     return this.http.get<OverviewPage>('/api/analytics/overview')
-
   }
 
-  getAnalytics(): Observable<AnalyticsPage> {
-    return this.http.get<AnalyticsPage>('/api/analytics/analytics')
+  fetch(): Observable<StatmentT[]> {
+    return this.http.get<StatmentT[]>('/api/statment');
+  }
 
+
+  getById(id: string): Observable<StatmentT> {
+    return this.http.get<StatmentT>(`/api/statment/${id}`)
   }
 
 }

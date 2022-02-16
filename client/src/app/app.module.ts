@@ -24,6 +24,7 @@ import { HistoryFilterComponent } from './history-page/history-filter/history-fi
 import { NsjnewPageComponent } from './nsjnew-page/nsjnew-page.component';
 import { NsjnewFirstComponent } from './nsjnew-page/nsjnew-first/nsjnew-first.component';
 import { NsjnewSecondComponent } from './nsjnew-page/nsjnew-second/nsjnew-second.component';
+import { StatmentFormComponent } from './analytics-page/statment-form/statment-form.component';
 
 
 
@@ -49,7 +50,8 @@ import { NsjnewSecondComponent } from './nsjnew-page/nsjnew-second/nsjnew-second
     HistoryFilterComponent,
     NsjnewPageComponent,
     NsjnewFirstComponent,
-    NsjnewSecondComponent
+    NsjnewSecondComponent,
+    StatmentFormComponent
 
   ],
   imports: [

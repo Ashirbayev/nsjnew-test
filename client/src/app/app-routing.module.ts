@@ -14,6 +14,8 @@ import {CategoriesFormComponent} from "./categories-page/categories-form/categor
 import {OrderCategoriesComponent} from "./order-page/order-categories/order-categories.component";
 import {OrderPositionsComponent} from "./order-page/order-positions/order-positions.component";
 import {NsjnewPageComponent} from "./nsjnew-page/nsjnew-page.component";
+import {StatmentFormComponent} from "./analytics-page/statment-form/statment-form.component";
+
 
 const routes: Routes = [
   {
@@ -30,6 +32,7 @@ const routes: Routes = [
       {path: 'nsjnew', component: NsjnewPageComponent},
       {path: 'overview', component: OverviewPageComponent},
       {path: 'analytics', component: AnalyticsPageComponent},
+      {path: 'statment/:id', component: StatmentFormComponent},
       {path: 'history', component: HistoryPageComponent},
       {path: 'order', component: OrderPageComponent, children: [
           {path: '', component: OrderCategoriesComponent},

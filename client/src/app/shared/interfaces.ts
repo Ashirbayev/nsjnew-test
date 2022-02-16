@@ -177,7 +177,31 @@ export interface DopPokrStrahSum {
 export interface Period {
   ID?: number,
   NAME?: string
+}
 
+export interface StatmentT {
+  ID?: number,
+  BRANCH_ID: number,
+  NUM_ZAV: string,
+  DATE_ZAV: Date,
+  STRAH_VZNOS: number,
+  AGENT: number,
+  AGENT_RASHOD: number,
+  PERIODICH: number,
+  SROK_STRAH: number,
+  MAIN_POKR: number,
+  CNCT_ID: number,
+  GOD_DOHOD: number,
+  PAYM_CODE: number,
+  STRAHOVATEL: number,
+  ZASTRAHOVAN: number,
+  STATE: number,
+  EMP_ID: number,
+  STRAH_SUM: number,
+  BCO: string,
+  PERIODICH_T: string,
+  DATE_BEGIN: Date,
+  DATE_END: Date
 }
 
 

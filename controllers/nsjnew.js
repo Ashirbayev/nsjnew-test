@@ -253,7 +253,12 @@ module.exports.getPokrs = async function (req, res) {
 
 
 module.exports.setPokrs = async function (req, res) {
+    console.log(req.body.DOP_POKRS_SUMS)
+    console.log(req.body.CNCT_ID)
     try {
+
+
+
         connection = await oracledb.getConnection(
             {user: "insurance", password: 'insurance', connectString: "192.168.5.191/orcl"});
         result = await connection.execute(`begin NSJ.SetDopPokrSum('${req.body.DOP_POKRS_SUMS}', '${req.body.CNCT_ID}');  end;`);

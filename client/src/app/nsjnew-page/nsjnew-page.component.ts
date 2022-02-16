@@ -832,7 +832,6 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
     })
 
     console.log(this.massive)
-
     this.statment.BRANCH_ID = this.region.RFBN_ID
     this.statment.ZAV_NUMBER = this.numzav
     this.statment.DATE_ZAV = this.dateString// {(Date|number|string)}
@@ -860,7 +859,7 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
         this.newnsjsService.setPokrs(this.dopPokrStrahSum).subscribe(
           test =>   console.log(test)
         )
-        this.router.navigate(['/analytics'])
+        this.router.navigate([`/statment/${cnctid.cnctid}`] )
         console.log(cnctid)
       },
       error => {
@@ -868,7 +867,6 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
         this.form.enable()
       }
     )
-
   }
 
 
@@ -953,9 +951,7 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
   onChangeAgent(t: any) {
    this.agen = ': Договор  № ' + t
     console.log(t)
-
     this.agentSelect = t
-
   }
 
   onChangePeriod(s: any) {
@@ -986,12 +982,14 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
     }
     if (t == 2) {
       this.dopPokrSums.push({
-        ID: 2
+        ID: 2,
+        SUM: "0"
       })
     }
     if (t == 1) {
       this.dopPokrSums.push({
-        ID: 1
+        ID: 1,
+        SUM: "0"
       })
     }
    console.log(t)
@@ -1061,6 +1059,20 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
     })
     console.log(this.dopPokrSums)
   }
+
+
+  genMassiveStringDopPokr() {
+
+    ////////////////////// Формирования стринг массива дополнительных покрытий
+
+
+    console.log('конец'+this.dopPokrSums)
+
+  }
+
+
+
+
 
 
 

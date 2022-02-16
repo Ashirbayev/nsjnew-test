@@ -1,13 +1,14 @@
-import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AnalyticsService} from "../shared/services/analytics.service";
-import {AnalyticsPage} from "../shared/interfaces";
+import {AnalyticsPage, Category, StatmentT} from "../shared/interfaces";
+import {Observable} from "rxjs/index";
 
 @Component({
   selector: 'app-analytics-page',
   templateUrl: './analytics-page.component.html',
   styleUrls: ['./analytics-page.component.css']
 })
-export class AnalyticsPageComponent implements AfterViewInit {
+export class AnalyticsPageComponent implements OnInit {
 
   @ViewChild('gain') gainRef: ElementRef
   @ViewChild('order') orderRef: ElementRef
@@ -15,16 +16,18 @@ export class AnalyticsPageComponent implements AfterViewInit {
 
   average: number
   pending = true
+  ///////////////////////
 
-  constructor(private service: AnalyticsService) {
+  loading = false
+  statments$: Observable<StatmentT[]>
+
+  constructor(private analyticsService: AnalyticsService) {
 
   }
 
- ngAfterViewInit(): void {
-    this.service.getAnalytics().subscribe((data: AnalyticsPage) => {
-      //console.log(data)
+  ngOnInit(): void {
+    this.statments$ = this.analyticsService.fetch()
+  }
 
-    })
- }
 
 }
