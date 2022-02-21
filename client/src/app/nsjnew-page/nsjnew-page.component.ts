@@ -389,7 +389,6 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
         this.vigodosSmert = []
         this.vigodopreodetatelSmert = {}
         console.log(this.vigodopreodetatelSmerts)
-
         this.modal.close()
       })
   }

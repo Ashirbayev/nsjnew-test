@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken')
 const User =require('../models/User')
 const keys = require('../config/keys')
 const errorHadler = require('../utils/errorHandler')
+const oracledb = require('oracledb');
 
 
 module.exports.login = async function (req, res) {
@@ -35,6 +36,61 @@ module.exports.login = async function (req, res) {
         })
     }
 }
+
+
+module.exports.login2 = async function (req, res) {
+    try {
+    connection = await oracledb.getConnection({
+        user: "insurance",
+        password: 'insurance',
+        connectString: "192.168.5.191/orcl"
+    });
+
+    result = await connection.execute(
+        `select * from NSJ_USERS  where EMAIL = ${req.body.email}`,
+        [],  // bind value for :id
+        {outFormat: oracledb.OUT_FORMAT_OBJECT}
+    );
+
+        console.log(result.rows.length)
+
+        const test = result.rows
+        res.send(test);
+    } catch (e) {
+        errorHandler(res, e)
+    }
+
+
+    // const candidate = await User.findOne({email: req.body.email})
+    //
+    // if (candidate) {
+    //     //Проверка пароля, пользователь существует
+    //     const passwordResult = bcrypt.compareSync(req.body.password, candidate.password)
+    //     if (passwordResult) {
+    //         //Генерация токена, пароли совпали
+    //
+    //         const token = jwt.sign({
+    //             email: candidate.email,
+    //             userId: candidate._id
+    //         }, keys.jwt, {expiresIn: 60 * 60})
+    //
+    //
+    //         res.status(200).json({
+    //             token: `Bearer ${token}`
+    //         })
+    //     } else {
+    //         res.status(401).json({
+    //             message: 'Пароли не совпадают. Попробуйте снова.'
+    //         })
+    //     }
+    // } else {
+    //     //Пользователя нет, ошибка
+    //     res.status(404).json({
+    //         message: 'Пользователь с таким емайл не найден.'
+    //     })
+    // }
+}
+
 
 
 

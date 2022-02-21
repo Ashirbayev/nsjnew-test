@@ -28,13 +28,14 @@ module.exports.getStatments = async function (req, res) {
 
 module.exports.getStatmentById = async function (req, res) {
     console.log(req.params.id)
+
     try {
         connection = await oracledb.getConnection({
             user: "insurance",
             password: 'insurance',
             connectString: "192.168.5.191/orcl"
         });
-        let query = `SELECT * FROM NSZH_STATEMENT where ID = ${req.params.id}`
+        let query = `SELECT * FROM NSZH_STATEMENT where ID = ${parseInt(req.params.id)}`
         ;
         // run query to get all employees
         result = await connection.execute(query,
