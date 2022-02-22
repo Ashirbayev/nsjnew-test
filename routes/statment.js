@@ -10,4 +10,6 @@ router.post('/', passport.authenticate('jwt', {session:false}), controller.creat
 router.get('/', passport.authenticate('jwt', {session:false}), controller2.getStatments)
 router.get('/:id', passport.authenticate('jwt', {session:false}), controller2.getStatmentById)
 
+
+
 module.exports = router

@@ -204,6 +204,39 @@ export interface StatmentT {
   DATE_END?: Date
 }
 
+export interface Answers {
+  "ID": number,
+  "ID_QUESTION": number,
+  "ID_ANSWER": string,
+  "SICID_CLIENT": number,
+  "STMNT_ID": number,
+  "ID_1": number,
+  "TEXT_QUESTION": string,
+  "TYPE": number
+}
+
+export interface Client {
+  "SICID": number,
+  "LASTNAME": string,
+  "FIRSTNAME": string,
+  "MIDDLENAME": string,
+  "BIRTHDATE": Date,
+  "DEATH_DATE": Date,
+  "SEX": string,
+  "IIN": string
+}
+
+export interface Dpokr {
+  "ID": number,
+  "STRAH_SUM": number,
+  "ID_DOP_POKR": number,
+  "CNCT_ID": number,
+  "ID_1": number,
+  "NAME": string,
+  "NAME_KZ": string,
+  "ACTIVE": number,
+  "PMAIN": number
+}
 
 
 

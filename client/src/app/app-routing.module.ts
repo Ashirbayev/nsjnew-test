@@ -31,7 +31,7 @@ const routes: Routes = [
     path: '', component:SiteLayoutComponent, canActivate: [AuthGuard], children:[
       {path: 'nsjnew', component: NsjnewPageComponent},
       {path: 'overview', component: OverviewPageComponent},
-      {path: 'analytics', component: AnalyticsPageComponent},
+      {path: 'statments', component: AnalyticsPageComponent},
       {path: 'statment/:id', component: StatmentFormComponent},
       {path: 'history', component: HistoryPageComponent},
       {path: 'order', component: OrderPageComponent, children: [
