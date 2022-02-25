@@ -37,7 +37,7 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
   nagruzka: Nagruz = {}
   stringMassiveNagruz: string = ''
 
-
+  loading = false
 
   periods: Period[] = [
     {ID: 0, NAME: "Единовременно"},
@@ -815,6 +815,8 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
 
 
   createSends() {
+    this.loading =true
+
     this.answerGen()
     this.obtainGenMassiveString()
     this.genMassiveStringNagruz()
@@ -867,8 +869,11 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
         this.newnsjsService.setPokrs(this.dopPokrStrahSum).subscribe(
           test =>   console.log(test)
         )
+        this.loading = false
         this.router.navigate([`/statment/${cnctid.cnctid}`] )
         console.log(cnctid)
+
+
       },
       error => {
         MaterialService.toast(error.error.message)

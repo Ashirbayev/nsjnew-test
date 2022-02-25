@@ -1,0 +1,576 @@
+<div *ngIf="maincontent == 1" class="container">
+
+
+  <div class="row">
+    <div class="col s12">
+      <div class="tab col s6">
+        <button class="modal-action btn waves-effect" autofocus (click)="setTabcontentFalse()">Основная информация
+        </button>
+        <button class="modal-action btn waves-effect" autofocus (click)="setTabcontentTrue()">Бланк-опросник</button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="tabcontent == 0" class="top__section tabcontent" id="main-info">
+    <div class="top__section-first">
+      <div>
+        <h5>  {{statment.NUM_ZAV}}  Накопительное страхование жизни (Просмотр заявления) </h5>
+      </div>
+      <div class="flex-row">
+        <div class="col s2">
+          <label for="">№ Договора</label>
+          <input disabled type="text" value="" name="" class="dsb-inp">
+        </div>
+        <div class="col s2">
+          <label for="">Дата договора</label>
+          <input disabled type="text" value="" name="" class="dsb-inp">
+        </div>
+        <div class="col s2">
+          <label for="">№ БСО </label>
+          <input disabled type="text" value="" name="" class="dsb-inp">
+        </div>
+      </div>
+      <div class="flex-row">
+        <div class="col s2">
+          <label for="">№ Заявления </label>
+          <input [(ngModel)]="statment.NUM_ZAV" disabled type="text" name="" id="">
+        </div>
+        <div class="col s2">
+          <label for="">Дата заявления </label>
+          <input [(ngModel)]="statment.DATE_ZAV " disabled type="text" name="" id="">
+        </div>
+        <div class="col s2">
+          <label for="">Инспектор </label>
+          <input [(ngModel)]="statment.EMP_ID" disabled type="text" name="" id="">
+        </div>
+      </div>
+      <div class="">
+        <div class="col">
+          <label for="">Страхователь </label>
+          <input [(ngModel)]="strahovat" disabled type="text" value="">
+        </div>
+      </div>
+      <div class="">
+        <div class="col">
+          <label for="">Дата формирования полиса</label>
+          <input disabled type="text" name="date" value="">
+        </div>
+      </div>
+      <div class="">
+        <div class="col">
+          <label for="">Отделение</label>
+          <input [(ngModel)]="statment.BRANCH_ID" disabled type="text" name="filial" value="">
+        </div>
+      </div>
+      <div class="flex-row">
+        <div class="col s6">
+          <label for="">Период страховой защиты с </label>
+          <input disabled type="text">
+        </div>
+        <div class="col ">
+          <label for="">По </label>
+          <input disabled type="text">
+        </div>
+      </div>
+      <div class="flex-row">
+        <div class="col">
+          <label for="">Агент</label>
+          <input [(ngModel)]="statment.AGENT" disabled type="text">
+        </div>
+        <div class="col">
+          <label for="">Размер АВ</label>
+          <input disabled type="text">
+        </div>
+        <div class="col">
+          <label for="">Договор поручения </label>
+          <input disabled type="text">
+        </div>
+      </div>
+      <div class="flex-row">
+        <div class="col">
+          <label for="">Уровень принятия решения</label>
+          <input disabled type="text">
+        </div>
+      </div>
+      <div class="flex-row">
+        <div class="col">
+          <label for="">Статус </label>
+          <input [(ngModel)]="statment.STATE" disabled type="text" name="state">
+        </div>
+      </div>
+
+
+      <!-- Выгодоприобретатели -->
+      <div class="row">
+        <h5>Выгодоприобретатели</h5>
+        <div class="col">
+          <span>На случай дожития </span>
+          <table class="striped">
+            <thead>
+            <tr class="">
+              <th class="grey-text text-darken-2 center-align"> Фамилия Имя Отчество</th>
+              <th class="grey-text text-darken-2 center-align"> Процент %</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let life of obtainLifes">
+              <td class="p-2 border text-sm text-gray-500 center-align">{{life.FIO}}</td>
+              <td class="p-2 border text-sm text-gray-500 center-align">{{life.PROC}}</td>
+
+            </tr>
+            </tbody>
+          </table>
+
+
+          <br>
+          <span>На случай смерти </span>
+          <table class="striped">
+            <thead>
+            <tr class="">
+              <th class="grey-text text-darken-2 center-align"> Фамилия Имя Отчество</th>
+              <th class="grey-text text-darken-2 center-align"> Процент %</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let smert of obtainDeaths">
+              <td class="p-2 border text-sm text-gray-500 center-align">{{smert.FIO}}</td>
+              <td class="p-2 border text-sm text-gray-500 center-align">{{smert.PROC}}</td>
+            </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+
+      <!-- Застрахованный -->
+      <div class="row ">
+        <div class="col">
+          <h5>Застрахованный</h5>
+        </div>
+        <div class="col">
+          <label for="">ФИО(Дата рождения) (ИИН)</label>
+          <input [(ngModel)]="zasttrahov" disabled type="text">
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="">Возраст</label>
+            <input [(ngModel)]="showAge" disabled type="text">
+          </div>
+          <div class="col">
+            <label for="">Вес</label>
+            <input [(ngModel)]="weight" disabled type="text">
+          </div>
+          <div class="col">
+            <label for="">Рост</label>
+            <input [(ngModel)]="growth" disabled type="text">
+          </div>
+        </div>
+        <div class="col">
+          <label for="">Годовой доход</label>
+          <input [(ngModel)]="statment.GOD_DOHOD" disabled type="text">
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <h5>Рассчетные данные </h5>
+        <table class="table bordered">
+          <thead>
+          <tr>
+            <th>Тип 1</th>
+            <th>Наименование</th>
+            <th>Тариф</th>
+            <th>Нагрузка</th>
+            <th>Страховой взнос</th>
+            <th>Страховая сумма</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>
+              Нет данных
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <hr>
+      <div class="row">
+        <h5>Таблица выкупных сумм и уменьшенных страховых сумм</h5>
+        <table class="table bordered">
+          <thead>
+          <tr>
+            <th>Год страхования</th>
+            <th>Выкупная сумма</th>
+            <th>Уменьшенная страховая сумма</th>
+            <th>Сумма бонусных страховых сумм</th>
+            <th>Выкупная по прибыли на конец годовщины</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th></th>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="statment.STATE == 50" class="col s12">
+        <div class="tab col s12 btn-wrapper">
+          <button class="modal-action btn orange darken-1" autofocus (click)="setTabcontentFalse()"> Возвращение на
+            доработку
+          </button>
+          <button class="modal-action btn waves-effect" autofocus (click)="updateStatus51()"> Утвердить</button>
+        </div>
+      </div>
+
+      <div *ngIf="statment.STATE == 51" class="col s12">
+        <div class="tab col s6 btn-wrapper">
+          <button class="modal-action btn red darken-1" autofocus (click)="setTabcontentFalse()">Отказать</button>
+          ____
+          <button class="modal-action btn orange darken-1" autofocus (click)="setTabcontentTrue()">Вернуть</button>
+          <button class="modal-action btn waves-effect" autofocus (click)="setTabcontentRashet()">Произвести расчет
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="top__section-second">
+      <h5>Расчетные данные</h5>
+      <div class="col s2">
+        <label for="">Страховой взнос</label>
+        <input [(ngModel)]="statment.STRAH_VZNOS" disabled type="text">
+      </div>
+      <span> <b> Страховой взнос по основному покрытию </b></span>
+      <div class="col s2">
+        <label for="">Накопительная часть</label>
+        <input disabled type="text">
+      </div>
+      <div class="col s2">
+        <label for="">Страховая часть</label>
+        <input disabled type="text">
+      </div>
+      <div class="col s2">
+        <label for="">Страховой взнос по дополнительным покрытиям </label>
+        <input disabled type="text">
+      </div>
+      <div>
+        <label for="">Периодичность</label>
+        <input [(ngModel)]="statment.PERIODICH_T" disabled type="text">
+      </div>
+      <div>
+        <label for="">Срок страхования</label>
+        <input [(ngModel)]="statment.SROK_STRAH" disabled type="text">
+      </div>
+      <div>
+        <label for="">Страховая сумма</label>
+        <input [(ngModel)]="statment.STRAH_SUM" disabled type="text">
+      </div>
+      <div>
+        <label for="">Основное покрытие</label>
+        <input disabled type="text" placeholder="Смерть по любой причине">
+      </div>
+      <span> <b> Дополнительные покрытия </b></span>
+      <div *ngFor="let pokr of Pokrs">
+        <input disabled placeholder="{{pokr.NAME}}">
+        <input disabled type="text" placeholder="{{pokr.STRAH_SUM}}">
+      </div>
+
+
+      <div class="col s2">
+        <h5>Список застрахованных клиентов</h5>
+        <hr>
+        <br>
+        <button class="btn p-2 center-align">ФИО агента</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngIf="tabcontent == 1">
+    <h5 class="q-header">Ответы на бланк-опросник</h5>
+    <div class="col s12 q-block" *ngFor="let answer of answers">
+      <div class="q-block-title">
+        <!--        <span class="q-id">{{answer.ID_QUESTION}}. </span>-->
+        <span class="q-title">{{answer.TEXT_QUESTION}}</span>
+      </div>
+      <div class="q-block-answer">
+        <span class="q-answer">{{answer.ID_ANSWER}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="maincontent == 2" class="container2">
+  <div class="tabs-wrapper">
+    <div class="row">
+      <div class="col s12">
+        <div class="tab col s6">
+          <button class="btn waves-effect waves-light tablinks active">Основная информация</button>
+          <button class="btn waves-effect waves-light tablinks">Бланк-опросник</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="main-info" class="tabcontent">
+    <div class="top-header-wrapper">
+      <h5>Нагрузки</h5>
+      <button (click)="setTabcontentMain()" class="btn waves-effect waves-light grey">Назад</button>
+    </div>
+
+    <table class="table responsive-table highlight centered">
+      <thead>
+      <tr>
+        <th >№ п/п</th>
+        <th >Виды андеррайтинга</th>
+        <th >Наименование заболевания, профессии, вида спорта, страны</th>
+        <th>Смерть по любой причине</th>
+        <th>Смерть в рез-те НС</th>
+        <th>Инвалидность 1,2 группы в рез-те НС</th>
+        <th>Травма в рез-те НС</th>
+        <th>Временная нетрудоспособность в рез-те НС</th>
+        <th>Госпитализация в рез-те НС</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let nagr of nagruzki  let idx =index">
+        <th>{{idx+1}}</th>
+        <th>{{nagr.NAME_RISK}}</th>
+        <th >{{nagr.NAME}}  </th>
+        <th> <input type="text" placeholder="В %" on-change="sumArraySmertPoLuboi()" [(ngModel)]="smertPoLuboiPrichine[idx]">                     <input on-change="sumArraySmertPoLuboiPromil()" [(ngModel)]="smertPoLuboiPrichinePromil[idx]" type="text" placeholder="В промилле"></th>
+        <th> <input type="text" placeholder="В %" on-change="sumArraysmertVrezultateNS()" [(ngModel)]="smertVrezultateNS[idx]" >                  <input on-change="sumArraysmertVrezultateNSPromil()" [(ngModel)]="smertVrezultateNSPromil[idx]" type="text" placeholder="В промилле"></th>
+        <th> <input type="text" placeholder="В %" on-change="sumArrayInvalidnosGrup()" [(ngModel)]="invalidnosGrup[idx]">                         <input on-change="sumArrayInvalidnosGrupPromil()" [(ngModel)]="invalidnosGrupPromil[idx]" type="text" placeholder="В промилле"></th>
+        <th> <input type="text" placeholder="В %" on-change="sumArrayTravmaRezultateNS()" [(ngModel)]="travmaRezultateNS[idx]">                   <input on-change="sumArrayTravmaRezultateNSPromil()" [(ngModel)]="travmaRezultateNSPromil[idx]" type="text" placeholder="В промилле"></th>
+        <th> <input type="text" placeholder="В %" on-change="sumArrayVrmennayaNetrudoSposobnost()" [(ngModel)]="vrmennayaNetrudoSposobnost[idx]"> <input on-change="sumArrayVrmennayaNetrudoSposobnostPromil()" [(ngModel)]="vrmennayaNetrudoSposobnostPromil[idx]" type="text" placeholder="В промилле"></th>
+        <th> <input type="text" placeholder="В %" on-change="sumArrayGospitalizaciaNS()" [(ngModel)]="gospitalizaciaNS[idx]">                     <input  on-change="sumArrayGospitalizaciaNSPromil()" [(ngModel)]="gospitalizaciaNSPromil[idx]" type="text" placeholder="В промилле"></th>
+      </tr>
+      <tr>
+        <th></th>
+        <th>Итого в %:</th>
+        <th></th>
+        <th>{{smertPoLuboiPrichineValue}}</th>
+        <th>{{smertVrezultateNSValue}}</th>
+        <th>{{invalidnosGrupValue}}</th>
+        <th>{{travmaRezultateNSValue}}</th>
+        <th>{{vrmennayaNetrudoSposobnostValue}}</th>
+        <th>{{gospitalizaciaNSValue}}</th>
+      </tr>
+
+      <tr>
+        <th></th>
+        <th>Итого в промилле:</th>
+        <th></th>
+        <th>{{smertPoLuboiPrichineValuePromil}}</th>
+        <th>{{smertVrezultateNSValuePromil}}</th>
+        <th>{{invalidnosGrupValuePromil}}</th>
+        <th>{{travmaRezultateNSValuePromil}}</th>
+        <th>{{vrmennayaNetrudoSposobnostValuePromil}}</th>
+        <th>{{gospitalizaciaNSValuePromil}}</th>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="btn-wrapper">
+      <button class="btn waves-effect waves-light blue" (click)="rashetCalculator()">Рассчитать</button>
+    </div>
+  </div>
+  <div id="questions-blank" class="tabcontent">
+    <h5 class="q-header">Ответы на бланк-опросник</h5>
+    <div class="col s12 q-block">
+      <div class="q-block-title">
+        <span class="q-id">1. </span>
+        <span class="q-title">Имеется ли у Вас инвалидность 1, 2 или 3 группы, либо имелась ранее? (укажите какая именно)</span>
+      </div>
+      <div class="q-block-answer">
+        <span class="q-answer"> Нет</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+<div *ngIf="maincontent == 3" class="container3">
+  <div class="tabs-wrapper">
+    <div class="row">
+      <div class="col s12">
+        <div class="tab col s6">
+          <button class="btn waves-effect waves-light tablinks active" onclick="openTab(event, 'main-info')">Основная информация</button>
+          <button class="btn waves-effect waves-light tablinks" onclick="openTab(event, 'questions-blank')">Бланк-опросник</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="main-info" class="tabcontent">
+    <h5>Результат расчета</h5>
+    <hr>
+    <table class="table responsive-table highlight centered " id="table">
+      <thead>
+      <tr>
+        <th>Тип 1 </th>
+        <th>Наименование </th>
+        <th>Тариф </th>
+        <th>Нагрузка </th>
+        <th>Страховой взнос </th>
+        <th>Страховая сумма </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <th>Основное покрытие</th>
+        <th>Смерть застрахованного по любой причине</th>
+        <th>0,092645371417253172136</th>
+        <th></th>
+        <th></th>
+        <th>526487,09</th>
+      </tr>
+      <tr>
+        <th>Дополнительное покрытие</th>
+        <th>Установление инвалидности 1,2 группы в результате НС</th>
+        <th>0,0035</th>
+        <th>0</th>
+        <th></th>
+        <th>0</th>
+      </tr>
+      <tr>
+        <th colspan="2">Итого: </th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th>526487</th>
+      </tr>
+      </tbody>
+    </table>
+    <div class="btn-wrapper">
+      <button class="btn waves-effect waves-light grey" (click)="setTabcontentRashet()">Назад</button>
+      <button class="btn waves-effect waves-light ">Утвердить</button>
+    </div>
+  </div>
+  <div id="questions-blank" class="tabcontent">
+    <h5 class="q-header">Ответы на бланк-опросник</h5>
+    <div class="col s12 q-block">
+      <div class="q-block-title">
+        <span class="q-id">1. </span>
+        <span class="q-title">Имеется ли у Вас инвалидность 1, 2 или 3 группы, либо имелась ранее? (укажите какая именно)</span>
+      </div>
+      <div class="q-block-answer">
+        <span class="q-answer"> Нет</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>-->
+<!--<script>-->
+<!--  function openTab(evt, idName) {-->
+<!--    // Declare all variables-->
+<!--    let i, tabcontent, tablinks;-->
+
+<!--    // Get all elements with class="tabcontent" and hide them-->
+<!--    tabcontent = document.getElementsByClassName("tabcontent");-->
+<!--    for (i = 0; i < tabcontent.length; i++) {-->
+<!--      tabcontent[i].style.display = "none";-->
+<!--    }-->
+
+<!--    // Get all elements with class="tablinks" and remove the class "active"-->
+<!--    tablinks = document.getElementsByClassName("tablinks");-->
+<!--    for (i = 0; i < tablinks.length; i++) {-->
+<!--      tablinks[i].className = tablinks[i].className.replace(" active", "");-->
+<!--    }-->
+
+<!--    // Show the current tab, and add an "active" class to the button that opened the tab-->
+<!--    document.getElementById(idName).style.display = "block";-->
+<!--    evt.currentTarget.className += " active";-->
+<!--  }-->
+<!--</script>-->
+
+
+<!--<main class="content">-->
+<!--  <div class="page-title">-->
+<!--    <h4>-->
+<!--      <a routerLink="/categories">Категории</a>-->
+<!--      <i class="material-icons">keyboard_arrow_right</i>-->
+<!--      {{isNew ? 'Добавить': 'Редактировать'}} категогрию-->
+<!--    </h4>-->
+<!--    <span>-->
+<!--      <button-->
+<!--        *ngIf="!isNew"-->
+<!--        class="btn btn-small red" >-->
+<!--        <i class="material-icons">delete</i>-->
+<!--      </button>-->
+<!--    </span>-->
+<!--  </div>-->
+
+<!--  <div class="row">-->
+<!--    <form class="col s12 l6" [formGroup]="form" (ngSubmit)="onSubmit()">-->
+<!--      <div class="input-field">-->
+<!--        <input-->
+<!--          formControlName="name"-->
+<!--          id="name"-->
+<!--          type="text"-->
+<!--          [ngClass]="{'invalid': form.get('name').invalid && form.get('name').touched}"-->
+<!--        >-->
+<!--        <label for="name">Название</label>-->
+<!--        <span-->
+<!--          class="helper-text red-text"-->
+<!--          *ngIf="form.get('name').invalid && form.get('name').touched"-->
+<!--        >-->
+<!--          <span *ngIf="form.get('name').errors['required']">-->
+<!--            Имя категории не может быть пустым.-->
+<!--          </span>-->
+<!--        </span>-->
+<!--      </div>-->
+
+<!--      <div>-->
+<!--        <input-->
+<!--          type="file"-->
+<!--          class="dn"-->
+<!--          (change)="onFileUpload($event)"-->
+<!--          #input-->
+<!--        >-->
+<!--        <button-->
+<!--          (click)="triggerClick()"-->
+<!--          [disabled]="form.disabled"-->
+<!--          type="button"-->
+<!--          class="waves-effect waves-light btn orange lighten-2 mb2"-->
+<!--        >-->
+<!--          <i class="material-icons left">backup</i>-->
+<!--          Загрузить изображение-->
+<!--        </button>-->
+<!--      </div>-->
+
+<!--      <div>-->
+<!--        <button-->
+<!--          type="submit"-->
+<!--          [disabled]="form.invalid || form.disabled"-->
+<!--          class="waves-effect waves-light btn"-->
+<!--        >-->
+<!--          Сохранить изменения-->
+<!--        </button>-->
+<!--      </div>-->
+<!--    </form>-->
+
+<!--    <div class="col s12 l4 center">-->
+<!--      <img-->
+<!--        class="responsive-img h200"-->
+<!--        [src]="imagePreview"-->
+<!--        *ngIf="imagePreview"-->
+<!--      >-->
+<!--    </div>-->
+<!--  </div>-->
+
+
+<!--  <app-positions-form-->
+<!--    *ngIf="statment.ID"-->
+<!--    [categoryId]="statment.ID"-->
+
+<!--  >-->
+<!--  </app-positions-form>-->
+
+
+<!--</main>-->

@@ -1,0 +1,112 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+label{
+  font-size: 14px;
+  color: black;
+}
+
+input{
+  width: 100%;
+  border: 1px solid black;
+  display: block;
+}
+
+.flex-row{
+  display: flex;
+}
+
+.col{
+  width: 100%;
+  margin: 0 10px;
+}
+
+.top__section{
+  display: flex;
+  justify-content: space-between;
+}
+
+.top__section-first{
+  margin-right: 35px;
+}
+
+
+
+
+
+
+
+#questions-blank{
+  display: none;
+}
+
+.q-answer{
+  font-weight: 700;
+  display: inline-block;
+  margin-left: 18px;
+}
+
+.btn-wrapper{
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+
+
+
+
+
+.top-header-wrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 3px solid rgb(112, 109, 109);
+  border-bottom: 1px solid rgb(185, 182, 182);
+  padding: 8px 0;
+}
+
+.::placeholder{
+  color: rgba(0, 0, 0, 0.473);
+}
+
+.table tr th{
+  border: 1px solid black;
+}
+
+.#questions-blank{
+  display: none;
+}
+
+.q-answer{
+  font-weight: 700;
+  display: inline-block;
+  margin-left: 18px;
+}
+
+.btn-wrapper{
+  margin-top: 20px;
+  display: flex;
+  justify-content: end;
+}
+
+.table tr th {
+  border: 1px solid black;
+}
+
+
+.btn-wrapper .btn:nth-last-child(1){
+  margin-left: 10px;
+}
+
+hr{
+  margin: 20px 0;
+}
+
+
+.row .col{
+  padding: 0;
+}
