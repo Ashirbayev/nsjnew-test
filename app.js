@@ -17,6 +17,12 @@ const obtainPokrs = require('./routes/pokrs')
 const answersRoutes = require('./routes/answers')
 const clientRoutes = require('./routes/client')
 const dpokrsRoutes = require('./routes/dpokrs')
+const nagruzRoutes = require('./routes/nagruz')
+const obtainsRoutes = require('./routes/statment/obtain')
+const anderaitingsRoutes = require('./routes/statment/anderaiting')
+
+
+
 const keys =require('./config/keys')
 const app = express()
 
@@ -55,6 +61,9 @@ app.use('/api/pokrs', obtainPokrs)
 app.use('/api/answers', answersRoutes)
 app.use('/api/client', clientRoutes)
 app.use('/api/dpokrs', dpokrsRoutes)
+app.use('/api/nagruz', nagruzRoutes)
+app.use('/api/obtain', obtainsRoutes)
+app.use('/api/anderaiting', anderaitingsRoutes)
 
 
 

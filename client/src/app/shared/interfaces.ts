@@ -150,6 +150,7 @@ export interface Nagruz {
   ID?: number
   NAME?: string
   TYPE?: string
+  NAME_RISK?: string
 }
 
 export interface Pokr {
@@ -236,6 +237,37 @@ export interface Dpokr {
   "NAME_KZ": string,
   "ACTIVE": number,
   "PMAIN": number
+}
+
+
+export interface Obtain {
+  "ID": number,
+  "SICID": number,
+  "SICID_OBTAIN": number,
+  "PROC": number,
+  "TYPE": number,
+  "CNCT_ID": number,
+  "FIO": string
+}
+
+
+export interface Anderaiting {
+
+  "SMERT_PO_LYUBOI_PRICHINE_PER"?: number,
+  "SMERT_V_RES_NS_PER"?: number,
+  "INVALID_PER_VTOR_RES_NS_PER"?: number,
+  "TRAVMA_RES_NS_PER"?: number,
+  "VREM_NETRUDOSPOSOB_NS_PER"?: number,
+  "GOSPITAL_RES_NS_PER"?: number,
+  "CNCT_ID"?: number,
+  "ID_RISK"?: number,
+  "SMERT_PO_LYUBOI_PRICHINE_PRO"?: number,
+  "SMERT_V_RES_NS_PRO"?: number,
+  "INVALID_PER_VTOR_RES_NS_PRO"?: number,
+  "TRAVMA_RES_NS_PRO"?: number,
+  "VREM_NETRUDOSPOSOB_NS_PRO"?: number,
+  "GOSPITAL_RES_NS_PRO"?: number
+
 }
 
 

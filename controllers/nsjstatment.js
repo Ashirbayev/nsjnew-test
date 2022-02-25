@@ -10,7 +10,7 @@ module.exports.getStatments = async function (req, res) {
             connectString: "192.168.5.191/orcl"
         });
         result = await connection.execute(
-            `SELECT * FROM NSZH_STATEMENT where state = 50 order by id desc`,
+            `SELECT * FROM NSZH_STATEMENT where state = 50 or state = 51 order by id desc`,
             [],  // bind value for :id
             {outFormat: oracledb.OUT_FORMAT_OBJECT}
         );
@@ -74,5 +74,24 @@ module.exports.getAnswerById = async function (req, res) {
         errorHandler(res, e)
     }
 }
+
+
+
+module.exports.setStatus51 = async function (req, res) {  //// Тип исполнения
+    try {
+        connection = await oracledb.getConnection(
+            {user: "insurance", password: 'insurance', connectString: "192.168.5.191/orcl"});
+        result = await connection.execute(`begin NSJ.set_edit51(${parseInt(req.params.id)}); end;`);
+        res.status(201).json({
+            cnctid: req.params.id
+        })
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+
+
+
 
 

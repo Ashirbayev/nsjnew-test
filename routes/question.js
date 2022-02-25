@@ -6,5 +6,4 @@ const router = express.Router()
 router.get('/', passport.authenticate('jwt', {session:false}),  controller.getAllQuestions)
 
 
-
 module.exports = router

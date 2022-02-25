@@ -750,7 +750,7 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
           var str1 = new String(this.zastrahovan.ID);
           var str2 = new String(answer.ID.toString());
 
-          this.stringMassiveSmerts += str1.toString() + ':' + str2.toString() + ';';
+          this.stringMassiveSmerts += str1.toString() + ':' + str2.toString() + ',';
           console.log('Смерть: ' + this.stringMassiveSmerts)
 
       } else {
@@ -758,7 +758,7 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
           var str1 = new String(this.zastrahovan.ID);
           var str2 = new String(answer.ID.toString());
 
-          this.stringMassiveSmerts += str1.toString() + ':' + str2.toString() + ':';
+          this.stringMassiveSmerts += str1.toString() + ':' + str2.toString() + ',';
           console.log('Смерть: ' + this.stringMassiveSmerts)
 
       }
@@ -771,13 +771,13 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
           var str1 = new String(this.zastrahovan.ID);
           var str2 = new String(answer.ID.toString());
 
-          this.stringMassiveZhizns += str1.toString() + ':' + str2.toString() + ':;' ;
+          this.stringMassiveZhizns += str1.toString() + ':' + str2.toString() + ';';
           console.log('Жизнь: ' + this.stringMassiveZhizns)
         } else {
           // not last one
             var str1 = new String(this.zastrahovan.ID);
             var str2 = new String(answer.ID.toString());
-            this.stringMassiveZhizns += str1.toString() + ':' + str2.toString() + ':';
+            this.stringMassiveZhizns += str1.toString() + ':' + str2.toString() + ',';
             console.log('Жизнь: ' + this.stringMassiveZhizns)
         }
       }
@@ -826,11 +826,20 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
         var str1 = new String(answer.ID_QUESTION.toString());
         var str2 = new String(answer.ID_ANSWER.toString());
         this.massive += str1.toString() + ':' + str2.toString() + ':;';
-        console.log(this.massive)
+        //console.log(this.massive)
       }
     })
 
-    console.log(this.massive)
+    //console.log(this.massive)
+    if (this.agentSelect == null ) {this.agentSelect = 0}
+    if (this.agentRashod == null ) {this.agentRashod = 0}
+    if (this.godDohod == null ) {this.godDohod = 0}
+    if (this.selectedPeriod.NAME == null ) {this.selectedPeriod.NAME = ''}
+    if (this.stringMassiveSmerts == null ) {this.stringMassiveSmerts = ''}
+    if (this.stringMassiveZhizns == null ) {this.stringMassiveZhizns = ''}
+    if (this.stringMassiveNagruz == null ) {this.stringMassiveNagruz = ''}
+
+
     this.statment.BRANCH_ID = this.region.RFBN_ID
     this.statment.ZAV_NUMBER = this.numzav
     this.statment.DATE_ZAV = this.dateString// {(Date|number|string)}
@@ -852,7 +861,7 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
 
     this.massive = '';
     this.newnsjsService.createZayav(this.statment).subscribe(
-      (cnctid: { cnctid?: number}) => {
+      (cnctid: {cnctid?: number}) => {
         this.dopPokrStrahSum.CNCT_ID = cnctid.cnctid
         this.dopPokrStrahSum.DOP_POKRS_SUMS = this.pokrStringMassive
         this.newnsjsService.setPokrs(this.dopPokrStrahSum).subscribe(

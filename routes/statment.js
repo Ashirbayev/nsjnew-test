@@ -9,6 +9,9 @@ const router = express.Router()
 router.post('/', passport.authenticate('jwt', {session:false}), controller.createZayav)
 router.get('/', passport.authenticate('jwt', {session:false}), controller2.getStatments)
 router.get('/:id', passport.authenticate('jwt', {session:false}), controller2.getStatmentById)
+router.patch('/:id', passport.authenticate('jwt', {session:false}), controller2.setStatus51)
+
+
 
 
 
