@@ -515,6 +515,7 @@ export class StatmentFormComponent implements OnInit, AfterViewInit {
   //       this.router.navigate([`/statment/${cnctid.cnctid}`] )
   //       console.log(cnctid)
   //     },
+
   //     error => {
   //       MaterialService.toast(error.error.message)
   //       this.form.enable()
