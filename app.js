@@ -20,6 +20,7 @@ const dpokrsRoutes = require('./routes/dpokrs')
 const nagruzRoutes = require('./routes/nagruz')
 const obtainsRoutes = require('./routes/statment/obtain')
 const anderaitingsRoutes = require('./routes/statment/anderaiting')
+const editObtainRoutes = require('./routes/statment/obtainEdit')
 
 
 
@@ -64,6 +65,7 @@ app.use('/api/dpokrs', dpokrsRoutes)
 app.use('/api/nagruz', nagruzRoutes)
 app.use('/api/obtain', obtainsRoutes)
 app.use('/api/anderaiting', anderaitingsRoutes)
+app.use('/api/editobtain', editObtainRoutes)
 
 
 

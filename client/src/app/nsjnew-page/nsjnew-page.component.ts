@@ -321,13 +321,28 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
 
 
   open() {
-    console.log('Открылась')
-    this.modal.open()
+ if (!this.zastrahovan) {
+   MaterialService.toast('Пустое Поле "Застрахованный!')
+ } else {
+   //
+   console.log('Открылась')
+   this.modal.open()
+ }
+
+
+
   }
 
   open2() {
-    console.log('Открылась  2')
-    this.modal2.open()
+
+    if (!this.zastrahovan) {
+      MaterialService.toast('Пустое Поле "Застрахованный!')
+    } else {
+      console.log('Открылась  2')
+      this.modal2.open()
+    }
+
+
   }
 
   submit() {
@@ -376,7 +391,7 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
   VigodaSmert() {
     //console.log(this.vigodopreodetatelSmert)
     this.smert.M_SICID = this.zastrahovan.ID
-      this.smert.VIGODO_PRECENT =''
+    this.smert.VIGODO_PRECENT =''
     this.smert.VIGODO_PRECENT = this.vigodopreodetatelSmert.ID+ ':' + this.prosent
     this.smert.TYPE_VIGODA = 1
     this.vigodopreodetatelSmert.PRECENT = this.prosent
@@ -423,7 +438,6 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
   }
 
   loadMore4() {
-
     return this.newnsjsService.getById(this.IIN)
       .subscribe(vigodosSmert => {
         this.vigodosZhizn = vigodosSmert
@@ -462,8 +476,31 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
 
 
   NextPage() {
-    console.log(this.isFirstVisible)
-    this.isFirstVisible = false
+    if (!this.numzav) {
+      MaterialService.toast('Поле "Номер заявления" не может быть пустой!')
+      }
+    else if (!this.start.date){
+      MaterialService.toast('Поле "Поле "Дата заявления" не может быть пустой!')
+    }
+
+    else if (!this.strahVznos){
+      MaterialService.toast('Поле "Размер страхового взноса" не может быть пустой!')
+    }
+    else if (!this.godDohod){
+      MaterialService.toast('Поле "Поле "Годовой доход страхуемого лица" не может быть пустой!')
+    }
+    else if (!this.srokStrah){
+      MaterialService.toast('Поле "Срок страхования" не может быть пустой!')
+    }
+
+
+    else {
+      console.log(this.isFirstVisible)
+      this.isFirstVisible = false
+    }
+
+
+
   }
 
   PreviewPage() {
@@ -806,17 +843,14 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
           this.stringMassiveNagruz += str1.toString() + ':' + str2.toString() + ',';
           console.log('Нагрузки: ' + this.stringMassiveNagruz)
         }
-
         }
         )
-
     console.log('конец'+this.nagruzki)
   }
 
 
   createSends() {
     this.loading =true
-
     this.answerGen()
     this.obtainGenMassiveString()
     this.genMassiveStringNagruz()
@@ -860,20 +894,17 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
     this.statment.EMPID = 3853
     this.statment.RISK = this.stringMassiveNagruz
     console.log(this.statment)
-
     this.massive = '';
     this.newnsjsService.createZayav(this.statment).subscribe(
       (cnctid: {cnctid?: number}) => {
         this.dopPokrStrahSum.CNCT_ID = cnctid.cnctid
         this.dopPokrStrahSum.DOP_POKRS_SUMS = this.pokrStringMassive
         this.newnsjsService.setPokrs(this.dopPokrStrahSum).subscribe(
-          test =>   console.log(test)
+          test => console.log(test)
         )
         this.loading = false
         this.router.navigate([`/statment/${cnctid.cnctid}`] )
         console.log(cnctid)
-
-
       },
       error => {
         MaterialService.toast(error.error.message)
@@ -1090,11 +1121,11 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
 
 
 
-  deleteObtain(){
-    this.newnsjsService.deleteObtain(1086).subscribe(
-      test => console.log(test)
-    )
-  }
+  // deleteObtain(){
+  //   this.newnsjsService.deleteObtain(1086).subscribe(
+  //     test => console.log(test)
+  //   )
+  // }
 }
 
 

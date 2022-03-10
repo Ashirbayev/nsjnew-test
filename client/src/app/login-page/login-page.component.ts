@@ -25,8 +25,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [Validators.required, Validators.minLength(6)])
+      email: new FormControl(null, [Validators.required]),
+      password: new FormControl(null, [Validators.required, Validators.minLength(5)])
     })
 
     this.route.queryParams.subscribe((params: Params) => {
@@ -51,7 +51,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     this.form.disable()
 
     this.auth.login(this.form.value).subscribe(
-      () => this.router.navigate(['/overview']),
+      () => this.router.navigate(['/nsjnew']),
       error => {
         MaterialService.toast(error.error.message)
         this.form.enable()

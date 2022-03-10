@@ -120,16 +120,11 @@ module.exports.createAns = async function (req, res) {
     try {
         connection = await oracledb.getConnection(
             {user: "insurance", password: 'insurance', connectString: "192.168.5.191/orcl"});
-
         result = await connection.execute(`begin NSJ.Save_attachment('${k}', '${v}', '15', '2', 'kjhjk', '55');  end;`);
-
-
         console.log('Rows inserted: ', k);
-
         res.status(201).json({
             token: `Bearer ${v}`
         })
-
     } catch (e) {
         errorHandler(res, e)
     }
@@ -164,11 +159,9 @@ module.exports.createZayav = async function (req, res) {
             ); end; `;
         result = await connection.execute(query,
             {id: {dir: oracledb.BIND_OUT, type: oracledb.NUMBER}});
-
         res.status(201).json({
             cnctid: result.outBinds.id
         })
-
     } catch (e) {
         errorHandler(res, e)
 
@@ -177,12 +170,9 @@ module.exports.createZayav = async function (req, res) {
 
 
 module.exports.createObtain = async function (req, res) {
-
     try {
         connection = await oracledb.getConnection(
             {user: "insurance", password: 'insurance', connectString: "192.168.5.191/orcl"});
-
-
         let query = `begin NSJ.SetObtainNszh(
                 '${req.body.M_SICID}',
                 '${req.body.VIGODO_PRECENT}',
@@ -192,13 +182,9 @@ module.exports.createObtain = async function (req, res) {
             end;`;
         result = await connection.execute(query,
             {id: {dir: oracledb.BIND_OUT, type: oracledb.NUMBER}});
-
-
-
         res.status(201).json({
             cnctid: result.outBinds.id
         })
-
     } catch (e) {
         errorHandler(res, e)
     }
@@ -209,12 +195,8 @@ module.exports.deleteObtain = async function (req, res) { //Удаления и�
    console.log(req.params.id)
     try {
         connection = await oracledb.getConnection(
-
-
             {user: "insurance", password: 'insurance', connectString: "192.168.5.191/orcl"});
-
-
-        let query = 'DELETE FROM NSZH_CLIENTS_OBTAIN_TEMP WHERE id = :id';
+        let query = 'DELETE FROM NSZH_CLIENTS_OBTAIN WHERE id = :id  ';
         result = await connection.execute(query,
             {id:  req.params.id},  // bind value for :id
             {outFormat: oracledb.OUT_FORMAT_OBJECT,

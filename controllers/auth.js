@@ -1,3 +1,5 @@
+
+
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const User =require('../models/User')
@@ -6,30 +8,41 @@ const errorHadler = require('../utils/errorHandler')
 const oracledb = require('oracledb');
 
 
+
 module.exports.login = async function (req, res) {
     const candidate = await User.findOne({email: req.body.email})
 
-    if (candidate) {
+    connection = await oracledb.getConnection({
+        user: "insurance",
+        password: 'insurance',
+        connectString: "192.168.5.191/orcl"
+    });
+    result = await connection.execute(`select * from TB_USERS where USR_LOGIN = '${req.body.email}' `)
+
+
+    const test = result.rows[0]
+     if (test) {
         //Проверка пароля, пользователь существует
-        const passwordResult = bcrypt.compareSync(req.body.password, candidate.password)
-        if (passwordResult) {
+        if (req.body.password == test[2]) {
             //Генерация токена, пароли совпали
-
             const token = jwt.sign({
-                email: candidate.email,
-                userId: candidate._id
+                email: test[1],
+                userId: test[0]
             }, keys.jwt, {expiresIn: 60 * 60})
-
 
             res.status(200).json({
                 token: `Bearer ${token}`
             })
-        } else {
+        }
+
+        else {
             res.status(401).json({
                 message: 'Пароли не совпадают. Попробуйте снова.'
             })
         }
-    } else {
+    }
+
+    else {
         //Пользователя нет, ошибка
         res.status(404).json({
             message: 'Пользователь с таким емайл не найден.'

@@ -8,7 +8,7 @@ import {
   Client,
   Dpokr, Nagruz, Obtain,
   OverviewPage,
-  Position, Statment,
+  Position, Rashet, Statment,
   StatmentT,
   TestNsj
 } from "../interfaces";
@@ -66,6 +66,17 @@ export class AnalyticsService {
     //console.log(body)
   }
 
+
+
+  calcResult(id: number): Observable<Rashet[]> {
+    return this.http.get<Rashet[]>(`/api/anderaiting/${id}`)
+  }
+
+
+
+  editObtainByObtain(obtain: Obtain) {
+    return this.http.patch(`/api/editobtain/${obtain.CNCT_ID}`, obtain)
+  }
 
 
   // update(id: number): Observable<Category> {

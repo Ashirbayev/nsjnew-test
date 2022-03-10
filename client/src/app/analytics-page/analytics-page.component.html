@@ -16,7 +16,7 @@
         [routerLink] = "['/statment', statment.ID]"
         class="collection-item"
       >
-        Заявление № {{statment.NUM_ZAV}} дата заявления {{statment.DATE_ZAV | date:'dd.MM.yyyy'}}
+        Заявление № {{statment.NUM_ZAV}} дата заявления {{statment.DATE_ZAV | date:'dd.MM.yyyy'}} статус {{statment.STATE}}
       </a>
     </div>
     <ng-template #empty>

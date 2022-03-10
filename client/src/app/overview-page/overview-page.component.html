@@ -40,8 +40,8 @@
   <div class="col s12 l6">
     <div class="card light-blue lighten-2 white-text">
       <div class="card-content">
-        <span class="card-title">Выручка:</span>
-        <h3>{{data.gain.yesterday}} руб.</h3>
+        <span class="card-title">Заключенные договора НСЖ:</span>
+        <h3>{{data.gain.yesterday}} договоров.</h3>
         <h3
           class="m0 mb1"
           [ngClass]="{
@@ -55,11 +55,9 @@
           {{data.gain.precent}}%
         </h3>
         <p>
-          Выручка вашего бизнеса вчера на {{data.gain.precent}}%
+          Количество заключенных договоров вчера на {{data.gain.precent}}%
           {{data.gain.isHigher ? 'выше' : 'ниже'}}
-          среднего:
-          {{data.gain.compare}}
-          руб. в день
+          среднего
         </p>
       </div>
     </div>
@@ -68,8 +66,8 @@
   <div class="col s12 l6">
     <div class="card orange lighten-2 white-text">
       <div class="card-content">
-        <span class="card-title">Заказы:</span>
-        <h3>{{data.orders.yesterday}} зак.</h3>
+        <span class="card-title">Поданные заявления НСЖ:</span>
+        <h3>{{data.orders.yesterday}} заявлении.</h3>
         <h3
           class="red-text m0 mb1"
           [ngClass]="{
@@ -84,11 +82,9 @@
           {{data.orders.precent}}%
         </h3>
         <p>
-          Число заказов вчера на {{data.orders.precent}}%
+          Количество поданных заявлений вчера на {{data.orders.precent}}%
           {{data.orders.isHigher ? 'выше' : 'ниже'}}
-          среднего значения:
-          {{data.orders.compare ? 'выше' : 'ниже'}}
-          зак. в день
+          среднего значения
         </p>
       </div>
     </div>

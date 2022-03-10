@@ -4,7 +4,7 @@ const controller = require('../controllers/agent')
 const router = express.Router()
 
 
-router.get('/', passport.authenticate('jwt', {session:false}),  controller.getAgents)
-
+router.get('/',  controller.getAgents)
+router.get('/',   controller.getAgents)
 
 module.exports = router

@@ -202,7 +202,9 @@ export interface StatmentT {
   BCO?: string,
   PERIODICH_T?: string,
   DATE_BEGIN?: Date,
-  DATE_END?: Date
+  DATE_END?: Date,
+
+  TEST?: number
 }
 
 export interface Answers {
@@ -241,13 +243,16 @@ export interface Dpokr {
 
 
 export interface Obtain {
-  "ID": number,
-  "SICID": number,
-  "SICID_OBTAIN": number,
-  "PROC": number,
-  "TYPE": number,
-  "CNCT_ID": number,
-  "FIO": string
+  "ID"?: number,
+  "SICID"?: number,
+  "SICID_OBTAIN"?: number,
+  "PROC"?: number,
+  "TYPE"?: number,
+  "CNCT_ID"?: number,
+  "FIO"?: string,
+
+
+  TEST?: number
 }
 
 
@@ -267,6 +272,32 @@ export interface Anderaiting {
   "TRAVMA_RES_NS_PRO"?: number,
   "VREM_NETRUDOSPOSOB_NS_PRO"?: number,
   "GOSPITAL_RES_NS_PRO"?: number
+
+}
+
+export interface Rashet {
+  "ID": number,
+  "T1": number,
+  "T2": number,
+  "T3": number,
+  "T4": number,
+  "T5": number,
+  "MAIN": number,
+  "TARIF": number,
+  "T1_SUM": number,
+  "T2_SUM": number,
+  "T3_SUM": number,
+  "T4_SUM": number,
+  "T5_SUM": number,
+  "ID_1": number,
+  "STRAH_SUM": number,
+  "ID_DOP_POKR": number,
+  "CNCT_ID": number,
+  "ID_2": number,
+  "NAME": string,
+  "NAME_KZ": string,
+  "ACTIVE": number,
+  "PMAIN": number
 
 }
 

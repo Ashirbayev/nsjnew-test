@@ -15,6 +15,16 @@
       <div>
         <h5>  {{statment.NUM_ZAV}}  Накопительное страхование жизни (Просмотр заявления) </h5>
       </div>
+
+
+      <div *ngIf="statment.STATE == 52" class="col s12">
+        <div class="tab col s12 btn-wrapper">
+          <button class="modal-action btn waves-effect" autofocus > Режим Редактирования</button>
+        </div>
+      </div>
+
+
+
       <div class="flex-row">
         <div class="col s2">
           <label for="">№ Договора</label>
@@ -32,11 +42,11 @@
       <div class="flex-row">
         <div class="col s2">
           <label for="">№ Заявления </label>
-          <input [(ngModel)]="statment.NUM_ZAV" disabled type="text" name="" id="">
+          <input   [(ngModel)]="statment.NUM_ZAV"  disabled type="text" name="" id="">
         </div>
         <div class="col s2">
           <label for="">Дата заявления </label>
-          <input [(ngModel)]="statment.DATE_ZAV " disabled type="text" name="" id="">
+          <input  [(ngModel)]="statment.DATE_ZAV " disabled type="text" name="" id="">
         </div>
         <div class="col s2">
           <label for="">Инспектор </label>
@@ -47,6 +57,16 @@
         <div class="col">
           <label for="">Страхователь </label>
           <input [(ngModel)]="strahovat" disabled type="text" value="">
+          <br>
+
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="">
@@ -213,9 +233,17 @@
           </tbody>
         </table>
       </div>
+
+      <div *ngIf="statment.STATE == 52" class="col s12">
+        <div class="tab col s12 btn-wrapper">
+          <button class="modal-action btn waves-effect" autofocus (click)="updateStatus51()"> Утвердить</button>
+        </div>
+      </div>
+
+
       <div *ngIf="statment.STATE == 50" class="col s12">
         <div class="tab col s12 btn-wrapper">
-          <button class="modal-action btn orange darken-1" autofocus (click)="setTabcontentFalse()"> Возвращение на
+          <button class="modal-action btn orange darken-1" autofocus (click)="updateStatus52()"> Возвращение на
             доработку
           </button>
           <button class="modal-action btn waves-effect" autofocus (click)="updateStatus51()"> Утвердить</button>
@@ -224,9 +252,9 @@
 
       <div *ngIf="statment.STATE == 51" class="col s12">
         <div class="tab col s6 btn-wrapper">
-          <button class="modal-action btn red darken-1" autofocus (click)="setTabcontentFalse()">Отказать</button>
-          ____
-          <button class="modal-action btn orange darken-1" autofocus (click)="setTabcontentTrue()">Вернуть</button>
+          <button class="modal-action btn red darken-1" autofocus (click)=" setTabcontentTrue()">Отказать</button>
+
+          <button class="modal-action btn orange darken-1" autofocus (click)="updateStatus52()">Вернуть</button>
           <button class="modal-action btn waves-effect" autofocus (click)="setTabcontentRashet()">Произвести расчет
           </button>
         </div>
@@ -396,8 +424,8 @@
     <div class="row">
       <div class="col s12">
         <div class="tab col s6">
-          <button class="btn waves-effect waves-light tablinks active" onclick="openTab(event, 'main-info')">Основная информация</button>
-          <button class="btn waves-effect waves-light tablinks" onclick="openTab(event, 'questions-blank')">Бланк-опросник</button>
+          <button class="btn waves-effect waves-light tablinks active" >Основная информация</button>
+          <button class="btn waves-effect waves-light tablinks" >Бланк-опросник</button>
         </div>
       </div>
     </div>
@@ -405,10 +433,14 @@
   <div id="main-info" class="tabcontent">
     <h5>Результат расчета</h5>
     <hr>
+
+
+
+
     <table class="table responsive-table highlight centered " id="table">
       <thead>
       <tr>
-        <th>Тип 1 </th>
+        <th>Тип </th>
         <th>Наименование </th>
         <th>Тариф </th>
         <th>Нагрузка </th>
@@ -417,29 +449,18 @@
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <th>Основное покрытие</th>
-        <th>Смерть застрахованного по любой причине</th>
-        <th>0,092645371417253172136</th>
+
+      <tr *ngFor="let tarif of rashetCalc">
+        <th>{{tarif.PMAIN ? 'Основное покрытие': 'Дополнительное'}}  </th>
+        <th>{{tarif.NAME}}</th>
+        <th>{{tarif.TARIF}}  </th>
         <th></th>
         <th></th>
-        <th>526487,09</th>
+        <th>{{tarif.PMAIN? tarif.MAIN : ''}}</th>
       </tr>
-      <tr>
-        <th>Дополнительное покрытие</th>
-        <th>Установление инвалидности 1,2 группы в результате НС</th>
-        <th>0,0035</th>
-        <th>0</th>
-        <th></th>
-        <th>0</th>
-      </tr>
-      <tr>
-        <th colspan="2">Итого: </th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th>526487</th>
-      </tr>
+
+
+
       </tbody>
     </table>
     <div class="btn-wrapper">
@@ -463,114 +484,526 @@
 
 
 
+<div *ngIf="maincontent == 4" class="container4">
+
+  <div class="row">
+    <div class="col s12">
+      <div class="tab col s6">
+        <button class="modal-action btn waves-effect" autofocus (click)="setTabcontentFalse()">Основная информация
+        </button>
+        <button class="modal-action btn waves-effect" autofocus (click)="setTabcontentTrue()">Бланк-опросник</button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="tabcontent == 0" class="top__section tabcontent" id="main-info">
+    <div class="top__section-first">
+      <div>
+        <h5>  {{statment.NUM_ZAV}}  Накопительное страхование жизни (РЕДАКТИРОВАНИЯ заявления) </h5>
+      </div>
 
 
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>-->
-<!--<script>-->
-<!--  function openTab(evt, idName) {-->
-<!--    // Declare all variables-->
-<!--    let i, tabcontent, tablinks;-->
-
-<!--    // Get all elements with class="tabcontent" and hide them-->
-<!--    tabcontent = document.getElementsByClassName("tabcontent");-->
-<!--    for (i = 0; i < tabcontent.length; i++) {-->
-<!--      tabcontent[i].style.display = "none";-->
-<!--    }-->
-
-<!--    // Get all elements with class="tablinks" and remove the class "active"-->
-<!--    tablinks = document.getElementsByClassName("tablinks");-->
-<!--    for (i = 0; i < tablinks.length; i++) {-->
-<!--      tablinks[i].className = tablinks[i].className.replace(" active", "");-->
-<!--    }-->
-
-<!--    // Show the current tab, and add an "active" class to the button that opened the tab-->
-<!--    document.getElementById(idName).style.display = "block";-->
-<!--    evt.currentTarget.className += " active";-->
-<!--  }-->
-<!--</script>-->
+      <div *ngIf="statment.STATE == 52" class="col s12">
+        <div class="tab col s12 btn-wrapper">
+          <button class="modal-action btn waves-effect" autofocus > Режим Редактирования</button>
+        </div>
+      </div>
 
 
-<!--<main class="content">-->
-<!--  <div class="page-title">-->
-<!--    <h4>-->
-<!--      <a routerLink="/categories">Категории</a>-->
-<!--      <i class="material-icons">keyboard_arrow_right</i>-->
-<!--      {{isNew ? 'Добавить': 'Редактировать'}} категогрию-->
-<!--    </h4>-->
-<!--    <span>-->
-<!--      <button-->
-<!--        *ngIf="!isNew"-->
-<!--        class="btn btn-small red" >-->
-<!--        <i class="material-icons">delete</i>-->
-<!--      </button>-->
-<!--    </span>-->
-<!--  </div>-->
 
-<!--  <div class="row">-->
-<!--    <form class="col s12 l6" [formGroup]="form" (ngSubmit)="onSubmit()">-->
-<!--      <div class="input-field">-->
-<!--        <input-->
-<!--          formControlName="name"-->
-<!--          id="name"-->
-<!--          type="text"-->
-<!--          [ngClass]="{'invalid': form.get('name').invalid && form.get('name').touched}"-->
-<!--        >-->
-<!--        <label for="name">Название</label>-->
-<!--        <span-->
-<!--          class="helper-text red-text"-->
-<!--          *ngIf="form.get('name').invalid && form.get('name').touched"-->
-<!--        >-->
-<!--          <span *ngIf="form.get('name').errors['required']">-->
-<!--            Имя категории не может быть пустым.-->
-<!--          </span>-->
-<!--        </span>-->
-<!--      </div>-->
-
-<!--      <div>-->
-<!--        <input-->
-<!--          type="file"-->
-<!--          class="dn"-->
-<!--          (change)="onFileUpload($event)"-->
-<!--          #input-->
-<!--        >-->
-<!--        <button-->
-<!--          (click)="triggerClick()"-->
-<!--          [disabled]="form.disabled"-->
-<!--          type="button"-->
-<!--          class="waves-effect waves-light btn orange lighten-2 mb2"-->
-<!--        >-->
-<!--          <i class="material-icons left">backup</i>-->
-<!--          Загрузить изображение-->
-<!--        </button>-->
-<!--      </div>-->
-
-<!--      <div>-->
-<!--        <button-->
-<!--          type="submit"-->
-<!--          [disabled]="form.invalid || form.disabled"-->
-<!--          class="waves-effect waves-light btn"-->
-<!--        >-->
-<!--          Сохранить изменения-->
-<!--        </button>-->
-<!--      </div>-->
-<!--    </form>-->
-
-<!--    <div class="col s12 l4 center">-->
-<!--      <img-->
-<!--        class="responsive-img h200"-->
-<!--        [src]="imagePreview"-->
-<!--        *ngIf="imagePreview"-->
-<!--      >-->
-<!--    </div>-->
-<!--  </div>-->
+      <div class="flex-row">
+        <div class="col s2">
+          <label for="">№ Договора</label>
+          <input disabled type="text" value="" name="" class="dsb-inp">
+        </div>
+        <div class="col s2">
+          <label for="">Дата договора</label>
+          <input disabled type="text" value="" name="" class="dsb-inp">
+        </div>
+        <div class="col s2">
+          <label for="">№ БСО </label>
+          <input disabled type="text" value="" name="" class="dsb-inp">
+        </div>
+      </div>
+      <div class="flex-row">
+        <div class="col s2">
+          <label for="">№ Заявления </label>
+          <input [(ngModel)]="statment.NUM_ZAV"  type="text" name="" id="">
+        </div>
+        <div class="col s2">
+          <label for="">Дата заявления </label>
+          <input type="text" #start >
 
 
-<!--  <app-positions-form-->
-<!--    *ngIf="statment.ID"-->
-<!--    [categoryId]="statment.ID"-->
+<!--          <input #start  type="text" name="" id="">-->
+<!--          [(ngModel)]="statment.DATE_ZAV"-->
+        </div>
+        <div class="col s2">
+          <label for="">Инспектор </label>
+          <input [(ngModel)]="statment.EMP_ID"  type="text" name="" id="">
+        </div>
+      </div>
+      <div class="">
+        <div class="col">
+          <label for="">Страхователь </label>
+          <input [(ngModel)]="strahovat"  type="text" value="">
+          <br>
+        </div>
+        <div *ngIf="statment.STATE == 52" class="find-straxovatel flex mt-3">
+          <input type="text" class="border border-gray-300 w-full outline "
+                 id="search_clients" [(ngModel)]="IIN"
+          >
+          <button
+            class="btn waves-effect waves-light green darken-2"
+            (click)="loadMore3()"
+            autofocus> Найти
+          </button>
+        </div>
+        <div  class="m-for-blocks"    >
+          <a *ngFor="let i of nsjs2" (click)="addToOrder3(i)" class="collection-item waves-effect">{{i.NAME}}</a><br>
+        </div>
+      </div>
+      <div class="">
+        <div class="col">
+          <label for="">Дата формирования полиса</label>
+          <input disabled type="text" name="date" value="">
+        </div>
+      </div>
+      <div class="">
+        <div class="col">
+          <label for="">Отделение</label>
+          <input [(ngModel)]="regionNameString"  type="text" name="filial" value="">
+        </div>
+      </div>
+      <div class="m-for-blocks">
+        <span class="grey-text text-darken-2">Регион: </span>
+        <button
+          class="btn blue darken-3 waves-effect waves-light"
+          autofocus
+          (click)="open3()"
+        > Выбрать регион
+        </button>
+        <label for="" class="grey-text text-darken-2" ></label>
+      </div>
+      <div class="flex-row">
+        <div class="col s6">
+          <label for="">Период страховой защиты с </label>
+          <input disabled type="text">
+        </div>
+        <div class="col ">
+          <label for="">По </label>
+          <input disabled type="text">
+        </div>
+      </div>
+      <div class="flex-row">
+        <div class="col">
+          <label for="">Агент</label>
+          <input [(ngModel)]="statment.AGENT"  type="text">
+        </div>
+        <div class="col">
+          <label for="">Размер АВ</label>
+          <input disabled type="text">
+        </div>
+        <div class="col">
+          <label for="">Договор поручения </label>
+          <input disabled type="text">
+        </div>
+      </div>
+      <div class="flex-row">
+        <div class="col">
+          <label for="">Уровень принятия решения</label>
+          <input disabled type="text">
+        </div>
+      </div>
+      <div class="flex-row">
+        <div class="col">
+          <label for="">Статус </label>
+          <input [(ngModel)]="statment.STATE"  type="text" name="state">
+        </div>
+      </div>
 
-<!--  >-->
-<!--  </app-positions-form>-->
+
+      <!-- Редактирование выгодоприобретателей -->
+      <div class="row">
+        <h5>Редактирование выгодоприобретателей</h5>
+        <div class="col">
+          <div class="">
+            <label class="grey-text text-darken-2"> Выгодоприобретатель на случай смерти: </label>
+            <button class="waves-effect btn blue darken-3"
+                    autofocus
+                    (click)="openDeathModal()"
+            > Добавить другого человека
+            </button>
+          </div>
 
 
-<!--</main>-->
+          <!-- БЛОК С ТАБЛИЦЕЙ ВЫГОДОПРИОБРЕТАТЕЛЯ НА СЛУЧАЙ СМЕРТИ  -->
+
+          <div class="" >
+            <table class="striped">
+              <thead>
+              <tr class="">
+                <th class="grey-text text-darken-2 center-align"> Фамилия Имя Отчество</th>
+                <th class="grey-text text-darken-2 center-align"> Процент %</th>
+                <th class="center-align"></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let smert of obtainDeaths">
+                <td class="p-2 border text-sm text-gray-500 center-align">{{smert.FIO}}</td>
+                <td class="p-2 border text-sm text-gray-500 center-align">{{smert.PROC}}</td>
+                <td class="p-2 border text-center center-align">
+                  <button class="btn red darken-3 waves-effect"  (click)="removeObtainDeath(smert)">
+                    Удалить
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <br>
+
+          <div class="">
+            <label class="grey-text text-darken-2"> Выгодоприобретатель на случай дожития: </label>
+            <button class="waves-effect btn blue darken-3"
+                    autofocus
+                    (click)="openLifeModal()"
+            > Добавить другого человека
+            </button>
+          </div>
+
+
+          <!-- БЛОК С ТАБЛИЦЕЙ ВЫГОДОПРИОБРЕТАТЕЛЯ НА СЛУЧАЙ СМЕРТИ  -->
+
+          <div class="">
+            <table class="striped">
+              <thead>
+              <tr class="">
+                <th class="grey-text text-darken-2 center-align"> Фамилия Имя Отчество</th>
+                <th class="grey-text text-darken-2 center-align"> Процент %</th>
+                <th class="center-align"></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let life of obtainLifes">
+                <td class="p-2 border text-sm text-gray-500 center-align">{{life.FIO}}</td>
+                <td class="p-2 border text-sm text-gray-500 center-align">{{life.PROC}}</td>
+                <td class="p-2 border text-center center-align">
+                  <button class="btn red darken-3 waves-effect"
+                          (click)="removeObtainLife(life)"
+                  >
+                    Удалить
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+<!--          <span>На случай смерти </span>-->
+<!--          <table class="striped">-->
+<!--            <thead>-->
+<!--            <tr class="">-->
+<!--              <th class="grey-text text-darken-2 center-align"> Фамилия Имя Отчество</th>-->
+<!--              <th class="grey-text text-darken-2 center-align"> Процент %</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr *ngFor="let smert of obtainDeaths">-->
+<!--              <td class="p-2 border text-sm text-gray-500 center-align">{{smert.FIO}}</td>-->
+<!--              <td class="p-2 border text-sm text-gray-500 center-align">{{smert.PROC}}</td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--          </table>-->
+
+        </div>
+      </div>
+
+      <!-- Застрахованный -->
+      <div class="row ">
+        <div class="col">
+          <h5>Редактирование застрахованного</h5>
+        </div>
+        <div class="col">
+          <label for="">ФИО(Дата рождения) (ИИН)</label>
+          <input [(ngModel)]="zasttrahov"  type="text">
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="">Возраст</label>
+            <input [(ngModel)]="showAge" disabled type="text">
+          </div>
+          <div class="col">
+            <label for="">Вес</label>
+            <input [(ngModel)]="weight"  type="text">
+          </div>
+          <div class="col">
+            <label for="">Рост</label>
+            <input [(ngModel)]="growth"  type="text">
+          </div>
+        </div>
+        <div class="col">
+          <label for="">Годовой доход</label>
+          <input [(ngModel)]="statment.GOD_DOHOD"  type="text">
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <h5>Рассчетные данные </h5>
+        <table class="table bordered">
+          <thead>
+          <tr>
+            <th>Тип</th>
+            <th>Наименование</th>
+            <th>Тариф</th>
+            <th>Нагрузка</th>
+            <th>Страховой взнос</th>
+            <th>Страховая сумма</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>
+              Нет данных
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <hr>
+      <div class="row">
+        <h5>Таблица выкупных сумм и уменьшенных страховых сумм</h5>
+        <table class="table bordered">
+          <thead>
+          <tr>
+            <th>Год страхования</th>
+            <th>Выкупная сумма</th>
+            <th>Уменьшенная страховая сумма</th>
+            <th>Сумма бонусных страховых сумм</th>
+            <th>Выкупная по прибыли на конец годовщины</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th></th>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div *ngIf="statment.STATE == 52" class="col s12">
+        <div class="tab col s12 btn-wrapper">
+          <button class="modal-action btn waves-effect" autofocus (click)="updateStatus51()"> Утвердить</button>
+        </div>
+      </div>
+
+
+      <div *ngIf="statment.STATE == 50" class="col s12">
+        <div class="tab col s12 btn-wrapper">
+          <button class="modal-action btn orange darken-1" autofocus (click)="updateStatus52()"> Возвращение на
+            доработку
+          </button>
+          <button class="modal-action btn waves-effect" autofocus (click)="updateStatus51()"> Утвердить</button>
+        </div>
+      </div>
+
+      <div *ngIf="statment.STATE == 51" class="col s12">
+        <div class="tab col s6 btn-wrapper">
+          <button class="modal-action btn red darken-1" autofocus (click)=" setTabcontentTrue()">Отказать</button>
+
+          <button class="modal-action btn orange darken-1" autofocus (click)="updateStatus52()">Вернуть</button>
+          <button class="modal-action btn waves-effect" autofocus (click)="setTabcontentRashet()">Произвести расчет
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="top__section-second">
+      <h5>Расчетные данные</h5>
+      <div class="col s2">
+        <label for="">Страховой взнос</label>
+        <input [(ngModel)]="statment.STRAH_VZNOS" disabled type="text">
+      </div>
+      <span> <b> Страховой взнос по основному покрытию </b></span>
+      <div class="col s2">
+        <label for="">Накопительная часть</label>
+        <input disabled type="text">
+      </div>
+      <div class="col s2">
+        <label for="">Страховая часть</label>
+        <input disabled type="text">
+      </div>
+      <div class="col s2">
+        <label for="">Страховой взнос по дополнительным покрытиям </label>
+        <input disabled type="text">
+      </div>
+      <div>
+        <label for="">Периодичность</label>
+        <input [(ngModel)]="statment.PERIODICH_T" disabled type="text">
+      </div>
+      <div>
+        <label for="">Срок страхования</label>
+        <input [(ngModel)]="statment.SROK_STRAH" disabled type="text">
+      </div>
+      <div>
+        <label for="">Страховая сумма</label>
+        <input [(ngModel)]="statment.STRAH_SUM" disabled type="text">
+      </div>
+      <div>
+        <label for="">Основное покрытие</label>
+        <input disabled type="text" placeholder="Смерть по любой причине">
+      </div>
+      <span> <b> Дополнительные покрытия </b></span>
+      <div *ngFor="let pokr of Pokrs">
+        <input disabled placeholder="{{pokr.NAME}}">
+        <input disabled type="text" placeholder="{{pokr.STRAH_SUM}}">
+      </div>
+
+
+      <div class="col s2">
+        <h5>Список застрахованных клиентов</h5>
+        <hr>
+        <br>
+        <button class="btn p-2 center-align">ФИО агента</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngIf="tabcontent == 1">
+    <h5 class="q-header">Ответы на бланк-опросник</h5>
+    <div class="col s12 q-block" *ngFor="let answer of answers">
+      <div class="q-block-title">
+        <!--        <span class="q-id">{{answer.ID_QUESTION}}. </span>-->
+        <span class="q-title">{{answer.TEXT_QUESTION}}</span>
+      </div>
+      <div class="q-block-answer">
+        <span class="q-answer">{{answer.ID_ANSWER}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- Модальное окно для добавления региона  -->
+<div #modalReg class="modal modal-fixed-footer">
+  <div class="modal-content">
+    <h4 class="mb1">Выберите регион из списка</h4>
+    <div class="row">
+      <div class="col s12">
+        <div class="collection">
+          <a *ngFor="let i of regions"
+             class="collection-item" (click)="selectToRegion(i)">{{i.NAME}}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      class="modal-action waves-effect waves-black btn-flat"
+    >Отмена
+    </button>
+    <button
+      class="modal-action btn waves-effect"
+
+    >Подтвердить
+    </button>
+  </div>
+</div>
+
+
+<!-- Модальное окно для добавления выгодоприробретателей смерти  -->
+<div #modalDeath class="modal modal-fixed-footer">
+  <div class="modal-content">
+    <h4 class="mb1">Добавить выгодоприобретателя на случай смерти</h4>
+    <div class="find-straxovatel flex mt-3 ">
+      <!--      <button class="border border-transparent p-2 bg-blue-500 rounded-l text-white"> Создать </button>-->
+      <input
+        type="text"
+        class="border border-gray-300 w-full outline-none p-2 focus:border-green-400"
+        [(ngModel)]="IIN"
+      >
+      <div>
+        <a *ngFor="let i of vigodosSmert" (click)="addToObtainModalTempDeath(i)" class="collection-item">{{i.NAME}}</a>
+      </div>
+      <button
+        class="modal-action btn waves-effect"
+
+        autofocus
+        (click)="loadMoreClientObtanDeath()"
+      >
+        Найти должен 2
+      </button>
+    </div>
+
+    <div *ngIf="vigodopreodetatelSmert">
+      <b class="text-sm text-gray-500 font-bold"> Выгодоприробретатель: {{vigodopreodetatelSmert.NAME}}</b>
+      <input
+        type="text"
+        placeholder="Ведите процент"
+        class="border border-gray-300 w-full outline-none p-2 focus:border-green-400"
+        [(ngModel)]="precentObtainDeath"
+      >
+      <button
+        class="modal-action btn waves-effect"
+       (click)="addObtainDeathToList()"
+      >Подтвердить
+      </button>
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- Модальное окно для добавления выгодоприробретателей дожития  -->
+<div #modalLife class="modal modal-fixed-footer">
+  <div class="modal-content">
+    <h4 class="mb1">Добавить выгодоприобретателя на случай смерти</h4>
+    <div class="find-straxovatel flex mt-3 ">
+      <!--      <button class="border border-transparent p-2 bg-blue-500 rounded-l text-white"> Создать </button>-->
+      <input
+        type="text"
+        class="border border-gray-300 w-full outline-none p-2 focus:border-green-400"
+        [(ngModel)]="IIN"
+      >
+      <div>
+        <a *ngFor="let i of vigodosZhizn" (click)="addToObtainModalTempLife(i)" class="collection-item">{{i.NAME}}</a>
+      </div>
+      <button
+        class="modal-action btn waves-effect"
+
+        autofocus
+        (click)="loadMoreClientObtanLife()"
+      >
+        Найти должен 2
+      </button>
+    </div>
+
+    <div *ngIf="vigodopreodetatelZhizn">
+      <b class="text-sm text-gray-500 font-bold"> Выгодоприробретатель: {{vigodopreodetatelZhizn.NAME}}</b>
+      <input
+        type="text"
+        placeholder="Ведите процент"
+        class="border border-gray-300 w-full outline-none p-2 focus:border-green-400"
+        [(ngModel)]="precentObtainLife"
+      >
+      <button
+        class="modal-action btn waves-effect"
+        (click)="addObtainLifeToList()"
+      >Подтвердить
+      </button>
+    </div>
+
+  </div>
+
+</div>

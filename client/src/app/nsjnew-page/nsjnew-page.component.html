@@ -104,7 +104,7 @@
 
   <!-- БЛОК С ТАБЛИЦЕЙ ВЫГОДОПРИОБРЕТАТЕЛЯ НА СЛУЧАЙ СМЕРТИ  -->
 
-  <div class="" *ngIf="vigodopreodetatelSmerts ">
+  <div class="" *ngIf="vigodopreodetatelSmerts">
     <div>
       <h4 class="grey-text text-darken-2"> Выгодоприобретатели на случай смерти: </h4>
     </div>
@@ -156,7 +156,6 @@
     <label class="grey-text text-darken-2"> Выгодоприобретатель на случай дожития: </label>
     <button
       class="btn blue darken-3 white-text waves-effect waves-light"
-
       autofocus
       (click)="open2()"
     > Выбрать
@@ -196,13 +195,10 @@
   <!-- БЛОК С ИНПУТАМИ РЕГИОНОВ  -->
 
   <div class="region-wrapper m-for-blocks">
-
     <div class="m-for-blocks">
       <span class="grey-text text-darken-2">Регион: </span>
-
       <button
         class="btn blue darken-3 waves-effect waves-light"
-
         autofocus
         (click)="open3()"
       > Выбрать регион
@@ -380,7 +376,9 @@
 <section *ngIf="!isFirstVisible" class="container px-4 my-16 mx-auto min-h-screen bg-white ">
 
 
-
+  <ng-template #loader>
+    <app-loader></app-loader>
+  </ng-template>
 
 
 
@@ -1627,33 +1625,6 @@
     <hr/>
 
 
-    <div id="list_temp" style="display: none;">
-      <input type="hidden" name="icnct" value="0"/>
-      <input type="hidden" name="id_client" value=""/>
-      <input type="hidden" name="type_client" value="0"/>
-      <input type="hidden" name="id_client_strahovatel" value=""/>
-      <input type="hidden" name="id_client_zastrah" value=""/>
-      <input type="hidden" name="id_client_vigoda_on_death" value=""/>
-
-      <input type="hidden" name="branch_id" value=""/>
-      <input type="hidden" name="zv_num" value=""/>
-      <input type="hidden" name="zv_date" value=""/>
-      <input type="hidden" name="strah_vznos" value=""/>
-      <input type="hidden" name="god_dohod" value=""/>
-      <input type="hidden" name="id_agent_select" value=""/>
-      <input type="hidden" name="m_rashod" value=""/>
-      <input type="hidden" name="set_m_periodich" value=""/>
-
-      <input type="hidden" name="set_main_pokr" value=""/>
-      <input type="hidden" name="set_m_srok" value=""/>
-
-      <input type="hidden" name="dop_pokr_ns_sum_e" value=""/>
-      <input type="hidden" name="dop_pokr_vrem_netrud_e" value=""/>
-      <input type="hidden" name="dop_pokr_gospital_e" value=""/>
-      <input type="hidden" name="dop_pokr_smert_ns_e" value=""/>
-      <input type="hidden" name="dop_pokr_invalid_e" value=""/>
-
-    </div>
 
     <button
       class="btn waves-effect waves-light green darken-2"
@@ -1665,9 +1636,7 @@
     > Далее
     </button>
 
-    <ng-template #loader>
-      <app-loader></app-loader>
-    </ng-template>
+
   </form>
   <button
     *ngIf="!isFirstVisible"
@@ -1678,6 +1647,7 @@
   >
     Назад
   </button>
+
 </section>
 
 <!--<app-nsjnew-first  *ngIf="isFirstVisible" [fromParent]="fromParent"  > </app-nsjnew-first>-->
@@ -1803,24 +1773,19 @@
         <div class="collection">
           <a *ngFor="let i of regions"
              class="collection-item" (click)="selectToRegion(i)">{{i.NAME}}
-
           </a>
         </div>
       </div>
     </div>
-
-
   </div>
   <div class="modal-footer">
     <button
       class="modal-action waves-effect waves-black btn-flat"
-
     >Отмена
     </button>
     <button
       class="modal-action btn waves-effect"
       (click)="submit()"
-
     >Подтвердить
     </button>
   </div>

@@ -6,6 +6,7 @@ const router = express.Router()
 
 
 router.post('/', passport.authenticate('jwt', {session:false}), controller.calculator)
-//router.get('/', passport.authenticate('jwt', {session:false}), controller.calc)
+router.get('/:id', passport.authenticate('jwt', {session:false}), controller.getCalcResult)
+
 
 module.exports = router
