@@ -34,7 +34,10 @@ input{
 }
 
 
-
+select {
+  display: block;
+  border: 1px solid gray;
+}
 
 
 
@@ -114,6 +117,7 @@ hr{
 /*.md-datepicker-calendar-pane {*/
 /*  z-index: 2000;*/
 /*}*/
+
 .col[_ngcontent-uuj-c64] {
   border: 1px solid rgb(197, 196, 196);
   padding: 5px;

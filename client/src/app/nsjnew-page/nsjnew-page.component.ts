@@ -1108,18 +1108,9 @@ export class NsjnewPageComponent implements OnInit, AfterViewInit {
   genMassiveStringDopPokr() {
 
     ////////////////////// Формирования стринг массива дополнительных покрытий
-
-
     console.log('конец'+this.dopPokrSums)
 
   }
-
-
-
-
-
-
-
 
   // deleteObtain(){
   //   this.newnsjsService.deleteObtain(1086).subscribe(

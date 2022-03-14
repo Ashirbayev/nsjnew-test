@@ -1,16 +1,17 @@
-import {AfterViewChecked, AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewChecked, AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, NgModule} from '@angular/core';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {of} from "rxjs";
 import {Observable} from "rxjs";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {
+  Agent,
   Anderaiting,
   Answers,
   Category,
   Client,
   Dpokr,
   Nagruz,
-  Obtain, Pokr,
+  Obtain, Period, Pokr,
   Position, Rashet, Region, Statment,
   StatmentT, TestNsj, Vigodo
 } from "../../shared/interfaces";
@@ -21,6 +22,12 @@ import {AnalyticsService} from "../../shared/services/analytics.service";
 import {NewnsjService} from "../../shared/services/newnsj.service";
 
 
+
+
+
+
+
+
 @Component({
   selector: 'app-statment-form',
   templateUrl: './statment-form.component.html',
@@ -28,7 +35,7 @@ import {NewnsjService} from "../../shared/services/newnsj.service";
 
 
 })
-export class StatmentFormComponent implements OnInit, AfterViewInit, OnDestroy {
+export class StatmentFormComponent implements OnInit, AfterViewInit {
 
   regions: Region[] = []
 
@@ -49,6 +56,11 @@ export class StatmentFormComponent implements OnInit, AfterViewInit, OnDestroy {
   strahovat: string = ''
   zasttrahov: string = ''
   regionNameString: string = ''
+  agents: Agent[] = []
+  selectedAgents = null
+  agen: string
+  agentSelect: number
+
 
   age;
   showAge;
@@ -103,11 +115,18 @@ export class StatmentFormComponent implements OnInit, AfterViewInit, OnDestroy {
 
   nsjs: TestNsj [] = []
   nsjs2: TestNsj [] = []
+  nsjs3: TestNsj [] = []
+
+
+
   vigodosSmertEdit: TestNsj [] = []
   vigodosZhiznEdit: TestNsj [] = []
   smertEdit: Vigodo = {}
   zhiznEdit: Vigodo = {}
   IIN: number
+  IIN2: number
+
+
   zastrahovan: TestNsj
   strahovatel: TestNsj
   vigodopreodetatelSmert: TestNsj = {}
@@ -138,6 +157,18 @@ export class StatmentFormComponent implements OnInit, AfterViewInit, OnDestroy {
   start: MaterialDatepicker
   end: MaterialDatepicker
   isValid = true
+  dateSelected: any
+
+
+  periods: Period[] = [
+    {ID: 0, NAME: "Единовременно"},
+    {ID: 1, NAME: "Ежегодно"},
+    {ID: 2, NAME: "Раз в пол года"},
+    {ID: 3, NAME: "Ежеквартально"},
+    {ID: 4, NAME: "Ежемесячно"}
+  ];
+  selectedPeriod: Period = {ID: 0, NAME: "Единовременно"};
+
 
 
 
@@ -149,6 +180,8 @@ export class StatmentFormComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
+
     this.route.params //Основное
       .subscribe(
         (statment) => {
@@ -166,46 +199,81 @@ export class StatmentFormComponent implements OnInit, AfterViewInit, OnDestroy {
       )
     this.loadMoreStatment()
     this.loadMoreAnswers()
+
+
   }
-  ngOnDestroy(): void {
-    this.start.destroy()
-    this.end.destroy()
-  }
+
 
 
   ngAfterViewInit(): void {
+    this.getLoadClientStrahovatel()
+    this.getLoadClientZastrahovan()
+    this.loadMoreDpokrs()
+    this.loadMoreNagruz()
+    this.loadMoreObtains()
+    this.getLoadRegion()
 
+    this.getLoadDateStatment()
+    this.getAgents()
+    this.onChangeAgent(this.statment.AGENT)
+    this.onChangePeriod(this.selectedPeriod)
+    this.getPeriod()
     if (this.statment.STATE == 52) {
       this.maincontent = 4
-
-
-      this.getLoadClientStrahovatel()
-      this.getLoadClientZastrahovan()
-      this.loadMoreDpokrs()
-      this.loadMoreNagruz()
-      this.loadMoreObtains()
-      this.getLoadRegion()
-
       this.modalRegion = MaterialService.initModal(this.modalRegionRef)
       this.modalDeath = MaterialService.initModal(this.modalRef)
       this.modalLife = MaterialService.initModal(this.modalRef2)
-      this.start = MaterialService.initDatepicker(this.startRef, null)
-
-    }  else {
-      this.getLoadClientStrahovatel()
-      this.getLoadClientZastrahovan()
-      this.loadMoreDpokrs()
-      this.loadMoreNagruz()
-      this.loadMoreObtains()
-      this.getLoadRegion()
-
+      // this.start = MaterialService.initDatepicker(this.startRef, null)
     }
   }
-  validate() {
-    if (!this.start.date) {
-      this.isValid = true
-      return
+
+
+
+  onChangeAgent(t: any) {
+    this.agen = ': Договор  № ' + t
+    console.log(t)
+    this.agentSelect = t
+  }
+
+  onChangePeriod(s: any) {
+    console.log(s)
+    this.selectedPeriod = s
+    console.log(this.selectedPeriod)
+  }
+
+
+
+  getPeriod(){
+
+    this.periods.map( answer => {
+      if (answer.NAME == this.statment.PERIODICH_T) {
+        this.selectedPeriod.ID = answer.ID
+        this.selectedPeriod.NAME = answer.NAME
+        console.log(this.selectedPeriod)
+      }
+
+      }
+
+    )
+
+  }
+
+
+  getLoadDateStatment() {
+    console.log(this.statment.DATE_ZAV)
+    let dayNumber: number;
+    let str = this.statment.DATE_ZAV.toString()
+    console.log(str.slice(8,10))
+    dayNumber = +str.slice(8,10)
+    dayNumber = dayNumber + 1
+
+    if (dayNumber < 10) {
+      this.dateSelected =   str.slice(0,7) + '-' + '0' + dayNumber.toString()
+    } else
+    {
+      this.dateSelected =   str.slice(0,7) + '-' + dayNumber.toString()
     }
+    console.log(this.dateSelected)
   }
 
 
@@ -334,14 +402,10 @@ export class StatmentFormComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   getLoadClientStrahovatel() {
-
-
     return this.analyticsService.getClientById(this.statment.STRAHOVATEL)
       .subscribe(test => {
-
         this.strahovat = ''
         this.STRAHOVATEL = test[0]
-
         var str1 = new String(this.STRAHOVATEL.LASTNAME);
         var str2 = new String(this.STRAHOVATEL.FIRSTNAME);
         var str3 = new String(this.STRAHOVATEL.MIDDLENAME);
@@ -349,26 +413,35 @@ export class StatmentFormComponent implements OnInit, AfterViewInit, OnDestroy {
       })
   }
 
+  getLoadClientZastrahovan() {
+    return this.analyticsService.getClientById(this.statment.ZASTRAHOVAN)
+      .subscribe(test => {
+        this.zasttrahov = ''
+        this.ZASTRAHOVAN = test[0]
+        var str1 = new String(this.ZASTRAHOVAN.LASTNAME);
+        var str2 = new String(this.ZASTRAHOVAN.FIRSTNAME);
+        var str3 = new String(this.ZASTRAHOVAN.MIDDLENAME);
+        this.zasttrahov += str1.toString() + ' ' + str2.toString() + ' ' + str3.toString();
+        this.ageCalculator(this.ZASTRAHOVAN.BIRTHDATE)
+      })
+  }
+
+
+
+
+
+
 
   getLoadRegion() {
     // this.statment.BRANCH_ID
-
-
     this.newnsjsService.getAllRegions().subscribe(regions => {
       this.regions = regions
-
-
       regions.map((reg: Region) => {
           if (reg.RFBN_ID == this.statment.BRANCH_ID) {
-
             this.regionNameString = reg.NAME
-
           }
-
         }
       )
-
-
       console.log('nsjs: ', regions)
     })
 
@@ -399,36 +472,7 @@ export class StatmentFormComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 
-  getLoadClientZastrahovan() {
-    return this.analyticsService.getClientById(this.statment.ZASTRAHOVAN)
-      .subscribe(test => {
-        this.ZASTRAHOVAN = test[0]
-        var str1 = new String(this.ZASTRAHOVAN.LASTNAME);
-        var str2 = new String(this.ZASTRAHOVAN.FIRSTNAME);
-        var str3 = new String(this.ZASTRAHOVAN.MIDDLENAME);
-        this.zasttrahov += str1.toString() + ' ' + str2.toString() + ' ' + str3.toString();
 
-
-        // var strData = this.ZASTRAHOVAN.BIRTHDATE.toString()
-        // var str: string = strData[8].toString()+strData[9].toString()+'.'+strData[5].toString()+strData[6].toString()+'.'+strData[0].toString()+strData[1].toString()+strData[2].toString()+strData[3].toString()
-
-        // if(this.ZASTRAHOVAN.BIRTHDATE.getDate() < 10 && this.ZASTRAHOVAN.BIRTHDATE.getMonth() < 10 ) {
-        //   var str: string = '0' + strData[8].toString()+strData[9].toString()+'.'+'0'+strData[5].toString()+strData[6].toString()+'.'+strData[0].toString()+strData[1].toString()+strData[2].toString()+strData[3].toString()
-        // }
-        // else if ((this.ZASTRAHOVAN.BIRTHDATE.getMonth() + 1) < 10) {
-        //   var str: string = strData[8].toString()+strData[9].toString()+'.'+'0'+strData[5].toString()+strData[6].toString()+'.'+strData[0].toString()+strData[1].toString()+strData[2].toString()+strData[3].toString()
-        // }
-        // else if (this.ZASTRAHOVAN.BIRTHDATE.getDate() < 10) {
-        //   var str: string = '0'+strData[8].toString()+strData[9].toString()+'.'+strData[5].toString()+strData[6].toString()+'.'+strData[0].toString()+strData[1].toString()+strData[2].toString()+strData[3].toString()
-        // } else
-        // {
-        //   var str: string = strData[8].toString()+strData[9].toString()+'.'+strData[5].toString()+strData[6].toString()+'.'+strData[0].toString()+strData[1].toString()+strData[2].toString()+strData[3].toString()
-        // }
-
-
-        this.ageCalculator(this.ZASTRAHOVAN.BIRTHDATE)
-      })
-  }
 
 
   ageCalculator(age: Date) {
@@ -779,7 +823,21 @@ export class StatmentFormComponent implements OnInit, AfterViewInit, OnDestroy {
   // }
 
 
-  loadMore3() {
+
+  getAgents() {
+    this.newnsjsService.getAgents().subscribe(agents => {
+      this.agents = agents
+      if ( this.statment.AGENT == 0) {
+        this.selectedAgents = 1620
+      } else {
+        this.selectedAgents = this.statment.AGENT
+      }
+
+
+    })
+  }
+
+  loadMoreStrahovatel() {
     return this.newnsjsService.getById(this.IIN)
       .subscribe(nsjs2 => {
 
@@ -790,14 +848,32 @@ export class StatmentFormComponent implements OnInit, AfterViewInit, OnDestroy {
       })
   }
 
-  addToOrder3(i: TestNsj) {
 
+  loadMoreZastrahovan() {
+    return this.newnsjsService.getById(this.IIN)
+      .subscribe(nsjs3 => {
+        this.nsjs3 = nsjs3
+        this.IIN2 = this.s
+      })
+  }
+
+  addToStrahovatel(i: TestNsj) {
     this.statment.STRAHOVATEL = i.ID
     //  this.strahovatel = i
     this.nsjs2 = []
     console.log(i)
     this.getLoadClientStrahovatel()
   }
+
+
+  addToZastrahovan(i: TestNsj) {
+    this.statment.ZASTRAHOVAN = i.ID
+    //  this.strahovatel = i
+    this.nsjs3 = []
+    console.log(i)
+    this.getLoadClientZastrahovan()
+  }
+
 
   open3() {
     this.modalRegion.open()
@@ -960,6 +1036,72 @@ export class StatmentFormComponent implements OnInit, AfterViewInit, OnDestroy {
     // }
     // console.log(this.vigodopreodetatelSmerts)
   }
+
+
+
+
+ /* createSends() {
+    this.loading =true
+    this.answerGen()
+    this.obtainGenMassiveString()
+    this.genMassiveStringNagruz()
+    this.createPokrsString()
+    //this.yes()
+    this.answers.map(answer => {
+      if (!answer.ID_ANSWER) {
+      } else {
+        var str1 = new String(answer.ID_QUESTION.toString());
+        var str2 = new String(answer.ID_ANSWER.toString());
+        this.massive += str1.toString() + ':' + str2.toString() + ':;';
+        //console.log(this.massive)
+      }
+    })
+
+    //console.log(this.massive)
+    if (this.agentSelect == null ) {this.agentSelect = 0}
+    if (this.agentRashod == null ) {this.agentRashod = 0}
+    if (this.godDohod == null ) {this.godDohod = 0}
+    if (this.selectedPeriod.NAME == null ) {this.selectedPeriod.NAME = ''}
+    if (this.stringMassiveSmerts == null ) {this.stringMassiveSmerts = ''}
+    if (this.stringMassiveZhizns == null ) {this.stringMassiveZhizns = ''}
+    if (this.stringMassiveNagruz == null ) {this.stringMassiveNagruz = ''}
+
+
+    this.statmentEdit.BRANCH_ID =
+    this.statmentEdit.ZAV_NUMBER = this.statment.NUM_ZAV
+    this.statmentEdit.DATE_ZAV =  this.dateSelected// {(Date|number|string)}
+    this.statmentEdit.STRAH_VZNOS = this.statment.STRAH_VZNOS
+    this.statmentEdit.SELECT_ID_AGENT = this.agentSelect
+    this.statmentEdit.AGENT_RASHOD = this.statment.AGENT_RASHOD
+    this.statmentEdit.PERIOD = this.statment.PERIODICH
+    this.statmentEdit.SROK_STRAH = this.srokStrah
+    this.statmentEdit.MAIN_POKR = 1
+    this.statmentEdit.GOD_DOHOD = this.godDohod
+       this.statmentEdit.STRAHOVATEL = this.statment.STRAHOVATEL
+    this.statmentEdit.ZASTRAHOVAN = this.statment.ZASTRAHOVAN
+    this.statmentEdit.ANSWERS = this.massive
+    this.statmentEdit.EMPID = 3853
+    this.statmentEdit.RISK = this.stringMassiveNagruz
+
+    console.log(this.statment)
+    this.massive = '';
+    this.newnsjsService.createZayav(this.statment).subscribe(
+      (cnctid: {cnctid?: number}) => {
+        this.dopPokrStrahSum.CNCT_ID = cnctid.cnctid
+        this.dopPokrStrahSum.DOP_POKRS_SUMS = this.pokrStringMassive
+        this.newnsjsService.setPokrs(this.dopPokrStrahSum).subscribe(
+          test => console.log(test)
+        )
+        this.loading = false
+        this.router.navigate([`/statment/${cnctid.cnctid}`] )
+        console.log(cnctid)
+      },
+      error => {
+        MaterialService.toast(error.error.message)
+        this.form.enable()
+      }
+    )
+  }*/
 
 
 }

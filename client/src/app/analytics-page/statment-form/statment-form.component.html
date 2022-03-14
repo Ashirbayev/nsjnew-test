@@ -19,10 +19,9 @@
 
       <div *ngIf="statment.STATE == 52" class="col s12">
         <div class="tab col s12 btn-wrapper">
-          <button class="modal-action btn waves-effect" autofocus > Режим Редактирования</button>
+          <button class="modal-action btn waves-effect" autofocus> Режим Редактирования</button>
         </div>
       </div>
-
 
 
       <div class="flex-row">
@@ -42,11 +41,12 @@
       <div class="flex-row">
         <div class="col s2">
           <label for="">№ Заявления </label>
-          <input   [(ngModel)]="statment.NUM_ZAV"  disabled type="text" name="" id="">
+          <input [(ngModel)]="statment.NUM_ZAV" disabled type="text" name="" id="">
         </div>
         <div class="col s2">
           <label for="">Дата заявления </label>
-          <input  [(ngModel)]="statment.DATE_ZAV " disabled type="text" name="" id="">
+          <input type="date" [(ngModel)]="dateSelected">
+
         </div>
         <div class="col s2">
           <label for="">Инспектор </label>
@@ -58,13 +58,6 @@
           <label for="">Страхователь </label>
           <input [(ngModel)]="strahovat" disabled type="text" value="">
           <br>
-
-
-
-
-
-
-
 
 
         </div>
@@ -349,9 +342,9 @@
     <table class="table responsive-table highlight centered">
       <thead>
       <tr>
-        <th >№ п/п</th>
-        <th >Виды андеррайтинга</th>
-        <th >Наименование заболевания, профессии, вида спорта, страны</th>
+        <th>№ п/п</th>
+        <th>Виды андеррайтинга</th>
+        <th>Наименование заболевания, профессии, вида спорта, страны</th>
         <th>Смерть по любой причине</th>
         <th>Смерть в рез-те НС</th>
         <th>Инвалидность 1,2 группы в рез-те НС</th>
@@ -362,15 +355,32 @@
       </thead>
       <tbody>
       <tr *ngFor="let nagr of nagruzki  let idx =index">
-        <th>{{idx+1}}</th>
+        <th>{{idx + 1}}</th>
         <th>{{nagr.NAME_RISK}}</th>
-        <th >{{nagr.NAME}}  </th>
-        <th> <input type="text" placeholder="В %" on-change="sumArraySmertPoLuboi()" [(ngModel)]="smertPoLuboiPrichine[idx]">                     <input on-change="sumArraySmertPoLuboiPromil()" [(ngModel)]="smertPoLuboiPrichinePromil[idx]" type="text" placeholder="В промилле"></th>
-        <th> <input type="text" placeholder="В %" on-change="sumArraysmertVrezultateNS()" [(ngModel)]="smertVrezultateNS[idx]" >                  <input on-change="sumArraysmertVrezultateNSPromil()" [(ngModel)]="smertVrezultateNSPromil[idx]" type="text" placeholder="В промилле"></th>
-        <th> <input type="text" placeholder="В %" on-change="sumArrayInvalidnosGrup()" [(ngModel)]="invalidnosGrup[idx]">                         <input on-change="sumArrayInvalidnosGrupPromil()" [(ngModel)]="invalidnosGrupPromil[idx]" type="text" placeholder="В промилле"></th>
-        <th> <input type="text" placeholder="В %" on-change="sumArrayTravmaRezultateNS()" [(ngModel)]="travmaRezultateNS[idx]">                   <input on-change="sumArrayTravmaRezultateNSPromil()" [(ngModel)]="travmaRezultateNSPromil[idx]" type="text" placeholder="В промилле"></th>
-        <th> <input type="text" placeholder="В %" on-change="sumArrayVrmennayaNetrudoSposobnost()" [(ngModel)]="vrmennayaNetrudoSposobnost[idx]"> <input on-change="sumArrayVrmennayaNetrudoSposobnostPromil()" [(ngModel)]="vrmennayaNetrudoSposobnostPromil[idx]" type="text" placeholder="В промилле"></th>
-        <th> <input type="text" placeholder="В %" on-change="sumArrayGospitalizaciaNS()" [(ngModel)]="gospitalizaciaNS[idx]">                     <input  on-change="sumArrayGospitalizaciaNSPromil()" [(ngModel)]="gospitalizaciaNSPromil[idx]" type="text" placeholder="В промилле"></th>
+        <th>{{nagr.NAME}}  </th>
+        <th><input type="text" placeholder="В %" on-change="sumArraySmertPoLuboi()"
+                   [(ngModel)]="smertPoLuboiPrichine[idx]"> <input on-change="sumArraySmertPoLuboiPromil()"
+                                                                   [(ngModel)]="smertPoLuboiPrichinePromil[idx]"
+                                                                   type="text" placeholder="В промилле"></th>
+        <th><input type="text" placeholder="В %" on-change="sumArraysmertVrezultateNS()"
+                   [(ngModel)]="smertVrezultateNS[idx]"> <input on-change="sumArraysmertVrezultateNSPromil()"
+                                                                [(ngModel)]="smertVrezultateNSPromil[idx]" type="text"
+                                                                placeholder="В промилле"></th>
+        <th><input type="text" placeholder="В %" on-change="sumArrayInvalidnosGrup()" [(ngModel)]="invalidnosGrup[idx]">
+          <input on-change="sumArrayInvalidnosGrupPromil()" [(ngModel)]="invalidnosGrupPromil[idx]" type="text"
+                 placeholder="В промилле"></th>
+        <th><input type="text" placeholder="В %" on-change="sumArrayTravmaRezultateNS()"
+                   [(ngModel)]="travmaRezultateNS[idx]"> <input on-change="sumArrayTravmaRezultateNSPromil()"
+                                                                [(ngModel)]="travmaRezultateNSPromil[idx]" type="text"
+                                                                placeholder="В промилле"></th>
+        <th><input type="text" placeholder="В %" on-change="sumArrayVrmennayaNetrudoSposobnost()"
+                   [(ngModel)]="vrmennayaNetrudoSposobnost[idx]"> <input
+          on-change="sumArrayVrmennayaNetrudoSposobnostPromil()" [(ngModel)]="vrmennayaNetrudoSposobnostPromil[idx]"
+          type="text" placeholder="В промилле"></th>
+        <th><input type="text" placeholder="В %" on-change="sumArrayGospitalizaciaNS()"
+                   [(ngModel)]="gospitalizaciaNS[idx]"> <input on-change="sumArrayGospitalizaciaNSPromil()"
+                                                               [(ngModel)]="gospitalizaciaNSPromil[idx]" type="text"
+                                                               placeholder="В промилле"></th>
       </tr>
       <tr>
         <th></th>
@@ -418,14 +428,13 @@
 </div>
 
 
-
 <div *ngIf="maincontent == 3" class="container3">
   <div class="tabs-wrapper">
     <div class="row">
       <div class="col s12">
         <div class="tab col s6">
-          <button class="btn waves-effect waves-light tablinks active" >Основная информация</button>
-          <button class="btn waves-effect waves-light tablinks" >Бланк-опросник</button>
+          <button class="btn waves-effect waves-light tablinks active">Основная информация</button>
+          <button class="btn waves-effect waves-light tablinks">Бланк-опросник</button>
         </div>
       </div>
     </div>
@@ -435,30 +444,27 @@
     <hr>
 
 
-
-
     <table class="table responsive-table highlight centered " id="table">
       <thead>
       <tr>
-        <th>Тип </th>
-        <th>Наименование </th>
-        <th>Тариф </th>
-        <th>Нагрузка </th>
-        <th>Страховой взнос </th>
-        <th>Страховая сумма </th>
+        <th>Тип</th>
+        <th>Наименование</th>
+        <th>Тариф</th>
+        <th>Нагрузка</th>
+        <th>Страховой взнос</th>
+        <th>Страховая сумма</th>
       </tr>
       </thead>
       <tbody>
 
       <tr *ngFor="let tarif of rashetCalc">
-        <th>{{tarif.PMAIN ? 'Основное покрытие': 'Дополнительное'}}  </th>
+        <th>{{tarif.PMAIN ? 'Основное покрытие' : 'Дополнительное'}}  </th>
         <th>{{tarif.NAME}}</th>
         <th>{{tarif.TARIF}}  </th>
         <th></th>
         <th></th>
-        <th>{{tarif.PMAIN? tarif.MAIN : ''}}</th>
+        <th>{{tarif.PMAIN ? tarif.MAIN : ''}}</th>
       </tr>
-
 
 
       </tbody>
@@ -483,7 +489,6 @@
 </div>
 
 
-
 <div *ngIf="maincontent == 4" class="container4">
 
   <div class="row">
@@ -504,10 +509,9 @@
 
       <div *ngIf="statment.STATE == 52" class="col s12">
         <div class="tab col s12 btn-wrapper">
-          <button class="modal-action btn waves-effect" autofocus > Режим Редактирования</button>
+          <button class="modal-action btn waves-effect" autofocus (click)="getAgents()"> Режим Редактирования</button>
         </div>
       </div>
-
 
 
       <div class="flex-row">
@@ -524,28 +528,37 @@
           <input disabled type="text" value="" name="" class="dsb-inp">
         </div>
       </div>
+      <!--      <mat-form-field>-->
+
+      <!--        <input matInput [matDatepicker]="datepicker" placeholder="Select Date">-->
+      <!--        <mat-datepicker-toogle matSuffix  [for]="datepicker"> </mat-datepicker-toogle>-->
+      <!--<mat-datepicker #datepicker></mat-datepicker>-->
+      <!--      </mat-form-field>-->
+
+
       <div class="flex-row">
         <div class="col s2">
           <label for="">№ Заявления </label>
-          <input [(ngModel)]="statment.NUM_ZAV"  type="text" name="" id="">
+          <input [(ngModel)]="statment.NUM_ZAV" type="text" name="" id="">
         </div>
         <div class="col s2">
           <label for="">Дата заявления </label>
-          <input type="text" #start >
 
 
-<!--          <input #start  type="text" name="" id="">-->
-<!--          [(ngModel)]="statment.DATE_ZAV"-->
+          <input type="date" [(ngModel)]="dateSelected">
+
+          <!--          <input #start  type="text" name="" id="">-->
+          <!--          -->
         </div>
         <div class="col s2">
           <label for="">Инспектор </label>
-          <input [(ngModel)]="statment.EMP_ID"  type="text" name="" id="">
+          <input [(ngModel)]="statment.EMP_ID" type="text" name="" id="">
         </div>
       </div>
       <div class="">
         <div class="col">
           <label for="">Страхователь </label>
-          <input [(ngModel)]="strahovat"  type="text" value="">
+          <input [(ngModel)]="strahovat" type="text" value="">
           <br>
         </div>
         <div *ngIf="statment.STATE == 52" class="find-straxovatel flex mt-3">
@@ -554,24 +567,25 @@
           >
           <button
             class="btn waves-effect waves-light green darken-2"
-            (click)="loadMore3()"
+            (click)="loadMoreStrahovatel()"
             autofocus> Найти
           </button>
         </div>
-        <div  class="m-for-blocks"    >
-          <a *ngFor="let i of nsjs2" (click)="addToOrder3(i)" class="collection-item waves-effect">{{i.NAME}}</a><br>
+        <div class="m-for-blocks">
+          <a *ngFor="let i of nsjs2" (click)="addToStrahovatel(i)"
+             class="collection-item waves-effect">{{i.NAME}}</a><br>
         </div>
       </div>
       <div class="">
         <div class="col">
           <label for="">Дата формирования полиса</label>
-          <input disabled type="text" name="date" value="">
+          <input type="date">
         </div>
       </div>
       <div class="">
         <div class="col">
           <label for="">Отделение</label>
-          <input [(ngModel)]="regionNameString"  type="text" name="filial" value="">
+          <input [(ngModel)]="regionNameString" type="text" name="filial" value="">
         </div>
       </div>
       <div class="m-for-blocks">
@@ -580,9 +594,9 @@
           class="btn blue darken-3 waves-effect waves-light"
           autofocus
           (click)="open3()"
-        > Выбрать регион
+        > Изменить регион
         </button>
-        <label for="" class="grey-text text-darken-2" ></label>
+        <label for="" class="grey-text text-darken-2"></label>
       </div>
       <div class="flex-row">
         <div class="col s6">
@@ -595,17 +609,24 @@
         </div>
       </div>
       <div class="flex-row">
+
+
         <div class="col">
-          <label for="">Агент</label>
-          <input [(ngModel)]="statment.AGENT"  type="text">
+          <label class="text-sm text-gray-500 font-bold ">Агент</label>
+          <select name="agent" id="agent" class="border p-1" [(ngModel)]="selectedAgents" #t
+                  (change)="onChangeAgent(t.value)"
+          >
+            <option *ngFor="let c of agents" [ngValue]="c" [value]="c.KOD">{{c.NAME}}</option>
+          </select>
         </div>
-        <div class="col">
+
+        <div class="m-for-blocks">
           <label for="">Размер АВ</label>
-          <input disabled type="text">
+          <input   [(ngModel)]="statment.AGENT_RASHOD"  type="text">
         </div>
         <div class="col">
           <label for="">Договор поручения </label>
-          <input disabled type="text">
+          <input [(ngModel)]="agen" disabled type="text">
         </div>
       </div>
       <div class="flex-row">
@@ -617,7 +638,7 @@
       <div class="flex-row">
         <div class="col">
           <label for="">Статус </label>
-          <input [(ngModel)]="statment.STATE"  type="text" name="state">
+          <input [(ngModel)]="statment.STATE" type="text" name="state">
         </div>
       </div>
 
@@ -638,7 +659,7 @@
 
           <!-- БЛОК С ТАБЛИЦЕЙ ВЫГОДОПРИОБРЕТАТЕЛЯ НА СЛУЧАЙ СМЕРТИ  -->
 
-          <div class="" >
+          <div class="">
             <table class="striped">
               <thead>
               <tr class="">
@@ -652,7 +673,7 @@
                 <td class="p-2 border text-sm text-gray-500 center-align">{{smert.FIO}}</td>
                 <td class="p-2 border text-sm text-gray-500 center-align">{{smert.PROC}}</td>
                 <td class="p-2 border text-center center-align">
-                  <button class="btn red darken-3 waves-effect"  (click)="removeObtainDeath(smert)">
+                  <button class="btn red darken-3 waves-effect" (click)="removeObtainDeath(smert)">
                     Удалить
                   </button>
                 </td>
@@ -700,21 +721,21 @@
           </div>
 
 
-<!--          <span>На случай смерти </span>-->
-<!--          <table class="striped">-->
-<!--            <thead>-->
-<!--            <tr class="">-->
-<!--              <th class="grey-text text-darken-2 center-align"> Фамилия Имя Отчество</th>-->
-<!--              <th class="grey-text text-darken-2 center-align"> Процент %</th>-->
-<!--            </tr>-->
-<!--            </thead>-->
-<!--            <tbody>-->
-<!--            <tr *ngFor="let smert of obtainDeaths">-->
-<!--              <td class="p-2 border text-sm text-gray-500 center-align">{{smert.FIO}}</td>-->
-<!--              <td class="p-2 border text-sm text-gray-500 center-align">{{smert.PROC}}</td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--          </table>-->
+          <!--          <span>На случай смерти </span>-->
+          <!--          <table class="striped">-->
+          <!--            <thead>-->
+          <!--            <tr class="">-->
+          <!--              <th class="grey-text text-darken-2 center-align"> Фамилия Имя Отчество</th>-->
+          <!--              <th class="grey-text text-darken-2 center-align"> Процент %</th>-->
+          <!--            </tr>-->
+          <!--            </thead>-->
+          <!--            <tbody>-->
+          <!--            <tr *ngFor="let smert of obtainDeaths">-->
+          <!--              <td class="p-2 border text-sm text-gray-500 center-align">{{smert.FIO}}</td>-->
+          <!--              <td class="p-2 border text-sm text-gray-500 center-align">{{smert.PROC}}</td>-->
+          <!--            </tr>-->
+          <!--            </tbody>-->
+          <!--          </table>-->
 
         </div>
       </div>
@@ -726,8 +747,24 @@
         </div>
         <div class="col">
           <label for="">ФИО(Дата рождения) (ИИН)</label>
-          <input [(ngModel)]="zasttrahov"  type="text">
+          <input [(ngModel)]="zasttrahov" type="text">
         </div>
+        <div *ngIf="statment.STATE == 52" class="find-straxovatel flex mt-3">
+          <input type="text" class="border border-gray-300 w-full outline "
+                 [(ngModel)]="IIN"
+          >
+          <button
+            class="btn waves-effect waves-light green darken-2"
+            (click)="loadMoreZastrahovan()"
+            autofocus> Найти
+          </button>
+        </div>
+        <div class="m-for-blocks">
+          <a *ngFor="let i of nsjs3" (click)="addToZastrahovan(i)"
+             class="collection-item waves-effect">{{i.NAME}}</a><br>
+        </div>
+
+
         <div class="row">
           <div class="col">
             <label for="">Возраст</label>
@@ -735,65 +772,24 @@
           </div>
           <div class="col">
             <label for="">Вес</label>
-            <input [(ngModel)]="weight"  type="text">
+            <input [(ngModel)]="weight" type="text">
           </div>
           <div class="col">
             <label for="">Рост</label>
-            <input [(ngModel)]="growth"  type="text">
+            <input [(ngModel)]="growth" type="text">
           </div>
         </div>
         <div class="col">
           <label for="">Годовой доход</label>
-          <input [(ngModel)]="statment.GOD_DOHOD"  type="text">
+          <input [(ngModel)]="statment.GOD_DOHOD" type="text">
         </div>
       </div>
-      <hr>
-      <div class="row">
-        <h5>Рассчетные данные </h5>
-        <table class="table bordered">
-          <thead>
-          <tr>
-            <th>Тип</th>
-            <th>Наименование</th>
-            <th>Тариф</th>
-            <th>Нагрузка</th>
-            <th>Страховой взнос</th>
-            <th>Страховая сумма</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>
-              Нет данных
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-      <hr>
-      <div class="row">
-        <h5>Таблица выкупных сумм и уменьшенных страховых сумм</h5>
-        <table class="table bordered">
-          <thead>
-          <tr>
-            <th>Год страхования</th>
-            <th>Выкупная сумма</th>
-            <th>Уменьшенная страховая сумма</th>
-            <th>Сумма бонусных страховых сумм</th>
-            <th>Выкупная по прибыли на конец годовщины</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <th></th>
-          </tr>
-          </tbody>
-        </table>
-      </div>
+
+
 
       <div *ngIf="statment.STATE == 52" class="col s12">
         <div class="tab col s12 btn-wrapper">
-          <button class="modal-action btn waves-effect" autofocus (click)="updateStatus51()"> Утвердить</button>
+          <button class="modal-action btn waves-effect" autofocus (click)="updateStatus51()"> Сохранить изменения </button>
         </div>
       </div>
 
@@ -823,7 +819,7 @@
       <h5>Расчетные данные</h5>
       <div class="col s2">
         <label for="">Страховой взнос</label>
-        <input [(ngModel)]="statment.STRAH_VZNOS" disabled type="text">
+        <input [(ngModel)]="statment.STRAH_VZNOS"  type="text">
       </div>
       <span> <b> Страховой взнос по основному покрытию </b></span>
       <div class="col s2">
@@ -840,11 +836,18 @@
       </div>
       <div>
         <label for="">Периодичность</label>
-        <input [(ngModel)]="statment.PERIODICH_T" disabled type="text">
+        <select name="period" id="period" class="border p-1" [(ngModel)]="selectedPeriod" #s
+                (change)="onChangePeriod(s.value)"  >
+          <option *ngFor="let c of periods" [ngValue]="c" [value]="c.ID">{{c.NAME}}</option>
+        </select>
+
+
+
+        <input [(ngModel)]="statment.PERIODICH_T"  type="text">
       </div>
       <div>
         <label for="">Срок страхования</label>
-        <input [(ngModel)]="statment.SROK_STRAH" disabled type="text">
+        <input [(ngModel)]="statment.SROK_STRAH"  type="text">
       </div>
       <div>
         <label for="">Страховая сумма</label>
@@ -884,13 +887,6 @@
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
 
 
 <!-- Модальное окно для добавления региона  -->
@@ -955,7 +951,7 @@
       >
       <button
         class="modal-action btn waves-effect"
-       (click)="addObtainDeathToList()"
+        (click)="addObtainDeathToList()"
       >Подтвердить
       </button>
     </div>

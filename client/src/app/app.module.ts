@@ -25,7 +25,12 @@ import { NsjnewPageComponent } from './nsjnew-page/nsjnew-page.component';
 import { NsjnewFirstComponent } from './nsjnew-page/nsjnew-first/nsjnew-first.component';
 import { NsjnewSecondComponent } from './nsjnew-page/nsjnew-second/nsjnew-second.component';
 import { StatmentFormComponent } from './analytics-page/statment-form/statment-form.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatInputModule} from "@angular/material/input";
+import {MatNativeDateModule} from "@angular/material/core"
 
 
 
@@ -59,7 +64,13 @@ import { StatmentFormComponent } from './analytics-page/statment-form/statment-f
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+
+
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule
   ],
   providers: [
     {
